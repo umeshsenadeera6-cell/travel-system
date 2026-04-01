@@ -1,7 +1,8 @@
-require('dotenv').config();
 const express = require('express');
 const connectDB = require('./db');
 const cors = require('cors');
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
 const Package = require('./models/Package');
 const Booking = require('./models/Booking');
 
