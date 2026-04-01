@@ -131,7 +131,7 @@ app.patch('/api/bookings/:id', async (req, res) => {
 });
 
 // Catch-all route to serve the React app for non-API requests
-app.get('*', (req, res) => {
+app.use((req, res) => {
   res.sendFile(path.join(frontendPath, 'index.html'));
 });
 
