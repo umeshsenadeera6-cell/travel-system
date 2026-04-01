@@ -229,6 +229,142 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Animations Helpers */
+/* Staggered form animation */
 .stagger-form > * {
   --anim-duration: 0.4s;
+}
+
+/* Dashboard Layout & Components */
+.dashboard-container {
+  display: flex;
+  min-height: 100vh;
+  background-color: hsl(var(--primary) / 0.02);
+}
+
+.dashboard-sidebar {
+  width: 280px;
+  background: white;
+  border-right: 1px solid hsl(var(--glass-border));
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  z-index: 50;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 3rem;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 1rem;
+  color: hsl(var(--foreground) / 0.6);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  background: transparent;
+  width: 100%;
+  text-align: left;
+}
+
+.nav-item:hover {
+  background: hsl(var(--primary) / 0.05);
+  color: hsl(var(--primary));
+}
+
+.nav-item.active {
+  background: hsl(var(--primary));
+  color: white;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 3rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.glass-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  border: 1px solid hsl(var(--glass-border));
+  box-shadow: 0 10px 30px -10px rgba(0,0,0,0.05);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glass-card:hover {
+  transform: translateY(-5px);
+}
+
+/* Status Badges */
+.badge {
+  padding: 0.35rem 1rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.badge-pending {
+  background: #fff7ed;
+  color: #c2410c;
+}
+
+.badge-confirmed {
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.badge-cancelled {
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+/* Dashboard Stats Typography */
+.stat-value {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: hsl(var(--secondary));
+  letter-spacing: -0.02em;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: hsl(var(--foreground) / 0.5);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+@media (max-width: 1024px) {
+  .dashboard-sidebar {
+    width: 80px;
+    padding: 2rem 0.75rem;
+  }
+  .nav-item span {
+    display: none;
+  }
+  .nav-item {
+    justify-content: center;
+    padding: 1rem;
+  }
+  .dashboard-content {
+    padding: 2rem 1.5rem;
+  }
 }

@@ -111,6 +111,21 @@ app.delete('/api/bookings/:id', async (req, res) => {
   }
 });
 
+// PATCH update booking status
+app.patch('/api/bookings/:id', async (req, res) => {
+  try {
+    const updatedBooking = await Booking.findByIdAndUpdate(
+      req.params.id, 
+      { status: req.body.status }, 
+      { new: true }
+    );
+    if (!updatedBooking) return res.status(404).json({ message: 'Booking not found' });
+    res.json(updatedBooking);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

@@ -15,27 +15,41 @@ import {
   Search,
   AlertCircle,
   TrendingUp,
-  CreditCard
+  LayoutDashboard,
+  Briefcase,
+  Settings,
+  Plus,
+  ChevronRight,
+  ArrowRight,
+  RefreshCcw
 } from 'lucide-react';
 
 export default function AdminDashboard() {
+  const [activeTab, setActiveTab] = useState('overview');
   const [bookings, setBookings] = useState([]);
+  const [packages, setPackages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [filter, setFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [bookingFilter, setBookingFilter] = useState('all');
 
   useEffect(() => {
-    fetchBookings();
+    fetchData();
   }, []);
 
-  const fetchBookings = async () => {
+  const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/bookings`);
-      if (!response.ok) throw new Error('Failed to fetch bookings');
-      const data = await response.json();
-      setBookings(data);
+      const [bookingsRes, packagesRes] = await Promise.all([
+        fetch(`${API_URL}/bookings`),
+        fetch(`${API_URL}/packages`)
+      ]);
+      
+      const bookingsData = await bookingsRes.json();
+      const packagesData = await packagesRes.json();
+      
+      setBookings(bookingsData);
+      setPackages(packagesData);
     } catch (err) {
       setError(err.message);
     } finally {
@@ -43,12 +57,24 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleDelete = async (id) => {
-    if (!window.confirm('Are you sure you want to delete this booking?')) return;
+  const updateBookingStatus = async (id, status) => {
     try {
       const response = await fetch(`${API_URL}/bookings/${id}`, {
-        method: 'DELETE'
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status })
       });
+      if (!response.ok) throw new Error('Failed to update status');
+      setBookings(prev => prev.map(b => b._id === id ? { ...b, status } : b));
+    } catch (err) {
+      alert(err.message);
+    }
+  };
+
+  const handleDeleteBooking = async (id) => {
+    if (!window.confirm('Delete this booking forever?')) return;
+    try {
+      const response = await fetch(`${API_URL}/bookings/${id}`, { method: 'DELETE' });
       if (!response.ok) throw new Error('Failed to delete booking');
       setBookings(prev => prev.filter(b => b._id !== id));
     } catch (err) {
@@ -56,255 +82,276 @@ export default function AdminDashboard() {
     }
   };
 
-  const filteredBookings = bookings.filter(booking => {
-    const matchesFilter = filter === 'all' || booking.status === filter;
-    
-    // Safely perform search checks with null/undefined handling to prevent render crashes
-    const safeName = booking.clientName?.toLowerCase() ?? '';
-    const safeTitle = booking.tourTitle?.toLowerCase() ?? '';
-    const safeEmail = booking.email?.toLowerCase() ?? '';
-    const safeTerm = searchTerm.toLowerCase();
+  const stats = {
+    totalBookings: bookings.length,
+    revenue: bookings.filter(b => b.status === 'confirmed').reduce((acc, b) => acc + (b.totalPrice || 0), 0),
+    avgTourPrice: packages.length > 0 ? packages.reduce((acc, p) => acc + (p.price || 0), 0) / packages.length : 0,
+    pendingBookings: bookings.filter(b => b.status === 'pending').length
+  };
 
-    const matchesSearch = 
-      safeName.includes(safeTerm) ||
-      safeTitle.includes(safeTerm) ||
-      safeEmail.includes(safeTerm);
-
+  const filteredBookings = bookings.filter(b => {
+    const matchesFilter = bookingFilter === 'all' || b.status === bookingFilter;
+    const matchesSearch = b.clientName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                          b.tourTitle?.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
-  const stats = {
-    total: bookings.length,
-    revenue: bookings.reduce((acc, b) => acc + (b.totalPrice || 0), 0),
-    guests: bookings.reduce((acc, b) => acc + (b.guests || 0), 0),
-    pending: bookings.filter(b => b.status === 'pending').length
-  };
-
   return (
-    <div style={{ padding: '8rem 2rem', backgroundColor: 'hsl(var(--primary) / 0.02)', minHeight: '100vh' }}>
-      <div className="container" style={{ maxWidth: '1400px' }}>
+    <div className="dashboard-container">
+      {/* Sidebar */}
+      <aside className="dashboard-sidebar">
+        <div style={{ padding: '0 0.5rem', marginBottom: '2rem' }}>
+          <h2 style={{ fontSize: '1.5rem', fontWeight: '900', color: 'hsl(var(--primary))' }}>Serendib Admin</h2>
+        </div>
+        
+        <nav className="sidebar-nav">
+          <NavItem 
+            active={activeTab === 'overview'} 
+            onClick={() => setActiveTab('overview')} 
+            icon={<LayoutDashboard size={20} />} 
+            label="Overview" 
+          />
+          <NavItem 
+            active={activeTab === 'bookings'} 
+            onClick={() => setActiveTab('bookings')} 
+            icon={<Users size={20} />} 
+            label="Bookings" 
+          />
+          <NavItem 
+            active={activeTab === 'tours'} 
+            onClick={() => setActiveTab('tours')} 
+            icon={<Briefcase size={20} />} 
+            label="Packages" 
+          />
+        </nav>
 
-        {/* Dashboard Header */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
-          <div>
-            <h1 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'hsl(var(--secondary))', marginBottom: '0.5rem' }}>
-              Admin Dashboard
-            </h1>
-            <p style={{ opacity: 0.6 }}>Manage all tour bookings and inquiries from here.</p>
-          </div>
-          <button onClick={fetchBookings} className="btn " style={{ backgroundColor: 'white', border: '1px solid hsl(var(--border))', color: 'hsl(var(--foreground))' }}>
-            Refresh Data
+        <div style={{ marginTop: 'auto' }}>
+          <button onClick={fetchData} className="nav-item">
+            <RefreshCcw size={20} />
+            <span>Sync Data</span>
           </button>
         </div>
+      </aside>
 
-        {/* Stats Grid */}
-        <div className="grid-4" style={{ marginBottom: '3rem' }}>
-          {[
-            { label: 'Total Bookings', value: stats.total, icon: Users, color: 'hsl(var(--primary))' },
-            { label: 'Total Revenue', value: `$${stats.revenue.toLocaleString()}`, icon: TrendingUp, color: '#10b981' },
-            { label: 'Total Guests', value: stats.guests, icon: Calendar, color: '#3b82f6' },
-            { label: 'Pending Action', value: stats.pending, icon: AlertCircle, color: '#f59e0b' }
-          ].map((stat, i) => (
+      {/* Main Content Area */}
+      <main className="dashboard-content">
+        <AnimatePresence mode="wait">
+          {activeTab === 'overview' && (
             <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
+              key="overview"
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              style={{
-                backgroundColor: 'white',
-                padding: '1.5rem',
-                borderRadius: '1.5rem',
-                boxShadow: '0 10px 25px -5px rgba(0,0,0,0.05)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '1.25rem',
-                border: `1px solid ${stat.color}15`
-              }}
+              exit={{ opacity: 0, y: -10 }}
             >
-              <div style={{
-                width: '50px',
-                height: '50px',
-                borderRadius: '1rem',
-                backgroundColor: `${stat.color}15`,
-                color: stat.color,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}>
-                <stat.icon size={24} />
+              <div style={{ marginBottom: '3rem' }}>
+                <h1 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '0.5rem' }}>Welcome Back!</h1>
+                <p style={{ opacity: 0.6 }}>Here's what's happening with your travel business today.</p>
               </div>
-              <div>
-                <div style={{ fontSize: '0.9rem', opacity: 0.6, fontWeight: '600' }}>{stat.label}</div>
-                <div style={{ fontSize: '1.5rem', fontWeight: '800' }}>{stat.value}</div>
+
+              <div className="grid-layout" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: '1.5rem', marginBottom: '3rem' }}>
+                <StatCard label="Total Revenue" value={`$${stats.revenue.toLocaleString()}`} icon={<TrendingUp />} trend="+12.5%" />
+                <StatCard label="Active Bookings" value={stats.totalBookings} icon={<Users />} trend="+4 this week" />
+                <StatCard label="Pending Approval" value={stats.pendingBookings} icon={<Clock />} color="#f59e0b" />
+                <StatCard label="Avg. Tour Price" value={`$${Math.round(stats.avgTourPrice)}`} icon={<Calendar />} />
+              </div>
+
+              <div className="grid-2">
+                <div className="glass-card">
+                  <h3 style={{ marginBottom: '1.5rem' }}>Recent Bookings</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {bookings.slice(0, 5).map(b => (
+                      <div key={b._id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingBottom: '1rem', borderBottom: '1px solid hsl(var(--glass-border))' }}>
+                        <div>
+                          <div style={{ fontWeight: '700' }}>{b.clientName}</div>
+                          <div style={{ fontSize: '0.8rem', opacity: 0.5 }}>{b.tourTitle}</div>
+                        </div>
+                        <div className={`badge badge-${b.status}`}>{b.status}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                <div className="glass-card">
+                  <h3 style={{ marginBottom: '1.5rem' }}>Popular Packages</h3>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                    {packages.slice(0, 5).map(p => (
+                      <div key={p._id} style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+                        <div style={{ width: '40px', height: '40px', borderRadius: '0.5rem', overflow: 'hidden' }}>
+                          <img src={p.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                        </div>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontWeight: '700', fontSize: '0.9rem' }}>{p.title}</div>
+                          <div style={{ fontSize: '0.8rem', opacity: 0.5 }}>{p.duration} • ${p.price}</div>
+                        </div>
+                        <ChevronRight size={16} style={{ opacity: 0.3 }} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
               </div>
             </motion.div>
-          ))}
-        </div>
+          )}
 
-        {/* Filters & Search */}
-        <div style={{
+          {activeTab === 'bookings' && (
+            <motion.div
+              key="bookings"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+                <h1 style={{ fontSize: '2rem', fontWeight: '900' }}>Manage Bookings</h1>
+                <div style={{ display: 'flex', gap: '1rem' }}>
+                  <div style={{ position: 'relative' }}>
+                    <Search style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.3 }} size={18} />
+                    <input 
+                      type="text" 
+                      placeholder="Search customers..." 
+                      className="form-control" 
+                      style={{ paddingLeft: '3rem', borderRadius: '999px', width: '300px' }}
+                      value={searchTerm}
+                      onChange={(e) => setSearchTerm(e.target.value)}
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div style={{ display: 'flex', gap: '0.75rem', marginBottom: '2rem' }}>
+                {['all', 'pending', 'confirmed', 'cancelled'].map(f => (
+                  <button 
+                    key={f} 
+                    onClick={() => setBookingFilter(f)}
+                    style={{
+                      padding: '0.5rem 1.25rem',
+                      borderRadius: '999px',
+                      backgroundColor: bookingFilter === f ? 'hsl(var(--primary))' : 'white',
+                      color: bookingFilter === f ? 'white' : 'hsl(var(--primary))',
+                      border: '1px solid hsl(var(--primary) / 0.1)',
+                      fontWeight: '700',
+                      textTransform: 'capitalize',
+                      cursor: 'pointer'
+                    }}
+                  >
+                    {f}
+                  </button>
+                ))}
+              </div>
+
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
+                <AnimatePresence>
+                  {filteredBookings.map(b => (
+                    <motion.div 
+                      key={b._id} 
+                      layout
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      className="glass-card" 
+                      style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr auto', alignItems: 'center', padding: '1.5rem 2rem' }}
+                    >
+                      <div>
+                        <div style={{ fontWeight: '800', fontSize: '1.1rem' }}>{b.clientName}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', opacity: 0.6, marginTop: '0.4rem' }}>
+                          <Mail size={14} /> {b.email}
+                        </div>
+                      </div>
+                      <div>
+                        <div style={{ fontWeight: '700', color: 'hsl(var(--primary))' }}>{b.tourTitle}</div>
+                        <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', fontSize: '0.85rem', opacity: 0.6, marginTop: '0.4rem' }}>
+                          <Calendar size={14} /> {new Date(b.bookingDate).toLocaleDateString()}
+                        </div>
+                      </div>
+                      <div>
+                        <div className={`badge badge-${b.status}`}>{b.status}</div>
+                        <div style={{ fontWeight: '800', marginTop: '0.5rem' }}>${b.totalPrice?.toLocaleString()}</div>
+                      </div>
+                      <div style={{ display: 'flex', gap: '0.5rem' }}>
+                        {b.status === 'pending' && (
+                          <button onClick={() => updateBookingStatus(b._id, 'confirmed')} className="btn" style={{ background: '#10b981', color: 'white', padding: '0.5rem' }}>
+                            <CheckCircle2 size={18} />
+                          </button>
+                        )}
+                        <button onClick={() => handleDeleteBooking(b._id)} className="btn" style={{ background: '#fee2e2', color: '#ef4444', padding: '0.5rem' }}>
+                          <Trash2 size={18} />
+                        </button>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+            </motion.div>
+          )}
+
+          {activeTab === 'tours' && (
+            <motion.div
+              key="tours"
+              initial={{ opacity: 0, x: 20 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+            >
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+                <h1 style={{ fontSize: '2rem', fontWeight: '900' }}>Tour Packages</h1>
+                <button className="btn btn-primary">
+                  <Plus size={20} /> Add Package
+                </button>
+              </div>
+
+              <div className="grid-layout">
+                {packages.map(p => (
+                  <div key={p._id} className="glass-card" style={{ padding: '1rem' }}>
+                    <div style={{ width: '100%', height: '180px', borderRadius: '1rem', overflow: 'hidden', marginBottom: '1rem' }}>
+                      <img src={p.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                    </div>
+                    <div className="badge badge-pending" style={{ marginBottom: '0.75rem', background: 'hsl(var(--primary) / 0.1)', color: 'hsl(var(--primary))' }}>
+                      {p.category}
+                    </div>
+                    <h3 style={{ fontSize: '1.25rem', marginBottom: '0.5rem' }}>{p.title}</h3>
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
+                      <div className="stat-value" style={{ fontSize: '1.25rem' }}>${p.price}</div>
+                      <button className="btn" style={{ padding: '0.5rem 1rem' }}>Edit</button>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </main>
+    </div>
+  );
+}
+
+function NavItem({ active, onClick, icon, label }) {
+  return (
+    <button className={`nav-item ${active ? 'active' : ''}`} onClick={onClick}>
+      {icon}
+      <span>{label}</span>
+    </button>
+  );
+}
+
+function StatCard({ label, value, icon, trend, color }) {
+  return (
+    <div className="glass-card" style={{ padding: '1.5rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+        <div style={{ 
+          width: '45px', 
+          height: '45px', 
+          borderRadius: '0.75rem', 
+          backgroundColor: color ? `${color}15` : 'hsl(var(--primary) / 0.1)', 
+          color: color || 'hsl(var(--primary))',
           display: 'flex',
-          justifyContent: 'space-between',
           alignItems: 'center',
-          marginBottom: '2rem',
-          backgroundColor: 'white',
-          padding: '1.25rem 2rem',
-          borderRadius: '1.25rem',
-          boxShadow: '0 4px 15px rgba(0,0,0,0.02)'
+          justifyContent: 'center'
         }}>
-          <div style={{ display: 'flex', gap: '1rem' }}>
-            {['all', 'pending', 'confirmed', 'cancelled'].map(f => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                style={{
-                  padding: '0.5rem 1.25rem',
-                  borderRadius: '999px',
-                  border: 'none',
-                  backgroundColor: filter === f ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.05)',
-                  color: filter === f ? 'white' : 'hsl(var(--primary))',
-                  fontWeight: '700',
-                  fontSize: '0.85rem',
-                  cursor: 'pointer',
-                  textTransform: 'capitalize',
-                  transition: '0.2s'
-                }}
-              >
-                {f}
-              </button>
-            ))}
-          </div>
-          <div style={{ position: 'relative', width: '300px' }}>
-            <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.4 }} />
-            <input
-              type="text"
-              placeholder="Search bookings..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              style={{
-                width: '100%',
-                padding: '0.75rem 1rem 0.75rem 3rem',
-                borderRadius: '999px',
-                border: '1px solid hsl(var(--border))',
-                fontSize: '0.9rem',
-                outline: 'none'
-              }}
-            />
-          </div>
+          {icon}
         </div>
-
-        {/* Content Table/List */}
-        {isLoading ? (
-          <div style={{ textAlign: 'center', padding: '5rem' }}>Loading bookings...</div>
-        ) : error ? (
-          <div style={{ textAlign: 'center', color: 'red', padding: '5rem' }}>Error: {error}</div>
-        ) : filteredBookings.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '5rem', backgroundColor: 'white', borderRadius: '2rem', opacity: 0.5 }}>
-            No bookings found matching your criteria.
-          </div>
-        ) : (
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-            <AnimatePresence>
-              {filteredBookings.map((booking) => (
-                <motion.div
-                  key={booking._id}
-                  layout
-                  initial={{ opacity: 0, x: -20 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  exit={{ opacity: 0, scale: 0.95 }}
-                  style={{
-                    backgroundColor: 'white',
-                    padding: '2rem',
-                    borderRadius: '1.5rem',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.03)',
-                    display: 'grid',
-                    gridTemplateColumns: '1fr 1fr 1fr auto',
-                    alignItems: 'center',
-                    gap: '2rem',
-                    border: '1px solid hsl(var(--border))'
-                  }}
-                >
-                  {/* Client Info */}
-                  <div style={{ borderRight: '1px solid hsl(var(--border))', paddingRight: '2rem' }}>
-                    <div style={{ fontSize: '1.1rem', fontWeight: '800', color: 'hsl(var(--secondary))', marginBottom: '0.75rem' }}>
-                      {booking.clientName}
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem', opacity: 0.7 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Mail size={14} /> {booking.email}
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Phone size={14} /> {booking.phone}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Tour Info */}
-                  <div style={{ borderRight: '1px solid hsl(var(--border))', paddingRight: '2rem' }}>
-                    <div style={{ fontSize: '1.1rem', fontWeight: '800', color: 'hsl(var(--primary))', marginBottom: '0.75rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                      <MapPin size={18} /> {booking.tourTitle}
-                    </div>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem', opacity: 0.7 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Calendar size={14} /> Preferred: {new Date(booking.bookingDate).toLocaleDateString()}
-                      </div>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Users size={14} /> Guests: {booking.guests}
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Booking Status & Price */}
-                  <div>
-                    <div style={{ fontSize: '1.25rem', fontWeight: '900', color: 'hsl(var(--foreground))', marginBottom: '0.75rem' }}>
-                      ${booking.totalPrice?.toLocaleString()}
-                    </div>
-                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', padding: '0.35rem 0.85rem', borderRadius: '999px', backgroundColor: 'hsl(var(--primary) / 0.1)', color: 'hsl(var(--primary))', fontSize: '0.75rem', fontWeight: '800', textTransform: 'uppercase' }}>
-                      <Clock size={12} /> {booking.status}
-                    </div>
-                  </div>
-
-                  {/* Actions */}
-                  <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <button
-                      onClick={() => handleDelete(booking._id)}
-                      style={{
-                        width: '40px',
-                        height: '40px',
-                        borderRadius: '50%',
-                        border: 'none',
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
-                        color: '#ef4444',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      <Trash2 size={18} />
-                    </button>
-                    <button
-                      style={{
-                        padding: '0 1.25rem',
-                        height: '40px',
-                        borderRadius: '999px',
-                        border: 'none',
-                        backgroundColor: 'hsl(var(--primary))',
-                        color: 'white',
-                        fontWeight: '700',
-                        fontSize: '0.85rem',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Action
-                    </button>
-                  </div>
-                </motion.div>
-              ))}
-            </AnimatePresence>
+        {trend && (
+          <div style={{ fontSize: '0.75rem', fontWeight: '800', color: '#10b981', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+            {trend}
           </div>
         )}
       </div>
+      <div className="stat-label">{label}</div>
+      <div className="stat-value">{value}</div>
     </div>
   );
 }
