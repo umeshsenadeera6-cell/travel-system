@@ -1,6 +1,8 @@
 require('dotenv').config();
 const mongoose = require('mongoose');
 const Package = require('./models/Package');
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 const INBOUND_PACKAGES = [
   { 

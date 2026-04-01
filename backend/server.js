@@ -1,8 +1,11 @@
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
+
 const express = require('express');
 const connectDB = require('./db');
 const cors = require('cors');
-const path = require('path');
-require('dotenv').config({ path: path.join(__dirname, '.env') });
 const Package = require('./models/Package');
 const Booking = require('./models/Booking');
 

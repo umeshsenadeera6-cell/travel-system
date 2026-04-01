@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
 
-
-// Force using Google's DNS to resolve SRV records if the local DNS is failing (NXDOMAIN)
-
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '1.1.1.1']);
 
 const connectDB = async () => {
   try {
