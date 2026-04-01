@@ -4,6 +4,7 @@ import PackageCard from '../components/PackageCard';
 import TourModal from '../components/TourModal';
 import { INBOUND_PACKAGES } from '../data/tours';
 import ContactSection from '../components/ContactSection';
+import LanguagePicker from '../components/LanguagePicker';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -28,6 +29,7 @@ const staggerContainer = {
 export default function Inbound() {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const openTour = (tour) => {
     setSelectedTour(tour);
@@ -53,11 +55,18 @@ export default function Inbound() {
           variants={fadeInUp}
         >
           <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '4rem' }}>
-            <p className="section-label">SRI LANKA'S HIDDEN GEMS</p>
-            <h2 className="section-title">Inbound Tours</h2>
-            <p style={{ maxWidth: '600px', opacity: 0.6, fontSize: '1.1rem' }}>
-              Explore the untouched beauty of the pearl of the Indian Ocean. From ancient cities to golden beaches.
-            </p>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <p className="section-label">SRI LANKA'S HIDDEN GEMS</p>
+                <h2 className="section-title" style={{ marginBottom: '0.25rem' }}>Inbound Tours</h2>
+                <p style={{ maxWidth: '600px', opacity: 0.6, fontSize: '1.1rem' }}>
+                  Explore the untouched beauty of the pearl of the Indian Ocean. From ancient cities to golden beaches.
+                </p>
+              </div>
+              <div style={{ alignSelf: 'flex-start', marginTop: '2.5rem' }}>
+                <LanguagePicker currentLang={selectedLanguage} onSelect={setSelectedLanguage} />
+              </div>
+            </div>
           </div>
 
           <motion.div variants={staggerContainer} className="grid-layout">
