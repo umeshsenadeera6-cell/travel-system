@@ -18,6 +18,44 @@ export const INBOUND_PACKAGES = [
     image: sigiriyaImg,
     duration: "Full Day",
     description: "Climb the iconic Lion Rock, explore ancient frescoes, and enjoy panoramic views over Sri Lanka’s cultural triangle.",
+    localizations: {
+      de: {
+        title: "Sigiriya-Tour",
+        description: "Besteigen Sie den ikonischen Löwenfelsen, erkunden Sie antike Fresken und genießen Sie den Panoramablick.",
+        itinerary: [
+          { time: "08:00", location: "Colombo / Ihr Hotel", text: "Abholung vom Hotel und malerischer Transfer nach Sigiriya." },
+          { time: "10:30", location: "Sigiriya", text: "Besteigung der Felsenfestung Sigiriya und Panoramablick." },
+          { time: "13:00", location: "Dambulla", text: "Besuch der Höhlentempel von Dambulla und Besichtigung der Fresken." },
+          { time: "14:30", location: "Lokales Mittagessen", text: "Entspannen Sie bei einem lokalen Mittagessen und optionalem Gartenstopp." },
+          { time: "17:30", location: "Rücktransfer", text: "Rücktransfer zu Ihrem Hotel." }
+        ],
+        inclusions: ["Privattransport", "Deutschsprachiger Guide (auf Anfrage)", "Wasser in Flaschen", "Hotelabholung & Rückgabe"]
+      },
+      fr: {
+        title: "Tour de Sigiriya",
+        description: "Grimpez sur l'iconique Rocher du Lion, explorez les fresques anciennes et profitez de vues panoramiques.",
+        itinerary: [
+          { time: "08:00", location: "Colombo / Votre hôtel", text: "Prise en charge à l'hôtel et transfert vers Sigiriya." },
+          { time: "10:30", location: "Sigiriya", text: "Ascension de la forteresse du rocher de Sigiriya et vue panoramique." },
+          { time: "13:00", location: "Dambulla", text: "Visite des temples des grottes de Dambulla et exploration des fresques." },
+          { time: "14:30", location: "Déjeuner local", text: "Détaillez-vous avec un déjeuner local et un arrêt optionnel au jardin." },
+          { time: "17:30", location: "Transfert de retour", text: "Retour à votre hôtel." }
+        ],
+        inclusions: ["Transport privé", "Guide francophone (sur demande)", "Eau en bouteille", "Prise en charge et retour à l'hôtel"]
+      },
+      zh: {
+        title: "锡吉里耶之旅",
+        description: "攀登标志性的狮子岩，探索古老的壁画，并享受斯里兰卡文化三角区的全景。",
+        itinerary: [
+          { time: "08:00", location: "科伦坡 / 您的酒店", text: "酒店接送并经由风景优美的路线前往锡吉里耶。" },
+          { time: "10:30", location: "锡吉里耶", text: "攀登锡吉里耶岩石堡垒并享受全景观景点。" },
+          { time: "13:00", location: "丹布勒", text: "参观丹布勒石窟寺并探索壁画。" },
+          { time: "14:30", location: "当地午餐", text: "享用当地午餐并可选参观花园。" },
+          { time: "17:30", location: "返回接送", text: "返回您的酒店。" }
+        ],
+        inclusions: ["私人交通", "中文导游（根据要求）", "瓶装水", "酒店往返接送"]
+      }
+    },
     itinerary: [
       {
         time: "08:00",
@@ -66,6 +104,35 @@ export const INBOUND_PACKAGES = [
     image: ellaImg,
     duration: "2 Day / 1 Night",
     description: "A misty mountain escape with scenic viewpoints, waterfalls, and a laid-back hill-country vibe.",
+    localizations: {
+      de: {
+        title: "Ella Abenteuer",
+        description: "Ein nebliger Rückzugsort in den Bergen mit malerischen Aussichtspunkten und Wasserfällen.",
+        itinerary: [
+          { day: "Tag 1", activities: [{ time: "07:30", location: "Kandy", text: "Abfahrt von Kandy nach Ella mit dem Zug/Transfer." }] },
+          { day: "Tag 2", activities: [{ time: "09:00", location: "Neun-Bögen-Brücke", text: "Fangen Sie malerische Bahnfotos ein." }] }
+        ],
+        inclusions: ["Transport", "Reiseleitung", "Aussichtspunkte", "Optionale Zugunterstützung"]
+      },
+      fr: {
+        title: "Aventure à Ella",
+        description: "Une escapade dans les montagnes brumeuses avec des points de vue pittoresques et des cascades.",
+        itinerary: [
+          { day: "Jour 1", activities: [{ time: "07:30", location: "Kandy", text: "Départ de Kandy pour Ella via train/transfert." }] },
+          { day: "Jour 2", activities: [{ time: "09:00", location: "Pont aux neuf arches", text: "Prenez des photos ferroviaires pittoresques." }] }
+        ],
+        inclusions: ["Transport", "Assistance guide", "Visites de points de vue", "Soutien ferroviaire optionnel"]
+      },
+      zh: {
+        title: "艾勒探险",
+        description: "迷雾缭绕的山区度假胜地，拥有优美的风景点、瀑布和轻松的山区氛围。",
+        itinerary: [
+          { day: "第1天", activities: [{ time: "07:30", location: "康提", text: "乘火车/专车从康提前往艾勒。" }] },
+          { day: "第2天", activities: [{ time: "09:00", location: "九拱桥", text: "拍摄优美的铁轨照片。" }] }
+        ],
+        inclusions: ["交通", "导游协助", "观景点游览", "可选火车行程支持"]
+      }
+    },
     itinerary: [
       {
         day: "Day 1",
@@ -106,6 +173,35 @@ export const INBOUND_PACKAGES = [
     image: galleImg,
     duration: "Half Day",
     description: "Walk the colonial fort, browse boutique cafés, and enjoy the coastal charm of Sri Lanka’s south.",
+    localizations: {
+      de: {
+        title: "Tagesausflug nach Galle",
+        description: "Besichtigen Sie das koloniale Fort, stöbern Sie in Boutique-Cafés und genießen Sie den Küstencharme.",
+        itinerary: [
+          { time: "09:00", location: "Colombo", text: "Küstenzuahrt nach Galle mit Fotostopps." },
+          { time: "10:30", location: "Galle Fort", text: "Geführter Rundgang durch das Fort." }
+        ],
+        inclusions: ["Transport", "Festungsführung", "Fotostopps"]
+      },
+      fr: {
+        title: "Excursion d'une journée à Galle",
+        description: "Promenez-vous dans le fort colonial, parcourez les cafés-boutiques et profitez du charme côtier.",
+        itinerary: [
+          { time: "09:00", location: "Colombo", text: "Route côtière vers Galle avec des arrêts photo." },
+          { time: "10:30", location: "Fort de Galle", text: "Visite guidée à pied à l'intérieur du fort." }
+        ],
+        inclusions: ["Transport", "Visite du fort", "Arrêts photo"]
+      },
+      zh: {
+        title: "加勒一日游",
+        description: "漫步在殖民时期的堡垒，浏览精品咖啡馆，享受斯里兰卡南部的海岸魅力。",
+        itinerary: [
+          { time: "09:00", location: "科伦坡", text: "沿海驾车前往加勒，沿途拍照留念。" },
+          { time: "10:30", location: "加勒堡", text: "堡垒和殖民街道内的导览步行游。" }
+        ],
+        inclusions: ["交通", "堡垒游览", "拍照停靠点"]
+      }
+    },
     itinerary: [
       {
         time: "09:00",
@@ -147,6 +243,11 @@ export const INBOUND_PACKAGES = [
     image: kandyImg,
     duration: "Evening",
     description: "An immersive cultural night featuring traditional dance, drumming, and a vibrant local atmosphere.",
+    localizations: {
+      de: { title: "Kulturshow in Kandy", description: "Ein immersiver Abend mit traditionellem Tanz und Trommeln.", itinerary: [ { time: "18:30", location: "Kandy Kulturbühne", text: "Genießen Sie die kulturelle Performance." } ], inclusions: ["Transport", "Reservierte Sitzplätze"] },
+      fr: { title: "Spectacle culturel de Kandy", description: "Une nuit culturelle immersive avec danse traditionnelle et tambours.", itinerary: [ { time: "18:30", location: "Lieu culturel de Kandy", text: "Profitez de la performance de danse culturelle." } ], inclusions: ["Transport", "Sièges réservés"] },
+      zh: { title: "康提文化表演", description: "身临其境的文化之夜，有传统舞蹈、鼓点和充满活力的当地氛围。", itinerary: [ { time: "18:30", location: "康提文化场馆", text: "欣赏文化舞蹈+敲鼓表演。" } ], inclusions: ["交通", "预留座位"] }
+    },
     itinerary: [
       {
         time: "16:30",
