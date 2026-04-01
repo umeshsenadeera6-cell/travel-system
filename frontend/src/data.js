@@ -75,11 +75,36 @@ export const PACKAGES = [
     duration: "5 Days / 4 Nights",
     description: "Experience the City of Lights with private tours of the Eiffel Tower and Louvre Museum.",
     itinerary: [
-      "Day 1: Arrival and Seine River Cruise",
-      "Day 2: Louvre Museum and Montmartre Walking Tour",
-      "Day 3: Eiffel Tower Summit and Champs-Élysées Shopping",
-      "Day 4: Palace of Versailles Day Trip",
-      "Day 5: Pastry Workshop and Departure"
+      {
+        day: "Day 1",
+        activities: [
+          { text: "Arrival and Seine River Cruise" }
+        ]
+      },
+      {
+        day: "Day 2",
+        activities: [
+          { text: "Louvre Museum and Montmartre Walking Tour" }
+        ]
+      },
+      {
+        day: "Day 3",
+        activities: [
+          { text: "Eiffel Tower Summit and Champs-Élysées Shopping" }
+        ]
+      },
+      {
+        day: "Day 4",
+        activities: [
+          { text: "Palace of Versailles Day Trip" }
+        ]
+      },
+      {
+        day: "Day 5",
+        activities: [
+          { text: "Pastry Workshop and Departure" }
+        ]
+      }
     ],
     inclusions: ["4-Star Hotel", "Daily Breakfast", "Museum Passes", "Airport Transfers"],
     category: "Outbound"
@@ -92,12 +117,30 @@ export const PACKAGES = [
     duration: "6 Days / 5 Nights",
     description: "A perfect blend of ancient tradition and futuristic technology in the heart of Japan.",
     itinerary: [
-      "Day 1: Arrival in Shinjuku",
-      "Day 2: Senso-ji Temple and Akihabara Exploration",
-      "Day 3: Shibuya Crossing and Harajuku Fashion District",
-      "Day 4: Mount Fuji and Lake Ashi Tour",
-      "Day 5: Ghibli Museum and Robot Cafe Dinner",
-      "Day 6: Last Minute Shopping and Departure"
+      {
+        day: "Day 1",
+        activities: [{ text: "Arrival in Shinjuku" }]
+      },
+      {
+        day: "Day 2",
+        activities: [{ text: "Senso-ji Temple and Akihabara Exploration" }]
+      },
+      {
+        day: "Day 3",
+        activities: [{ text: "Shibuya Crossing and Harajuku Fashion District" }]
+      },
+      {
+        day: "Day 4",
+        activities: [{ text: "Mount Fuji and Lake Ashi Tour" }]
+      },
+      {
+        day: "Day 5",
+        activities: [{ text: "Ghibli Museum and Robot Cafe Dinner" }]
+      },
+      {
+        day: "Day 6",
+        activities: [{ text: "Last Minute Shopping and Departure" }]
+      }
     ],
     inclusions: ["Premium Hotel", "Japan Rail Pass", "Mt Fuji Day Trip", "Local Food Guide"],
     category: "Outbound"

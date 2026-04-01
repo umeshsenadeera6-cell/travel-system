@@ -79,11 +79,43 @@ const OUTBOUND_PACKAGES = [
     duration: "5 Days / 4 Nights",
     description: "Experience the City of Lights with private tours of the Eiffel Tower and Louvre Museum.",
     itinerary: [
-      "Day 1: Arrival and Seine River Cruise",
-      "Day 2: Louvre Museum and Montmartre Walking Tour",
-      "Day 3: Eiffel Tower Summit and Champs-Élysées Shopping",
-      "Day 4: Palace of Versailles Day Trip",
-      "Day 5: Pastry Workshop and Departure"
+      { 
+        day: "Day 1", 
+        activities: [
+          { time: "10:00 AM", text: "Arrival at Charles de Gaulle Airport and private transfer to your hotel." },
+          { time: "02:00 PM", text: "Check-in and refresh." },
+          { time: "05:00 PM", text: "Relaxed Seine River Cruise with welcome drinks." }
+        ]
+      },
+      { 
+        day: "Day 2", 
+        activities: [
+          { time: "09:00 AM", text: "Guided tour of the Louvre Museum's highlights." },
+          { time: "01:00 PM", text: "Lunch at a traditional Parisian bistro." },
+          { time: "03:00 PM", text: "Montmartre walking tour and visit to Sacré-Cœur." }
+        ]
+      },
+      { 
+        day: "Day 3", 
+        activities: [
+          { time: "10:00 AM", text: "Eiffel Tower summit access for panoramic views." },
+          { time: "02:00 PM", text: "Shopping on Champs-Élysées and relaxation." }
+        ]
+      },
+      { 
+        day: "Day 4", 
+        activities: [
+          { time: "09:00 AM", text: "Full-day excursion to the Palace of Versailles." },
+          { time: "04:00 PM", text: "Return to Paris and free evening." }
+        ]
+      },
+      { 
+        day: "Day 5", 
+        activities: [
+          { time: "10:00 AM", text: "Gourmet pastry workshop with a local chef." },
+          { time: "02:00 PM", text: "Final souvenir shopping and departure transfer." }
+        ]
+      }
     ],
     inclusions: ["4-Star Hotel", "Daily Breakfast", "Museum Passes", "Airport Transfers"],
     category: "Outbound"
@@ -95,12 +127,48 @@ const OUTBOUND_PACKAGES = [
     duration: "6 Days / 5 Nights",
     description: "A perfect blend of ancient tradition and futuristic technology in the heart of Japan.",
     itinerary: [
-      "Day 1: Arrival in Shinjuku",
-      "Day 2: Senso-ji Temple and Akihabara Exploration",
-      "Day 3: Shibuya Crossing and Harajuku Fashion District",
-      "Day 4: Mount Fuji and Lake Ashi Tour",
-      "Day 5: Ghibli Museum and Robot Cafe Dinner",
-      "Day 6: Last Minute Shopping and Departure"
+      {
+        day: "Day 1",
+        activities: [
+          { time: "11:00 AM", text: "Arrival at Narita Airport and JR Pass activation." },
+          { time: "03:00 PM", text: "Check-in at Shinjuku hotel and explore the neon streets." }
+        ]
+      },
+      {
+        day: "Day 2",
+        activities: [
+          { time: "09:00 AM", text: "Visit the historic Senso-ji Temple in Asakusa." },
+          { time: "02:00 PM", text: "Tech and anime exploration in Akihabara." }
+        ]
+      },
+      {
+        day: "Day 3",
+        activities: [
+          { time: "10:00 AM", text: "Experience the Shibuya Crossing and Meiji Shrine." },
+          { time: "03:00 PM", text: "Harajuku fashion district and Takeshita Street." }
+        ]
+      },
+      {
+        day: "Day 4",
+        activities: [
+          { time: "08:00 AM", text: "Day trip to Mount Fuji and cruise on Lake Ashi." },
+          { time: "05:00 PM", text: "Return to Tokyo." }
+        ]
+      },
+      {
+        day: "Day 5",
+        activities: [
+          { time: "10:00 AM", text: "Visit the Ghibli Museum (Pre-booked)." },
+          { time: "07:00 PM", text: "Robot Cafe dinner experience." }
+        ]
+      },
+      {
+        day: "Day 6",
+        activities: [
+          { time: "09:00 AM", text: "Last minute shopping in Ginza." },
+          { time: "01:00 PM", text: "Airport transfer for departure." }
+        ]
+      }
     ],
     inclusions: ["Premium Hotel", "Japan Rail Pass", "Mt Fuji Day Trip", "Local Food Guide"],
     category: "Outbound"
@@ -112,10 +180,34 @@ const OUTBOUND_PACKAGES = [
     duration: "4 Days / 3 Nights",
     description: "Thrill-seeking in the desert and luxury shopping in the world's grandest malls.",
     itinerary: [
-      "Day 1: Burj Khalifa and Fountain Show",
-      "Day 2: Desert Safari and BBQ Dinner",
-      "Day 3: Palm Jumeirah and Atlantis Waterpark",
-      "Day 4: Souk Madinat Jumeirah and Departure"
+      {
+        day: "Day 1",
+        activities: [
+          { time: "02:00 PM", text: "Arrival and check-in at your luxury hotel." },
+          { time: "06:00 PM", text: "Burj Khalifa At The Top visit and Fountain Show." }
+        ]
+      },
+      {
+        day: "Day 2",
+        activities: [
+          { time: "03:00 PM", text: "4x4 Desert Safari adventure." },
+          { time: "07:00 PM", text: "Traditional BBQ dinner under the stars." }
+        ]
+      },
+      {
+        day: "Day 3",
+        activities: [
+          { time: "10:00 AM", text: "Monorail ride to Palm Jumeirah." },
+          { time: "01:00 PM", text: "Atlantis Aquaventure Waterpark fun." }
+        ]
+      },
+      {
+        day: "Day 4",
+        activities: [
+          { time: "10:00 AM", text: "Souk Madinat Jumeirah shopping." },
+          { time: "02:00 PM", text: "Departure transfer to Dubai Airport." }
+        ]
+      }
     ],
     inclusions: ["Luxury Resort", "Desert Safari", "Burj Khalifa Entry", "Private Driver"],
     category: "Outbound"
@@ -127,11 +219,41 @@ const OUTBOUND_PACKAGES = [
     duration: "5 Days / 4 Nights",
     description: "Sun, surf, and icons. Explore the Opera House and the famous Bondi Beach.",
     itinerary: [
-      "Day 1: Opera House Tour and Circular Quay",
-      "Day 2: Bondi to Coogee Coastal Walk",
-      "Day 3: Blue Mountains Day Trip",
-      "Day 4: Harbor Bridge Climb and Darling Harbor",
-      "Day 5: Wildlife Sydney Zoo and Departure"
+      {
+        day: "Day 1",
+        activities: [
+          { time: "10:00 AM", text: "Arrival and Sydney Opera House guided tour." },
+          { time: "02:00 PM", text: "Walk around Circular Quay and The Rocks." }
+        ]
+      },
+      {
+        day: "Day 2",
+        activities: [
+          { time: "09:00 AM", text: "Bondi to Coogee Coastal Walk." },
+          { time: "01:00 PM", text: "Lunch with ocean views at Bondi." }
+        ]
+      },
+      {
+        day: "Day 3",
+        activities: [
+          { time: "08:30 AM", text: "Blue Mountains wilderness day trip." },
+          { time: "04:30 PM", text: "Return to Sydney." }
+        ]
+      },
+      {
+        day: "Day 4",
+        activities: [
+          { time: "10:00 AM", text: "Harbor Bridge Climb adventure." },
+          { time: "03:00 PM", text: "Explore Darling Harbor and Sea Life Aquarium." }
+        ]
+      },
+      {
+        day: "Day 5",
+        activities: [
+          { time: "09:00 AM", text: "Visit Wildlife Sydney Zoo." },
+          { time: "01:00 PM", text: "Departure transfer." }
+        ]
+      }
     ],
     inclusions: ["Harborside Hotel", "Bridge Climb Pass", "Blue Mountains Tour", "Ferry Pass"],
     category: "Outbound"

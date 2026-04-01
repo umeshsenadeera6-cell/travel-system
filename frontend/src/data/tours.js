@@ -68,30 +68,20 @@ export const INBOUND_PACKAGES = [
     description: "A misty mountain escape with scenic viewpoints, waterfalls, and a laid-back hill-country vibe.",
     itinerary: [
       {
-        time: "07:30",
-        location: "Kandy",
-        text: "Depart Kandy for Ella via train/transfer (depending on schedule).",
+        day: "Day 1",
+        activities: [
+          { time: "07:30", location: "Kandy", text: "Depart Kandy for Ella via train/transfer." },
+          { time: "10:30", location: "Little Adam's Peak", text: "Hike for sunrise-style views." }
+        ]
       },
       {
-        time: "10:30",
-        location: "Ella",
-        text: "Little Adam’s Peak trek for sunrise-style views.",
-      },
-      {
-        time: "13:00",
-        location: "Nine Arches Bridge",
-        text: "Stop at Nine Arches Bridge and capture scenic rail photos.",
-      },
-      {
-        time: "15:00",
-        location: "Ravana Falls",
-        text: "Enjoy Ravana Falls and the surrounding viewpoints.",
-      },
-      {
-        time: "18:30",
-        location: "Overnight",
-        text: "Check-in and enjoy a relaxed evening in Ella.",
-      },
+        day: "Day 2",
+        activities: [
+          { time: "09:00", location: "Nine Arches Bridge", text: "Capture scenic rail photos." },
+          { time: "11:00", location: "Ravana Falls", text: "Enjoy the waterfalls." },
+          { time: "15:00", location: "Return", text: "Transfer back to Kandy." }
+        ]
+      }
     ],
     route: {
       stops: [
@@ -198,30 +188,35 @@ export const OUTBOUND_PACKAGES = [
     description: "Classic Paris highlights with curated city experiences, iconic landmarks, and café culture.",
     itinerary: [
       {
-        time: "Day 1",
-        location: "Paris",
-        text: "Arrival and relaxed Seine stroll.",
+        day: "Day 1",
+        activities: [
+          { time: "Arrival", location: "Paris", text: "Arrival and relaxed Seine stroll." }
+        ]
       },
       {
-        time: "Day 2",
-        location: "Eiffel Tower",
-        text: "Eiffel Tower views and walk along Champs-Élysées.",
+        day: "Day 2",
+        activities: [
+          { time: "Morning", location: "Eiffel Tower", text: "Eiffel Tower views and walk along Champs-Élysées." }
+        ]
       },
       {
-        time: "Day 3",
-        location: "Louvre Museum",
-        text: "Louvre / Musée day with curated highlights.",
+        day: "Day 3",
+        activities: [
+          { time: "All Day", location: "Louvre Museum", text: "Louvre / Musée day with curated highlights." }
+        ]
       },
       {
-        time: "Day 4",
-        location: "Montmartre",
-        text: "Montmartre charm, viewpoints, and evening café atmosphere.",
+        day: "Day 4",
+        activities: [
+          { time: "Afternoon", location: "Montmartre", text: "Montmartre charm, viewpoints, and evening café atmosphere." }
+        ]
       },
       {
-        time: "Day 5",
-        location: "Departure",
-        text: "Final breakfast and departure transfers.",
-      },
+        day: "Day 5",
+        activities: [
+          { time: "Departure", location: "Airport", text: "Final breakfast and departure transfers." }
+        ]
+      }
     ],
     route: {
       stops: [
@@ -248,30 +243,35 @@ export const OUTBOUND_PACKAGES = [
     description: "A modern Tokyo journey mixing neon streets, calm shrines, and unforgettable food spots.",
     itinerary: [
       {
-        time: "Day 1",
-        location: "Shibuya",
-        text: "Shibuya & Shinjuku neon streets and iconic crossings.",
+        day: "Day 1",
+        activities: [
+          { time: "Arrival", location: "Shibuya", text: "Shibuya & Shinjuku neon streets and iconic crossings." }
+        ]
       },
       {
-        time: "Day 2",
-        location: "Asakusa",
-        text: "Asakusa temples + Skytree area stroll.",
+        day: "Day 2",
+        activities: [
+          { time: "Morning", location: "Asakusa", text: "Asakusa temples + Skytree area stroll." }
+        ]
       },
       {
-        time: "Day 3",
-        location: "Day Trip",
-        text: "Flexible day trip options (choose based on preference).",
+        day: "Day 3",
+        activities: [
+          { time: "Day Trip", location: "Flexible", text: "Flexible day trip options (choose based on preference)." }
+        ]
       },
       {
-        time: "Day 4",
-        location: "Markets",
-        text: "Food and market tour for local favorites.",
+        day: "Day 4",
+        activities: [
+          { time: "Morning", location: "Markets", text: "Food and market tour for local favorites." }
+        ]
       },
       {
-        time: "Day 5",
-        location: "Free Exploration",
-        text: "Free exploration time with optional suggestions.",
-      },
+        day: "Day 5",
+        activities: [
+          { time: "Evening", location: "Tokyo", text: "Free exploration time with optional suggestions." }
+        ]
+      }
     ],
     route: {
       stops: [
