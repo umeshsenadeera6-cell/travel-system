@@ -91,8 +91,10 @@ export default function AdminDashboard() {
 
   const filteredBookings = bookings.filter(b => {
     const matchesFilter = bookingFilter === 'all' || b.status === bookingFilter;
-    const matchesSearch = b.clientName?.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          b.tourTitle?.toLowerCase().includes(searchTerm.toLowerCase());
+    const safeName = b.clientName?.toLowerCase() || '';
+    const safeTitle = b.tourTitle?.toLowerCase() || '';
+    const matchesSearch = safeName.includes(searchTerm.toLowerCase()) || 
+                          safeTitle.includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
