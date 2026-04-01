@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "install:all": "npm install --prefix frontend && npm install --prefix backend",
-    "build": "npm run build --prefix frontend",
+    "build": "mkdir -p dist && npm run build --prefix frontend && cp -r frontend/dist/* dist/",
     "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
     "start": "npm start --prefix backend",
     "frontend": "npm run dev --prefix frontend",
