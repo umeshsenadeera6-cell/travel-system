@@ -12,7 +12,13 @@ export const TRANSLATIONS = {
     contactHours: "Office Hours",
     contactCTA: "Get a Personalized Quote",
     contactTeam: "Our dedicated team is ready to help you plan your perfect journey.",
-    officeHoursDays: "Mon - Sat: 9:00 AM - 6:00 PM"
+    officeHoursDays: "Mon - Sat: 9:00 AM - 6:00 PM",
+    uiDescription: "Description",
+    uiItinerary: "Itinerary",
+    uiInclusions: "What's Included",
+    uiRouteMap: "Route Map",
+    uiPriceFrom: "Starting From",
+    uiConfirmBooking: "Confirm Booking"
   },
   de: {
     inboundLabel: "SRI LANKAS VERBORGENE SCHÄTZE",
@@ -27,7 +33,13 @@ export const TRANSLATIONS = {
     contactHours: "Bürozeiten",
     contactCTA: "Holen Sie sich ein persönliches Angebot",
     contactTeam: "Unser engagiertes Team ist bereit, Ihnen bei der Planung Ihrer perfekten Reise zu helfen.",
-    officeHoursDays: "Mo - Sa: 9:00 - 18:00 Uhr"
+    officeHoursDays: "Mo - Sa: 9:00 - 18:00 Uhr",
+    uiDescription: "Beschreibung",
+    uiItinerary: "Reiseverlauf",
+    uiInclusions: "Was ist enthalten",
+    uiRouteMap: "Routenkarte",
+    uiPriceFrom: "Ab",
+    uiConfirmBooking: "Buchung bestätigen"
   },
   fr: {
     inboundLabel: "LES TRÉSORS CACHÉS DU SRI LANKA",
@@ -42,7 +54,13 @@ export const TRANSLATIONS = {
     contactHours: "Heures d'ouverture",
     contactCTA: "Obtenez un devis personnalisé",
     contactTeam: "Notre équipe dévouée est prête à vous aider à planifier votre voyage parfait.",
-    officeHoursDays: "Lun - Sam : 09h00 - 18h00"
+    officeHoursDays: "Lun - Sam : 09h00 - 18h00",
+    uiDescription: "Description",
+    uiItinerary: "Itinéraire",
+    uiInclusions: "Ce qui est inclus",
+    uiRouteMap: "Carte de l'itinéraire",
+    uiPriceFrom: "À partir de",
+    uiConfirmBooking: "Confirmer la réservation"
   },
   zh: {
     inboundLabel: "斯里兰卡隐藏的瑰宝",
@@ -57,6 +75,12 @@ export const TRANSLATIONS = {
     contactHours: "办公时间",
     contactCTA: "获取个性化报价",
     contactTeam: "我们的专业团队随时准备帮助您规划完美的旅程。",
-    officeHoursDays: "周一至周六：上午9:00 - 下午6:00"
+    officeHoursDays: "周一至周六：上午9:00 - 下午6:00",
+    uiDescription: "描述",
+    uiItinerary: "行程",
+    uiInclusions: "包含内容",
+    uiRouteMap: "路线图",
+    uiPriceFrom: "起价",
+    uiConfirmBooking: "确认预订"
   }
 };

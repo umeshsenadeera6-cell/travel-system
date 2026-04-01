@@ -1,8 +1,14 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { MapPin, Star, ArrowRight, DollarSign } from 'lucide-react';
+import { MapPin, Star, ArrowRight } from 'lucide-react';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function PackageCard({ pkg, image, onViewDetails }) {
+export default function PackageCard({ pkg, image, onViewDetails, lang = 'en' }) {
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  
+  // Localized Content
+  const localized = pkg.localizations?.[lang] || {};
+  const displayTitle = localized.title || pkg.title;
+  const displayDescription = localized.description || pkg.description;
+
   return (
     <motion.div
       whileHover={{ y: -10 }}
@@ -27,7 +33,7 @@ export default function PackageCard({ pkg, image, onViewDetails }) {
           whileHover={{ scale: 1.1 }}
           transition={{ duration: 0.6 }}
           src={image}
-          alt={pkg.title}
+          alt={displayTitle}
           style={{
             width: '100%',
             height: '100%',
@@ -60,16 +66,16 @@ export default function PackageCard({ pkg, image, onViewDetails }) {
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', color: 'hsl(var(--primary))', marginBottom: '0.5rem' }}>
           <MapPin size={16} />
           <span style={{ fontSize: '0.8rem', fontWeight: '800', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
-            Available Now
+            {lang === 'de' ? 'JETZT VERFÜGBAR' : lang === 'fr' ? 'DISPONIBLE MAINTENANT' : lang === 'zh' ? '现在可用' : 'Available Now'}
           </span>
         </div>
 
         <h3 style={{ fontSize: '1.4rem', fontWeight: '800', marginBottom: '0.75rem', letterSpacing: '-0.02em' }}>
-          {pkg.title}
+          {displayTitle}
         </h3>
 
         <p style={{ color: 'hsl(var(--foreground) / 0.6)', fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: 1.5 }}>
-          Experience the ultimate getaway with our curated premium travel package.
+          {displayDescription}
         </p>
 
         <div style={{ 
@@ -82,7 +88,7 @@ export default function PackageCard({ pkg, image, onViewDetails }) {
         }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <span style={{ fontSize: '0.75rem', fontWeight: '600', color: 'hsl(var(--foreground) / 0.5)', textTransform: 'uppercase' }}>
-              Starts From
+              {t.uiPriceFrom || 'Starts From'}
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.1rem' }}>
               <span style={{ fontSize: '1.5rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>

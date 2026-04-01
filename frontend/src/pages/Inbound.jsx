@@ -75,7 +75,7 @@ export default function Inbound() {
           <motion.div variants={staggerContainer} className="grid-layout">
             {INBOUND_PACKAGES.map(p => (
               <motion.div variants={fadeInUp} key={p.id}>
-                <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} />
+                <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
               </motion.div>
             ))}
           </motion.div>
@@ -84,7 +84,7 @@ export default function Inbound() {
         </motion.section>
       </div>
       
-      <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} />
+      <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} lang={selectedLanguage} />
     </main>
   );
 }

@@ -1,18 +1,27 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { X, Clock, MapPin, CheckCircle2, ShieldCheck, ChevronRight } from 'lucide-react';
 import MapComponent from './MapComponent';
+import { TRANSLATIONS } from '../data/translations';
 
-export default function TourModal({ isOpen, onClose, tour }) {
+export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
   const navigate = useNavigate();
-  const [selectedDayIndex, setSelectedDayIndex] = React.useState(0);
+  const [selectedDayIndex, setSelectedDayIndex] = useState(0);
 
   if (!isOpen || !tour) return null;
 
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  
+  // Localized Content
+  const localized = tour.localizations?.[lang] || {};
+  const displayTitle = localized.title || tour.title;
+  const displayDescription = localized.description || tour.description;
+  const displayItinerary = localized.itinerary || tour.itinerary;
+  const displayInclusions = localized.inclusions || tour.inclusions;
+
   const stops = tour.route?.stops ?? [];
   const rawPath = tour.route?.path ?? stops.map((s) => ({ lat: s.lat, lng: s.lng }));
-
   const hasRoute = Array.isArray(stops) && stops.length > 0 && Array.isArray(rawPath) && rawPath.length > 0;
 
   return (
@@ -61,7 +70,7 @@ export default function TourModal({ isOpen, onClose, tour }) {
           style={{
             position: 'relative',
             width: '100%',
-            maxWidth: '900px',
+            maxWidth: '1000px',
             maxHeight: '90vh',
             backgroundColor: 'white',
             borderRadius: '2rem',
@@ -71,11 +80,11 @@ export default function TourModal({ isOpen, onClose, tour }) {
             flexDirection: 'column'
           }}
         >
-          {/* Header / Image Section */}
+          {/* Header Image Section */}
           <div style={{ position: 'relative', height: '300px', flexShrink: 0 }}>
             <img
               src={tour.image}
-              alt={tour.title}
+              alt={displayTitle}
               style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <div style={{
@@ -84,7 +93,7 @@ export default function TourModal({ isOpen, onClose, tour }) {
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7))'
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))'
             }} />
 
             <button
@@ -103,7 +112,8 @@ export default function TourModal({ isOpen, onClose, tour }) {
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                zIndex: 10
               }}
             >
               <X size={20} />
@@ -114,209 +124,188 @@ export default function TourModal({ isOpen, onClose, tour }) {
               bottom: '2rem',
               left: '2rem',
               right: '2rem',
-              color: 'white'
+              color: 'white',
+              zIndex: 5
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                <span style={{
-                  backgroundColor: 'hsl(var(--primary))',
-                  padding: '0.25rem 0.75rem',
-                  borderRadius: '999px',
-                  fontSize: '0.8rem',
-                  fontWeight: '700'
-                }}>
-                  {tour.duration}
-                </span>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', opacity: 0.9, fontSize: '0.9rem' }}>
-                  <MapPin size={14} /> Sri Lanka
+              <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+                {displayTitle}
+              </h2>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', color: 'rgba(255, 255, 255, 0.9)' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <Clock size={18} />
+                  <span style={{ fontWeight: '600' }}>{tour.duration}</span>
+                </div>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                  <MapPin size={18} />
+                  <span style={{ fontWeight: '600' }}>Sri Lanka</span>
                 </div>
               </div>
-              <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', lineHeight: 1.1 }}>
-                {tour.title}
-              </h2>
             </div>
           </div>
 
-          {/* Content Section */}
-          <div style={{
-            padding: '2.5rem',
-            overflowY: 'auto',
-            flex: 1,
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '3rem'
-          }}>
-            {/* Left Column: Info & Itinerary */}
+          {/* Scrollable Content Section */}
+          <div style={{ padding: '3rem', overflowY: 'auto', display: 'grid', gridTemplateColumns: 'minmax(0, 1fr) 320px', gap: '4rem' }}>
             <div>
-              <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1rem', color: 'hsl(var(--secondary))' }}>
-                Trip Highlights
-              </h3>
-              <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7, marginBottom: '2rem' }}>
-                {tour.description ?? 'Experience an unforgettable journey with our premium curated package.'}
-              </p>
-
-              <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))' }}>
-                Itinerary
-              </h3>
-
-              {/* Day Selector for Multi-Day Tours */}
-              {Array.isArray(tour.itinerary) && tour.itinerary.length > 0 && typeof tour.itinerary[0] === 'object' && tour.itinerary[0].day && (
-                <div style={{
-                  display: 'flex',
-                  gap: '0.5rem',
-                  overflowX: 'auto',
-                  paddingBottom: '1rem',
-                  marginBottom: '1.5rem',
-                  scrollbarWidth: 'none',
-                  msOverflowStyle: 'none',
-                }}>
-                  {tour.itinerary.map((item, idx) => (
-                    <motion.button
-                      key={idx}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.95 }}
-                      onClick={() => setSelectedDayIndex(idx)}
-                      style={{
-                        padding: '0.6rem 1.25rem',
-                        borderRadius: '0.75rem',
-                        fontSize: '0.85rem',
-                        fontWeight: '700',
-                        whiteSpace: 'nowrap',
-                        backgroundColor: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.05)',
-                        color: selectedDayIndex === idx ? 'white' : 'hsl(var(--primary))',
-                        border: 'none',
-                        cursor: 'pointer',
-                        transition: 'all 0.2s ease'
-                      }}
-                    >
-                      {item.day}
-                    </motion.button>
-                  ))}
-                </div>
-              )}
-
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={selectedDayIndex}
-                    initial={{ opacity: 0, x: 10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -10 }}
-                    transition={{ duration: 0.2 }}
-                    style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}
-                  >
-                    {(() => {
-                      const itineraryItems = tour.itinerary ?? [];
-                      const isStructuredByDay = itineraryItems.length > 0 && typeof itineraryItems[0] === 'object' && itineraryItems[0].day;
-                      
-                      const currentItems = isStructuredByDay 
-                        ? (itineraryItems[selectedDayIndex]?.activities ?? [])
-                        : itineraryItems;
-
-                      return currentItems.map((step, idx) => {
-                        const isObject = typeof step === 'object' && step !== null;
-                        const time = isObject ? step.time : undefined;
-                        const location = isObject ? step.location : undefined;
-                        const text = isObject ? step.text : step;
-
-                        return (
-                          <div key={idx} style={{ display: 'flex', gap: '1rem' }}>
-                            <div style={{
-                              flexShrink: 0,
-                              width: '24px',
-                              height: '24px',
-                              borderRadius: '50%',
-                              backgroundColor: 'hsl(var(--primary) / 0.1)',
-                              color: 'hsl(var(--primary))',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              fontSize: '0.75rem',
-                              fontWeight: '800',
-                              marginTop: '0.2rem'
-                            }}>
-                              {idx + 1}
-                            </div>
-                            <div style={{ flex: 1 }}>
-                              {(time || location) ? (
-                                <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.45rem' }}>
-                                  {time ? (
-                                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', opacity: 0.9, color: 'hsl(var(--secondary))', fontWeight: '800', fontSize: '0.85rem' }}>
-                                      <Clock size={14} />
-                                      {time}
-                                    </span>
-                                  ) : null}
-                                  {location ? (
-                                    <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', opacity: 0.9, color: 'hsl(var(--primary))', fontWeight: '800', fontSize: '0.85rem' }}>
-                                      <MapPin size={14} />
-                                      {location}
-                                    </span>
-                                  ) : null}
-                                </div>
-                              ) : null}
-                              <p style={{ fontSize: '0.95rem', color: 'hsl(var(--foreground) / 0.8)', lineHeight: 1.5 }}>
-                                {text}
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      });
-                    })()}
-                  </motion.div>
-                </AnimatePresence>
+              {/* Description */}
+              <div style={{ marginBottom: '4rem' }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.25rem', color: 'hsl(var(--secondary))', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  {t.uiDescription || 'Description'}
+                </h3>
+                <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'hsl(var(--foreground) / 0.7)' }}>
+                  {displayDescription}
+                </p>
               </div>
 
-              {/* Route Map */}
-              <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))', marginTop: '2rem' }}>
-                Route Map
-              </h3>
-              <div style={{
-                borderRadius: '1.5rem',
-                overflow: 'hidden',
-                backgroundColor: 'hsl(var(--primary) / 0.03)',
-                border: '1px solid hsl(var(--primary) / 0.1)'
-              }}>
-                {hasRoute ? (
-                  <MapComponent stops={stops} path={rawPath} />
-                ) : (
-                  <div style={{ padding: '2rem', textAlign: 'center' }}>
-                    <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7 }}>
-                      Route map will be shown when route coordinates are available for this tour.
-                    </p>
+              {/* Itinerary */}
+              <div style={{ marginBottom: '4rem' }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '2rem', color: 'hsl(var(--secondary))', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  {t.uiItinerary || 'Itinerary'}
+                </h3>
+
+                {/* Day Selector */}
+                {displayItinerary[0]?.day && (
+                  <div style={{ 
+                    display: 'flex', 
+                    gap: '0.75rem', 
+                    marginBottom: '2.5rem',
+                    overflowX: 'auto',
+                    paddingBottom: '0.5rem'
+                  }}>
+                    {displayItinerary.map((dayObj, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => setSelectedDayIndex(idx)}
+                        style={{
+                          padding: '0.75rem 1.75rem',
+                          borderRadius: '999px',
+                          border: '1px solid',
+                          borderColor: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'hsl(var(--glass-border))',
+                          backgroundColor: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'transparent',
+                          color: selectedDayIndex === idx ? 'white' : 'hsl(var(--foreground) / 0.6)',
+                          fontWeight: '700',
+                          cursor: 'pointer',
+                          whiteSpace: 'nowrap',
+                          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
+                        }}
+                      >
+                        {dayObj.day}
+                      </button>
+                    ))}
                   </div>
                 )}
-              </div>
-            </div>
 
-            {/* Right Column: Inclusions & CTA */}
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <div style={{
-                backgroundColor: 'hsl(var(--primary) / 0.03)',
-                padding: '2rem',
-                borderRadius: '1.5rem',
-                border: '1px solid hsl(var(--primary) / 0.1)',
-                marginBottom: '2rem'
-              }}>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '1.25rem', color: 'hsl(var(--secondary))' }}>
-                  What's Included
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                  <AnimatePresence mode="wait">
+                    <motion.div
+                      key={selectedDayIndex}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      exit={{ opacity: 0, x: -20 }}
+                      transition={{ duration: 0.3, ease: 'easeOut' }}
+                    >
+                      {(displayItinerary[0]?.day ? displayItinerary[selectedDayIndex].activities : displayItinerary).map((item, idx) => (
+                        <div key={idx} style={{ 
+                          display: 'flex', 
+                          gap: '1.5rem', 
+                          padding: '1.5rem',
+                          borderRadius: '1.5rem',
+                          backgroundColor: 'hsl(var(--primary) / 0.03)',
+                          border: '1px solid hsl(var(--primary) / 0.05)',
+                          marginBottom: '1rem'
+                        }}>
+                          <div style={{ 
+                            width: '48px', 
+                            height: '48px', 
+                            borderRadius: '14px', 
+                            backgroundColor: 'white',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                            flexShrink: 0,
+                            fontWeight: '900',
+                            color: 'hsl(var(--primary))',
+                            fontSize: '0.9rem'
+                          }}>
+                            {idx + 1}
+                          </div>
+                          <div>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                              <span style={{ fontWeight: '800', color: 'hsl(var(--secondary))', fontSize: '1.05rem' }}>{item.time}</span>
+                              <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'hsl(var(--primary) / 0.3)' }} />
+                              <span style={{ fontWeight: '600', color: 'hsl(var(--primary))', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.location}</span>
+                            </div>
+                            <p style={{ color: 'hsl(var(--foreground) / 0.65)', lineHeight: 1.6 }}>{item.text}</p>
+                          </div>
+                        </div>
+                      ))}
+                    </motion.div>
+                  </AnimatePresence>
+                </div>
+              </div>
+
+              {/* Inclusions */}
+              <div>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  {t.uiInclusions || 'What\'s Included'}
                 </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                  {(tour.inclusions ?? []).map((item, idx) => (
-                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                      <CheckCircle2 size={18} style={{ color: 'hsl(var(--primary))' }} />
-                      <span style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground) / 0.7)' }}>{item}</span>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1rem' }}>
+                  {displayInclusions.map((item, idx) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', color: 'hsl(var(--foreground) / 0.7)' }}>
+                      <div style={{ color: 'hsl(var(--primary))' }}>
+                        <CheckCircle2 size={18} />
+                      </div>
+                      <span style={{ fontSize: '1rem', fontWeight: '500' }}>{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              <div style={{ marginTop: 'auto' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.5rem' }}>
-                  <span style={{ fontSize: '0.9rem', opacity: 0.6 }}>Total Price</span>
-                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.2rem' }}>
-                    <span style={{ fontSize: '2rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>${tour.price}</span>
-                    <span style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground) / 0.4)' }}>/person</span>
+              {/* Route Map */}
+              <div style={{ marginTop: '4rem' }}>
+                <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.25rem', color: 'hsl(var(--secondary))', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                  {t.uiRouteMap || 'Route Map'}
+                </h3>
+                <div style={{
+                  borderRadius: '1.5rem',
+                  overflow: 'hidden',
+                  backgroundColor: 'hsl(var(--primary) / 0.03)',
+                  border: '1px solid hsl(var(--primary) / 0.1)'
+                }}>
+                  {hasRoute ? (
+                    <MapComponent stops={stops} path={rawPath} />
+                  ) : (
+                    <div style={{ padding: '2rem', textAlign: 'center' }}>
+                      <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7 }}>
+                        Route map will be shown when route coordinates are available for this tour.
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Sidebar */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '2.5rem' }}>
+              <div style={{
+                backgroundColor: 'white',
+                borderRadius: '2rem',
+                padding: '2rem',
+                border: '1px solid hsl(var(--glass-border))',
+                boxShadow: 'var(--shadow)',
+                position: 'sticky',
+                top: '2rem'
+              }}>
+                <div style={{ marginBottom: '1.5rem' }}>
+                  <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'hsl(var(--foreground) / 0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                    {t.uiPriceFrom || 'Starting From'}
+                  </span>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
+                    <span style={{ fontSize: '2.5rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>${tour.price}</span>
+                    <span style={{ color: 'hsl(var(--foreground) / 0.5)', fontWeight: '600' }}>/person</span>
                   </div>
                 </div>
+
                 <motion.button
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
@@ -336,7 +325,7 @@ export default function TourModal({ isOpen, onClose, tour }) {
                     borderRadius: '1.25rem'
                   }}
                 >
-                  Confirm Booking <ShieldCheck size={20} />
+                  {t.uiConfirmBooking || 'Confirm Booking'} <ShieldCheck size={20} />
                 </motion.button>
               </div>
             </div>
