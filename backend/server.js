@@ -17,6 +17,9 @@ app.use(express.json());
 connectDB();
 
 // Routes
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to Serendib Travel API', status: 'available' });
+});
 
 // GET all packages
 app.get('/api/packages', async (req, res) => {

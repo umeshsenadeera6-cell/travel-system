@@ -6,8 +6,9 @@ services:
     rootDir: backend
     buildCommand: npm install
     startCommand: npm start
+    healthCheckPath: /
     envVars:
       - key: PORT
         value: 5001
       - key: MONGODB_URI
-        sync: false # Set this manually in Render dashboard
+        sync: false
