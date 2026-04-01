@@ -96,114 +96,199 @@ export default function BookingPage() {
   }
 
   return (
-    <div style={{ padding: '8rem 2rem', backgroundColor: 'hsl(var(--primary) / 0.02)' }}>
-      <div className="container" style={{ maxWidth: '1000px' }}>
-        <button
+    <div style={{ padding: '8rem 2rem', backgroundColor: 'hsl(var(--primary) / 0.015)', minHeight: '100vh' }}>
+      <div className="container" style={{ maxWidth: '1100px' }}>
+        <motion.button
+          initial={{ opacity: 0, x: -20 }}
+          animate={{ opacity: 1, x: 0 }}
           onClick={() => navigate(-1)}
           style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '0.5rem',
-            background: 'none',
-            border: 'none',
+            gap: '0.6rem',
+            background: 'hsl(var(--primary) / 0.05)',
+            padding: '0.6rem 1.25rem',
+            borderRadius: '999px',
+            border: '1px solid hsl(var(--primary) / 0.1)',
             color: 'hsl(var(--primary))',
-            fontWeight: '700',
+            fontWeight: '800',
             cursor: 'pointer',
-            marginBottom: '2rem'
+            marginBottom: '2.5rem',
+            fontSize: '0.9rem'
+          }}
+          whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--primary) / 0.1)' }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <ChevronLeft size={18} /> Back to Tour
+        </motion.button>
+
+        <div 
+          className="main-booking-grid"
+          style={{ 
+            display: 'grid', 
+            gridTemplateColumns: tour ? '1fr 1.6fr' : '1fr', 
+            gap: '4rem', 
+            alignItems: 'start' 
           }}
         >
-          <ChevronLeft size={20} /> Back to Tour
-        </button>
-
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'start' }}>
 
           {/* Summary Sidebar */}
-          <div style={{
-            backgroundColor: 'white',
-            padding: '2rem',
-            borderRadius: '2rem',
-            boxShadow: '0 15px 35px -10px rgba(0,0,0,0.05)',
-            border: '1px solid hsl(var(--primary) / 0.1)'
-          }}>
-            <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))' }}>
-              Booking Summary
-            </h3>
-            <img
-              src={tour.image}
-              alt={tour.title}
-              style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '1rem', marginBottom: '1.5rem' }}
-            />
-            <h4 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '0.5rem' }}>{tour.title}</h4>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem', opacity: 0.7 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Price per person</span>
-                <span>${tour.price}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-                <span>Number of guests</span>
-                <span>x {formData.guests}</span>
-              </div>
-              <div style={{ borderTop: '1px dashed hsl(var(--border))', paddingTop: '0.75rem', marginTop: '0.25rem' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', fontWeight: '800', color: 'hsl(var(--primary))' }}>
-                  <span>Total Amount</span>
-                  <span>${tour.price * formData.guests}</span>
-                </div>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            style={{
+              backgroundColor: 'white',
+              padding: '2.5rem',
+              borderRadius: '2.5rem',
+              boxShadow: '0 20px 40px -15px rgba(0,0,0,0.06)',
+              border: '1px solid hsl(var(--primary) / 0.08)',
+              position: 'sticky',
+              top: '120px'
+            }}
+          >
+            <div style={{
+              backgroundColor: 'hsl(var(--primary) / 0.05)',
+              color: 'hsl(var(--primary))',
+              display: 'inline-block',
+              padding: '0.4rem 1rem',
+              borderRadius: '999px',
+              fontSize: '0.75rem',
+              fontWeight: '900',
+              textTransform: 'uppercase',
+              letterSpacing: '0.05em',
+              marginBottom: '1.5rem'
+            }}>
+              Tour Summary
+            </div>
+            
+            <div style={{ position: 'relative', marginBottom: '1.5rem', overflow: 'hidden', borderRadius: '1.5rem' }}>
+              <img
+                src={tour.image}
+                alt={tour.title}
+                style={{ width: '100%', height: '180px', objectFit: 'cover' }}
+              />
+              <div style={{
+                position: 'absolute',
+                bottom: '1rem',
+                left: '1rem',
+                backgroundColor: 'hsla(0,0%,0%,0.6)',
+                padding: '0.4rem 0.8rem',
+                borderRadius: '0.75rem',
+                color: 'white',
+                fontSize: '0.8rem',
+                backdropFilter: 'blur(4px)'
+              }}>
+                ${tour.price} <span style={{ opacity: 0.7 }}>/ person</span>
               </div>
             </div>
-          </div>
+
+            <h4 style={{ fontSize: '1.3rem', fontWeight: '900', marginBottom: '1.25rem', color: 'hsl(var(--secondary))', lineHeight: 1.2 }}>{tour.title}</h4>
+            
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem', fontSize: '0.95rem' }}>
+              <div style={{ display: 'flex', justifyContent: 'space-between', opacity: 0.6 }}>
+                <span>Subtotal</span>
+                <span>${tour.price} &times; {formData.guests}</span>
+              </div>
+              <div style={{ display: 'flex', justifyContent: 'space-between', opacity: 0.6 }}>
+                <span>Service Fee</span>
+                <span>Included</span>
+              </div>
+              
+              <div style={{ 
+                borderTop: '1px solid hsl(var(--primary) / 0.1)', 
+                paddingTop: '1.25rem', 
+                marginTop: '0.5rem',
+                display: 'flex', 
+                justifyContent: 'space-between', 
+                alignItems: 'baseline'
+              }}>
+                <span style={{ fontWeight: '700', color: 'hsl(var(--secondary))' }}>Total Amount</span>
+                <span style={{ fontSize: '1.75rem', fontWeight: '900', color: 'hsl(var(--primary))' }}>
+                  ${tour.price * formData.guests}
+                </span>
+              </div>
+            </div>
+
+            <div style={{ 
+              marginTop: '2rem', 
+              padding: '1.25rem', 
+              backgroundColor: 'hsl(var(--secondary) / 0.03)', 
+              borderRadius: '1.25rem',
+              display: 'flex',
+              gap: '1rem',
+              alignItems: 'flex-start'
+            }}>
+              <CheckCircle2 size={20} style={{ color: 'hsl(var(--primary))', flexShrink: 0, marginTop: '0.2rem' }} />
+              <p style={{ fontSize: '0.85rem', opacity: 0.7 }}>
+                Secure SSL encrypted booking. Your data is protected by our privacy policy.
+              </p>
+            </div>
+          </motion.div>
 
           {/* Form Section */}
-          <div style={{
-            backgroundColor: 'white',
-            padding: '3rem',
-            borderRadius: '2rem',
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)'
-          }}>
-            <h2 style={{ fontSize: '2rem', fontWeight: '900', marginBottom: '0.5rem', color: 'hsl(var(--secondary))' }}>
-              Confirm Your Trip
-            </h2>
-            <p style={{ opacity: 0.6, marginBottom: '2.5rem' }}>
-              Please fill in your details to finalize your booking with Serendib Travel.
-            </p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            style={{
+              backgroundColor: 'white',
+              padding: '3.5rem',
+              borderRadius: '3rem',
+              boxShadow: '0 30px 60px -20px rgba(0,0,0,0.1)',
+              border: '1px solid hsl(var(--primary) / 0.05)'
+            }}
+          >
+            <div style={{ marginBottom: '3rem' }}>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '0.75rem', color: 'hsl(var(--secondary))', letterSpacing: '-0.02em' }}>
+                Book Your Experience
+              </h2>
+              <p style={{ fontSize: '1.1rem', color: 'hsl(var(--foreground) / 0.5)', maxWidth: '500px' }}>
+                Fill in the details below to secure your spot on this premium Sri Lankan journey.
+              </p>
+            </div>
 
-            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+            <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
               <div className="grid-2">
-                <div className="form-group">
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
-                    <User size={16} /> Full Name*
+                <motion.div whileTap={{ scale: 0.995 }} className="form-group">
+                  <label htmlFor="clientName" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', fontSize: '0.9rem', fontWeight: '800', color: 'hsl(var(--secondary))' }}>
+                    <User size={16} /> CLIENT NAME*
                   </label>
                   <input
+                    id="clientName"
                     type="text"
                     name="clientName"
                     required
                     value={formData.clientName}
                     onChange={handleChange}
-                    placeholder="Enter your name"
+                    placeholder="e.g. John Doe"
                     className="form-control"
                   />
-                </div>
-                <div className="form-group">
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
-                    <Mail size={16} /> Email Address*
+                </motion.div>
+                <motion.div whileTap={{ scale: 0.995 }} className="form-group">
+                  <label htmlFor="email" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', fontSize: '0.9rem', fontWeight: '800', color: 'hsl(var(--secondary))' }}>
+                    <Mail size={16} /> EMAIL ADDRESS*
                   </label>
                   <input
+                    id="email"
                     type="email"
                     name="email"
                     required
                     value={formData.email}
                     onChange={handleChange}
-                    placeholder="name@example.com"
+                    placeholder="john@example.com"
                     className="form-control"
                   />
-                </div>
+                </motion.div>
               </div>
 
               <div className="grid-2">
-                <div className="form-group">
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
-                    <Phone size={16} /> Phone Number*
+                <motion.div whileTap={{ scale: 0.995 }} className="form-group">
+                  <label htmlFor="phone" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', fontSize: '0.9rem', fontWeight: '800', color: 'hsl(var(--secondary))' }}>
+                    <Phone size={16} /> PHONE NUMBER*
                   </label>
                   <input
+                    id="phone"
                     type="tel"
                     name="phone"
                     required
@@ -212,77 +297,119 @@ export default function BookingPage() {
                     placeholder="+94 XX XXX XXXX"
                     className="form-control"
                   />
-                </div>
-                <div className="form-group">
-                  <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
-                    <Calendar size={16} /> Preferred Date*
+                </motion.div>
+                <motion.div whileTap={{ scale: 0.995 }} className="form-group">
+                  <label htmlFor="bookingDate" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', fontSize: '0.9rem', fontWeight: '800', color: 'hsl(var(--secondary))' }}>
+                    <Calendar size={16} /> TRAVEL DATE*
                   </label>
                   <input
+                    id="bookingDate"
                     type="date"
                     name="bookingDate"
                     required
                     value={formData.bookingDate}
                     onChange={handleChange}
                     className="form-control"
+                    style={{ cursor: 'pointer' }}
                   />
-                </div>
+                </motion.div>
               </div>
 
-              <div className="form-group">
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
-                  <Users size={16} /> Number of Guests*
+              <motion.div whileTap={{ scale: 0.995 }} className="form-group">
+                <label htmlFor="guests" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', fontSize: '0.9rem', fontWeight: '800', color: 'hsl(var(--secondary))' }}>
+                  <Users size={16} /> NUMBER OF GUESTS*
                 </label>
-                <input
-                  type="number"
-                  name="guests"
-                  min="1"
-                  required
-                  value={formData.guests}
-                  onChange={handleChange}
-                  className="form-control"
-                />
-              </div>
+                <div style={{ position: 'relative', display: 'flex', alignItems: 'center' }}>
+                  <input
+                    id="guests"
+                    type="number"
+                    name="guests"
+                    min="1"
+                    required
+                    value={formData.guests}
+                    onChange={handleChange}
+                    className="form-control"
+                    style={{ paddingRight: '3rem' }}
+                  />
+                  <span style={{ position: 'absolute', right: '1.25rem', opacity: 0.4, fontWeight: '700', fontSize: '0.8rem', pointerEvents: 'none' }}>
+                    PERSONS
+                  </span>
+                </div>
+              </motion.div>
 
-              <div className="form-group">
-                <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
-                  <Info size={16} /> Special Requests
+              <motion.div whileTap={{ scale: 0.995 }} className="form-group">
+                <label htmlFor="specialRequests" style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', marginBottom: '0.75rem', fontSize: '0.9rem', fontWeight: '800', color: 'hsl(var(--secondary))' }}>
+                  <Info size={16} /> SPECIAL REQUESTS
                 </label>
                 <textarea
+                  id="specialRequests"
                   name="specialRequests"
                   rows="4"
                   value={formData.specialRequests}
                   onChange={handleChange}
-                  placeholder="Any dietary requirements, accessibility needs, or extra requests..."
+                  placeholder="Tell us about dietary needs, accessibility, or special occasions..."
                   className="form-control"
-                  style={{ resize: 'vertical' }}
+                  style={{ resize: 'vertical', minHeight: '120px' }}
                 />
-              </div>
+              </motion.div>
 
               {error && (
-                <div style={{ color: 'red', fontSize: '0.9rem', padding: '1rem', backgroundColor: 'rgba(255,0,0,0.05)', borderRadius: '1rem' }}>
-                  {error}
-                </div>
+                <motion.div 
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  style={{ 
+                    color: '#ef4444', 
+                    fontSize: '0.9rem', 
+                    padding: '1.25rem', 
+                    backgroundColor: '#fef2f2', 
+                    borderRadius: '1.25rem',
+                    border: '1px solid #fee2e2',
+                    fontWeight: '600',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.75rem'
+                  }}
+                >
+                  <span style={{ fontSize: '1.2rem' }}>&times;</span> {error}
+                </motion.div>
               )}
 
-              <button
+              <motion.button
                 type="submit"
                 disabled={isSubmitting}
                 className="btn btn-primary"
                 style={{
                   width: '100%',
-                  padding: '1.25rem',
-                  fontSize: '1.1rem',
-                  marginTop: '1rem',
+                  padding: '1.5rem',
+                  fontSize: '1.15rem',
+                  marginTop: '1.5rem',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '0.75rem'
+                  gap: '1rem',
+                  borderRadius: '1.5rem',
+                  boxShadow: '0 15px 30px -10px hsla(var(--primary) / 0.4)'
                 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {isSubmitting ? 'Processing...' : 'Complete Booking'} <Send size={20} />
-              </button>
+                {isSubmitting ? (
+                  <>
+                    <motion.div
+                      animate={{ rotate: 360 }}
+                      transition={{ repeat: Infinity, duration: 1, ease: 'linear' }}
+                      style={{ width: '20px', height: '20px', border: '2px solid white', borderTopColor: 'transparent', borderRadius: '50%' }}
+                    />
+                    Finalizing Booking...
+                  </>
+                ) : (
+                  <>
+                    Confirm & Complete Booking <Send size={20} />
+                  </>
+                )}
+              </motion.button>
             </form>
-          </div>
+          </motion.div>
         </div>
       </div>
     </div>
