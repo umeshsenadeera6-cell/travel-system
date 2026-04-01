@@ -184,216 +184,215 @@ export default function TourModal({ isOpen, onClose, tour }) {
             flexDirection: 'column'
           }}
         >
-            {/* Header / Image Section */}
-            <div style={{ position: 'relative', height: '300px', flexShrink: 0 }}>
-              <img 
-                src={tour.image} 
-                alt={tour.title}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-              <div style={{
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7))'
-              }} />
-              
-              <button 
-                onClick={onClose}
-                style={{
-                  position: 'absolute',
-                  top: '1.5rem',
-                  right: '1.5rem',
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '50%',
-                  backgroundColor: 'rgba(255,255,255,0.2)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid rgba(255,255,255,0.3)',
-                  color: 'white',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  cursor: 'pointer'
-                }}
-              >
-                <X size={20} />
-              </button>
+          {/* Header / Image Section */}
+          <div style={{ position: 'relative', height: '300px', flexShrink: 0 }}>
+            <img
+              src={tour.image}
+              alt={tour.title}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            />
+            <div style={{
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.3), rgba(0,0,0,0.7))'
+            }} />
 
-              <div style={{
+            <button
+              onClick={onClose}
+              style={{
                 position: 'absolute',
-                bottom: '2rem',
-                left: '2rem',
-                right: '2rem',
-                color: 'white'
-              }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                  <span style={{ 
-                    backgroundColor: 'hsl(var(--primary))', 
-                    padding: '0.25rem 0.75rem', 
-                    borderRadius: '999px',
-                    fontSize: '0.8rem',
-                    fontWeight: '700'
-                  }}>
-                    {tour.duration}
-                  </span>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', opacity: 0.9, fontSize: '0.9rem' }}>
-                    <MapPin size={14} /> Sri Lanka
-                  </div>
-                </div>
-                <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', lineHeight: 1.1 }}>
-                  {tour.title}
-                </h2>
-              </div>
-            </div>
+                top: '1.5rem',
+                right: '1.5rem',
+                width: '40px',
+                height: '40px',
+                borderRadius: '50%',
+                backgroundColor: 'rgba(255,255,255,0.2)',
+                backdropFilter: 'blur(10px)',
+                border: '1px solid rgba(255,255,255,0.3)',
+                color: 'white',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                cursor: 'pointer'
+              }}
+            >
+              <X size={20} />
+            </button>
 
-            {/* Content Section */}
-            <div style={{ 
-              padding: '2.5rem', 
-              overflowY: 'auto',
-              flex: 1,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-              gap: '3rem'
+            <div style={{
+              position: 'absolute',
+              bottom: '2rem',
+              left: '2rem',
+              right: '2rem',
+              color: 'white'
             }}>
-              {/* Left Column: Info & Itinerary */}
-              <div>
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1rem', color: 'hsl(var(--secondary))' }}>
-                  Trip Highlights
-                </h3>
-                <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7, marginBottom: '2rem' }}>
-                  {tour.description ?? 'Experience an unforgettable journey with our premium curated package.'}
-                </p>
-
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))' }}>
-                  Itinerary
-                </h3>
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-                  {(tour.itinerary ?? []).map((step, idx) => {
-                    if (!step) return null;
-                    const isObject = typeof step === 'object' && step !== null;
-                    const time = isObject ? step.time : undefined;
-                    const location = isObject ? step.location : undefined;
-                    const text = isObject ? step.text : step;
-
-                    return (
-                      <div key={idx} style={{ display: 'flex', gap: '1rem' }}>
-                        <div style={{ 
-                          flexShrink: 0,
-                          width: '24px', 
-                          height: '24px', 
-                          borderRadius: '50%', 
-                          backgroundColor: 'hsl(var(--primary) / 0.1)',
-                          color: 'hsl(var(--primary))',
-                          display: 'flex', 
-                          alignItems: 'center', 
-                          justifyContent: 'center',
-                          fontSize: '0.75rem',
-                          fontWeight: '800',
-                          marginTop: '0.2rem'
-                        }}>
-                          {idx + 1}
-                        </div>
-                        <div>
-                          {(time || location) ? (
-                            <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.45rem' }}>
-                              {time ? (
-                                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', opacity: 0.9, color: 'hsl(var(--secondary))', fontWeight: '800' }}>
-                                  <Clock size={16} />
-                                  {time}
-                                </span>
-                              ) : null}
-                              {location ? (
-                                <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', opacity: 0.9, color: 'hsl(var(--primary))', fontWeight: '800' }}>
-                                  <MapPin size={16} />
-                                  {location}
-                                </span>
-                              ) : null}
-                            </div>
-                          ) : null}
-                          <p style={{ fontSize: '0.95rem', color: 'hsl(var(--foreground) / 0.8)', lineHeight: 1.5 }}>
-                            {text}
-                          </p>
-                        </div>
-                      </div>
-                    );
-                  })}
-                </div>
-
-                {/* Route Map */}
-                <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))', marginTop: '2rem' }}>
-                  Route Map
-                </h3>
-                <div style={{ 
-                  backgroundColor: 'hsl(var(--primary) / 0.03)',
-                  border: '1px solid hsl(var(--primary) / 0.1)',
-                  padding: '1.5rem',
-                  borderRadius: '1.5rem'
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                <span style={{
+                  backgroundColor: 'hsl(var(--primary))',
+                  padding: '0.25rem 0.75rem',
+                  borderRadius: '999px',
+                  fontSize: '0.8rem',
+                  fontWeight: '700'
                 }}>
-                  {routeSvg ?? (
-                    <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7 }}>
-                      Route map will be shown when route coordinates are available for this tour.
-                    </p>
-                  )}
+                  {tour.duration}
+                </span>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.25rem', opacity: 0.9, fontSize: '0.9rem' }}>
+                  <MapPin size={14} /> Sri Lanka
                 </div>
               </div>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', lineHeight: 1.1 }}>
+                {tour.title}
+              </h2>
+            </div>
+          </div>
 
-              {/* Right Column: Inclusions & CTA */}
-              <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <div style={{ 
-                  backgroundColor: 'hsl(var(--primary) / 0.03)', 
-                  padding: '2rem', 
-                  borderRadius: '1.5rem',
-                  border: '1px solid hsl(var(--primary) / 0.1)',
-                  marginBottom: '2rem'
-                }}>
-                  <h3 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '1.25rem', color: 'hsl(var(--secondary))' }}>
-                    What's Included
-                  </h3>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
-                    {(tour.inclusions ?? []).map((item, idx) => (
-                      <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                        <CheckCircle2 size={18} style={{ color: 'hsl(var(--primary))' }} />
-                        <span style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground) / 0.7)' }}>{item}</span>
+          {/* Content Section */}
+          <div style={{
+            padding: '2.5rem',
+            overflowY: 'auto',
+            flex: 1,
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+            gap: '3rem'
+          }}>
+            {/* Left Column: Info & Itinerary */}
+            <div>
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1rem', color: 'hsl(var(--secondary))' }}>
+                Trip Highlights
+              </h3>
+              <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7, marginBottom: '2rem' }}>
+                {tour.description ?? 'Experience an unforgettable journey with our premium curated package.'}
+              </p>
+
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))' }}>
+                Itinerary
+              </h3>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+                {(tour.itinerary ?? []).map((step, idx) => {
+                  const isObject = typeof step === 'object' && step !== null;
+                  const time = isObject ? step.time : undefined;
+                  const location = isObject ? step.location : undefined;
+                  const text = isObject ? step.text : step;
+
+                  return (
+                    <div key={idx} style={{ display: 'flex', gap: '1rem' }}>
+                      <div style={{
+                        flexShrink: 0,
+                        width: '24px',
+                        height: '24px',
+                        borderRadius: '50%',
+                        backgroundColor: 'hsl(var(--primary) / 0.1)',
+                        color: 'hsl(var(--primary))',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '0.75rem',
+                        fontWeight: '800',
+                        marginTop: '0.2rem'
+                      }}>
+                        {idx + 1}
                       </div>
-                    ))}
-                  </div>
-                </div>
-
-                <div style={{ marginTop: 'auto' }}>
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.5rem' }}>
-                    <span style={{ fontSize: '0.9rem', opacity: 0.6 }}>Total Price</span>
-                    <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.2rem' }}>
-                      <span style={{ fontSize: '2rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>${tour.price}</span>
-                      <span style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground) / 0.4)' }}>/person</span>
+                      <div>
+                        {(time || location) ? (
+                          <div style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '0.45rem' }}>
+                            {time ? (
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', opacity: 0.9, color: 'hsl(var(--secondary))', fontWeight: '800' }}>
+                                <Clock size={16} />
+                                {time}
+                              </span>
+                            ) : null}
+                            {location ? (
+                              <span style={{ display: 'inline-flex', alignItems: 'center', gap: '0.4rem', opacity: 0.9, color: 'hsl(var(--primary))', fontWeight: '800' }}>
+                                <MapPin size={16} />
+                                {location}
+                              </span>
+                            ) : null}
+                          </div>
+                        ) : null}
+                        <p style={{ fontSize: '0.95rem', color: 'hsl(var(--foreground) / 0.8)', lineHeight: 1.5 }}>
+                          {text}
+                        </p>
+                      </div>
                     </div>
-                  </div>
-                  <motion.button
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    onClick={() => {
-                      onClose();
-                      navigate('/booking', { state: { tour } });
-                    }}
-                    className="btn btn-primary"
-                    style={{
-                      width: '100%',
-                      padding: '1.25rem',
-                      fontSize: '1.1rem',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      gap: '0.75rem',
-                      borderRadius: '1.25rem'
-                    }}
-                  >
-                    Confirm Booking <ShieldCheck size={20} />
-                  </motion.button>
-                </div>
+                  );
+                })}
+              </div>
+
+              {/* Route Map */}
+              <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))', marginTop: '2rem' }}>
+                Route Map
+              </h3>
+              <div style={{
+                backgroundColor: 'hsl(var(--primary) / 0.03)',
+                border: '1px solid hsl(var(--primary) / 0.1)',
+                padding: '1.5rem',
+                borderRadius: '1.5rem'
+              }}>
+                {routeSvg ?? (
+                  <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7 }}>
+                    Route map will be shown when route coordinates are available for this tour.
+                  </p>
+                )}
               </div>
             </div>
+
+            {/* Right Column: Inclusions & CTA */}
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <div style={{
+                backgroundColor: 'hsl(var(--primary) / 0.03)',
+                padding: '2rem',
+                borderRadius: '1.5rem',
+                border: '1px solid hsl(var(--primary) / 0.1)',
+                marginBottom: '2rem'
+              }}>
+                <h3 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '1.25rem', color: 'hsl(var(--secondary))' }}>
+                  What's Included
+                </h3>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
+                  {(tour.inclusions ?? []).map((item, idx) => (
+                    <div key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+                      <CheckCircle2 size={18} style={{ color: 'hsl(var(--primary))' }} />
+                      <span style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground) / 0.7)' }}>{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div style={{ marginTop: 'auto' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '1.5rem' }}>
+                  <span style={{ fontSize: '0.9rem', opacity: 0.6 }}>Total Price</span>
+                  <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.2rem' }}>
+                    <span style={{ fontSize: '2rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>${tour.price}</span>
+                    <span style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground) / 0.4)' }}>/person</span>
+                  </div>
+                </div>
+                <motion.button
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  onClick={() => {
+                    onClose();
+                    navigate('/booking', { state: { tour } });
+                  }}
+                  className="btn btn-primary"
+                  style={{
+                    width: '100%',
+                    padding: '1.25rem',
+                    fontSize: '1.1rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.75rem',
+                    borderRadius: '1.25rem'
+                  }}
+                >
+                  Confirm Booking <ShieldCheck size={20} />
+                </motion.button>
+              </div>
+            </div>
+          </div>
         </motion.div>
       </motion.div>
     </AnimatePresence>

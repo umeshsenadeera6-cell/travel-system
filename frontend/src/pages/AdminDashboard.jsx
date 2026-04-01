@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import API_URL from '../config';
-import { 
-  Users, 
-  Calendar, 
-  Phone, 
-  Mail, 
-  MapPin, 
-  Trash2, 
-  CheckCircle2, 
-  XCircle, 
-  Clock, 
-  Filter, 
-  Search, 
+import {
+  Users,
+  Calendar,
+  Phone,
+  Mail,
+  MapPin,
+  Trash2,
+  CheckCircle2,
+  XCircle,
+  Clock,
+  Filter,
+  Search,
   AlertCircle,
   TrendingUp,
   CreditCard
@@ -58,18 +58,10 @@ export default function AdminDashboard() {
 
   const filteredBookings = bookings.filter(booking => {
     const matchesFilter = filter === 'all' || booking.status === filter;
-    
-    // Safely perform search checks with null/undefined handling
-    const safeClientName = booking.clientName?.toLowerCase() ?? '';
-    const safeTourTitle = booking.tourTitle?.toLowerCase() ?? '';
-    const safeEmail = booking.email?.toLowerCase() ?? '';
-    const safeSearchTerm = searchTerm.toLowerCase();
-
-    const matchesSearch = 
-      safeClientName.includes(safeSearchTerm) ||
-      safeTourTitle.includes(safeSearchTerm) ||
-      safeEmail.includes(safeSearchTerm);
-
+    const matchesSearch =
+      booking.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.tourTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      booking.email.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -83,7 +75,7 @@ export default function AdminDashboard() {
   return (
     <div style={{ padding: '8rem 2rem', backgroundColor: 'hsl(var(--primary) / 0.02)', minHeight: '100vh' }}>
       <div className="container" style={{ maxWidth: '1400px' }}>
-        
+
         {/* Dashboard Header */}
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
           <div>
@@ -121,11 +113,11 @@ export default function AdminDashboard() {
                 border: `1px solid ${stat.color}15`
               }}
             >
-              <div style={{ 
-                width: '50px', 
-                height: '50px', 
-                borderRadius: '1rem', 
-                backgroundColor: `${stat.color}15`, 
+              <div style={{
+                width: '50px',
+                height: '50px',
+                borderRadius: '1rem',
+                backgroundColor: `${stat.color}15`,
                 color: stat.color,
                 display: 'flex',
                 alignItems: 'center',
@@ -142,10 +134,10 @@ export default function AdminDashboard() {
         </div>
 
         {/* Filters & Search */}
-        <div style={{ 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center', 
+        <div style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
           marginBottom: '2rem',
           backgroundColor: 'white',
           padding: '1.25rem 2rem',
@@ -176,9 +168,9 @@ export default function AdminDashboard() {
           </div>
           <div style={{ position: 'relative', width: '300px' }}>
             <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', opacity: 0.4 }} />
-            <input 
-              type="text" 
-              placeholder="Search bookings..." 
+            <input
+              type="text"
+              placeholder="Search bookings..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               style={{
@@ -246,7 +238,7 @@ export default function AdminDashboard() {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem', opacity: 0.7 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Calendar size={14} /> Preferred: {booking.bookingDate ? new Date(booking.bookingDate).toLocaleDateString() : 'N/A'}
+                        <Calendar size={14} /> Preferred: {new Date(booking.bookingDate).toLocaleDateString()}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <Users size={14} /> Guests: {booking.guests}
@@ -266,14 +258,14 @@ export default function AdminDashboard() {
 
                   {/* Actions */}
                   <div style={{ display: 'flex', gap: '0.75rem' }}>
-                    <button 
+                    <button
                       onClick={() => handleDelete(booking._id)}
-                      style={{ 
-                        width: '40px', 
-                        height: '40px', 
-                        borderRadius: '50%', 
-                        border: 'none', 
-                        backgroundColor: 'rgba(239, 68, 68, 0.1)', 
+                      style={{
+                        width: '40px',
+                        height: '40px',
+                        borderRadius: '50%',
+                        border: 'none',
+                        backgroundColor: 'rgba(239, 68, 68, 0.1)',
                         color: '#ef4444',
                         display: 'flex',
                         alignItems: 'center',
@@ -283,8 +275,8 @@ export default function AdminDashboard() {
                     >
                       <Trash2 size={18} />
                     </button>
-                    <button 
-                      style={{ 
+                    <button
+                      style={{
                         padding: '0 1.25rem',
                         height: '40px',
                         borderRadius: '999px',

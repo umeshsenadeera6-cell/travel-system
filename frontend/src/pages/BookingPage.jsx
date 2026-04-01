@@ -68,11 +68,11 @@ export default function BookingPage() {
 
   if (isSuccess) {
     return (
-      <div className="container" style={{ 
-        padding: '8rem 2rem', 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
+      <div className="container" style={{
+        padding: '8rem 2rem',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
         justifyContent: 'center',
         minHeight: '60vh'
       }}>
@@ -98,14 +98,14 @@ export default function BookingPage() {
   return (
     <div style={{ padding: '8rem 2rem', backgroundColor: 'hsl(var(--primary) / 0.02)' }}>
       <div className="container" style={{ maxWidth: '1000px' }}>
-        <button 
+        <button
           onClick={() => navigate(-1)}
-          style={{ 
-            display: 'flex', 
-            alignItems: 'center', 
-            gap: '0.5rem', 
-            background: 'none', 
-            border: 'none', 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            background: 'none',
+            border: 'none',
             color: 'hsl(var(--primary))',
             fontWeight: '700',
             cursor: 'pointer',
@@ -116,28 +116,28 @@ export default function BookingPage() {
         </button>
 
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: '3rem', alignItems: 'start' }}>
-          
+
           {/* Summary Sidebar */}
-          <div style={{ 
-            backgroundColor: 'white', 
-            padding: '2rem', 
-            borderRadius: '2rem', 
+          <div style={{
+            backgroundColor: 'white',
+            padding: '2rem',
+            borderRadius: '2rem',
             boxShadow: '0 15px 35px -10px rgba(0,0,0,0.05)',
             border: '1px solid hsl(var(--primary) / 0.1)'
           }}>
             <h3 style={{ fontSize: '1.25rem', fontWeight: '800', marginBottom: '1.5rem', color: 'hsl(var(--secondary))' }}>
               Booking Summary
             </h3>
-            <img 
-              src={tour.image ?? ''} 
-              alt={tour.title ?? 'Tour'} 
-              style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '1rem', marginBottom: '1.5rem' }} 
+            <img
+              src={tour.image}
+              alt={tour.title}
+              style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '1rem', marginBottom: '1.5rem' }}
             />
-            <h4 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '0.5rem' }}>{tour.title ?? 'Untitled Tour'}</h4>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '0.5rem' }}>{tour.title}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem', opacity: 0.7 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Price per person</span>
-                <span>${tour.price ?? 0}</span>
+                <span>${tour.price}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Number of guests</span>
@@ -146,18 +146,18 @@ export default function BookingPage() {
               <div style={{ borderTop: '1px dashed hsl(var(--border))', paddingTop: '0.75rem', marginTop: '0.25rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', fontWeight: '800', color: 'hsl(var(--primary))' }}>
                   <span>Total Amount</span>
-                  <span>${(tour.price ?? 0) * formData.guests}</span>
+                  <span>${tour.price * formData.guests}</span>
                 </div>
               </div>
             </div>
           </div>
 
           {/* Form Section */}
-          <div style={{ 
-            backgroundColor: 'white', 
-            padding: '3rem', 
-            borderRadius: '2rem', 
-            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)' 
+          <div style={{
+            backgroundColor: 'white',
+            padding: '3rem',
+            borderRadius: '2rem',
+            boxShadow: '0 25px 50px -12px rgba(0,0,0,0.08)'
           }}>
             <h2 style={{ fontSize: '2rem', fontWeight: '900', marginBottom: '0.5rem', color: 'hsl(var(--secondary))' }}>
               Confirm Your Trip
@@ -172,11 +172,11 @@ export default function BookingPage() {
                   <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
                     <User size={16} /> Full Name*
                   </label>
-                  <input 
-                    type="text" 
-                    name="clientName" 
-                    required 
-                    value={formData.clientName} 
+                  <input
+                    type="text"
+                    name="clientName"
+                    required
+                    value={formData.clientName}
                     onChange={handleChange}
                     placeholder="Enter your name"
                     className="form-control"
@@ -186,11 +186,11 @@ export default function BookingPage() {
                   <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
                     <Mail size={16} /> Email Address*
                   </label>
-                  <input 
-                    type="email" 
-                    name="email" 
-                    required 
-                    value={formData.email} 
+                  <input
+                    type="email"
+                    name="email"
+                    required
+                    value={formData.email}
                     onChange={handleChange}
                     placeholder="name@example.com"
                     className="form-control"
@@ -203,11 +203,11 @@ export default function BookingPage() {
                   <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
                     <Phone size={16} /> Phone Number*
                   </label>
-                  <input 
-                    type="tel" 
-                    name="phone" 
-                    required 
-                    value={formData.phone} 
+                  <input
+                    type="tel"
+                    name="phone"
+                    required
+                    value={formData.phone}
                     onChange={handleChange}
                     placeholder="+94 XX XXX XXXX"
                     className="form-control"
@@ -217,11 +217,11 @@ export default function BookingPage() {
                   <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
                     <Calendar size={16} /> Preferred Date*
                   </label>
-                  <input 
-                    type="date" 
-                    name="bookingDate" 
-                    required 
-                    value={formData.bookingDate} 
+                  <input
+                    type="date"
+                    name="bookingDate"
+                    required
+                    value={formData.bookingDate}
                     onChange={handleChange}
                     className="form-control"
                   />
@@ -232,12 +232,12 @@ export default function BookingPage() {
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
                   <Users size={16} /> Number of Guests*
                 </label>
-                <input 
-                  type="number" 
-                  name="guests" 
-                  min="1" 
-                  required 
-                  value={formData.guests} 
+                <input
+                  type="number"
+                  name="guests"
+                  min="1"
+                  required
+                  value={formData.guests}
                   onChange={handleChange}
                   className="form-control"
                 />
@@ -247,10 +247,10 @@ export default function BookingPage() {
                 <label style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.5rem', fontSize: '0.9rem', fontWeight: '700' }}>
                   <Info size={16} /> Special Requests
                 </label>
-                <textarea 
-                  name="specialRequests" 
-                  rows="4" 
-                  value={formData.specialRequests} 
+                <textarea
+                  name="specialRequests"
+                  rows="4"
+                  value={formData.specialRequests}
                   onChange={handleChange}
                   placeholder="Any dietary requirements, accessibility needs, or extra requests..."
                   className="form-control"
@@ -264,14 +264,14 @@ export default function BookingPage() {
                 </div>
               )}
 
-              <button 
-                type="submit" 
+              <button
+                type="submit"
                 disabled={isSubmitting}
                 className="btn btn-primary"
-                style={{ 
-                  width: '100%', 
-                  padding: '1.25rem', 
-                  fontSize: '1.1rem', 
+                style={{
+                  width: '100%',
+                  padding: '1.25rem',
+                  fontSize: '1.1rem',
                   marginTop: '1rem',
                   display: 'flex',
                   alignItems: 'center',
