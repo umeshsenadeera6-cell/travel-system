@@ -58,10 +58,18 @@ export default function AdminDashboard() {
 
   const filteredBookings = bookings.filter(booking => {
     const matchesFilter = filter === 'all' || booking.status === filter;
-    const matchesSearch =
-      booking.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.tourTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.email.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Safely perform search checks with null/undefined handling to prevent render crashes
+    const safeName = booking.clientName?.toLowerCase() ?? '';
+    const safeTitle = booking.tourTitle?.toLowerCase() ?? '';
+    const safeEmail = booking.email?.toLowerCase() ?? '';
+    const safeTerm = searchTerm.toLowerCase();
+
+    const matchesSearch = 
+      safeName.includes(safeTerm) ||
+      safeTitle.includes(safeTerm) ||
+      safeEmail.includes(safeTerm);
+
     return matchesFilter && matchesSearch;
   });
 
