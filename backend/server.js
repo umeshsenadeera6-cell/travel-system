@@ -108,8 +108,8 @@ app.delete('/api/bookings/:id', async (req, res) => {
 });
 
 // Catch-all route to serve the React app - MUST be after all API routes
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../public', 'index.html'));
+app.use((req, res) => {
+  res.sendFile(path.resolve(__dirname, '../public/index.html'));
 });
 
 app.listen(PORT, () => {
