@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Star, ArrowRight, DollarSign } from 'lucide-react';
 
-export default function PackageCard({ pkg, image }) {
+export default function PackageCard({ pkg, image, onViewDetails }) {
   return (
     <motion.div
       whileHover={{ y: -10 }}
@@ -16,8 +16,10 @@ export default function PackageCard({ pkg, image }) {
         display: 'flex',
         flexDirection: 'column',
         height: '100%',
-        position: 'relative'
+        position: 'relative',
+        cursor: onViewDetails ? 'pointer' : 'default'
       }}
+      onClick={onViewDetails}
     >
       {/* Image Container */}
       <div style={{ position: 'relative', height: '240px', overflow: 'hidden' }}>
@@ -104,6 +106,10 @@ export default function PackageCard({ pkg, image }) {
               cursor: 'pointer',
               transition: 'all 0.2s',
               color: 'hsl(var(--primary))'
+            }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onViewDetails?.();
             }}
           >
             <ArrowRight size={20} />
