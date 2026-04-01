@@ -272,6 +272,7 @@ export default function TourModal({ isOpen, onClose, tour }) {
                 </h3>
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
                   {(tour.itinerary ?? []).map((step, idx) => {
+                    if (!step) return null;
                     const isObject = typeof step === 'object' && step !== null;
                     const time = isObject ? step.time : undefined;
                     const location = isObject ? step.location : undefined;

@@ -1,6 +1,6 @@
 require('dotenv').config();
 const express = require('express');
-const mongoose = require('mongoose');
+const connectDB = require('./db');
 const cors = require('cors');
 const Package = require('./models/Package');
 const Booking = require('./models/Booking');
@@ -13,9 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 // Database Connection
-mongoose.connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch(err => console.error('Could not connect to MongoDB:', err));
+connectDB();
 
 // Routes
 

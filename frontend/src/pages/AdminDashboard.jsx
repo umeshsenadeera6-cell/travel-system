@@ -58,10 +58,18 @@ export default function AdminDashboard() {
 
   const filteredBookings = bookings.filter(booking => {
     const matchesFilter = filter === 'all' || booking.status === filter;
+    
+    // Safely perform search checks with null/undefined handling
+    const safeClientName = booking.clientName?.toLowerCase() ?? '';
+    const safeTourTitle = booking.tourTitle?.toLowerCase() ?? '';
+    const safeEmail = booking.email?.toLowerCase() ?? '';
+    const safeSearchTerm = searchTerm.toLowerCase();
+
     const matchesSearch = 
-      booking.clientName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.tourTitle.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      booking.email.toLowerCase().includes(searchTerm.toLowerCase());
+      safeClientName.includes(safeSearchTerm) ||
+      safeTourTitle.includes(safeSearchTerm) ||
+      safeEmail.includes(safeSearchTerm);
+
     return matchesFilter && matchesSearch;
   });
 
@@ -238,7 +246,7 @@ export default function AdminDashboard() {
                     </div>
                     <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem', fontSize: '0.85rem', opacity: 0.7 }}>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
-                        <Calendar size={14} /> Preferred: {new Date(booking.bookingDate).toLocaleDateString()}
+                        <Calendar size={14} /> Preferred: {booking.bookingDate ? new Date(booking.bookingDate).toLocaleDateString() : 'N/A'}
                       </div>
                       <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                         <Users size={14} /> Guests: {booking.guests}

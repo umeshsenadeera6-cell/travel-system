@@ -129,15 +129,15 @@ export default function BookingPage() {
               Booking Summary
             </h3>
             <img 
-              src={tour.image} 
-              alt={tour.title} 
+              src={tour.image ?? ''} 
+              alt={tour.title ?? 'Tour'} 
               style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '1rem', marginBottom: '1.5rem' }} 
             />
-            <h4 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '0.5rem' }}>{tour.title}</h4>
+            <h4 style={{ fontSize: '1.1rem', fontWeight: '800', marginBottom: '0.5rem' }}>{tour.title ?? 'Untitled Tour'}</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', fontSize: '0.9rem', opacity: 0.7 }}>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Price per person</span>
-                <span>${tour.price}</span>
+                <span>${tour.price ?? 0}</span>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between' }}>
                 <span>Number of guests</span>
@@ -146,7 +146,7 @@ export default function BookingPage() {
               <div style={{ borderTop: '1px dashed hsl(var(--border))', paddingTop: '0.75rem', marginTop: '0.25rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: '1.1rem', fontWeight: '800', color: 'hsl(var(--primary))' }}>
                   <span>Total Amount</span>
-                  <span>${tour.price * formData.guests}</span>
+                  <span>${(tour.price ?? 0) * formData.guests}</span>
                 </div>
               </div>
             </div>
