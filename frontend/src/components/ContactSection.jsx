@@ -13,10 +13,10 @@ const CONTACT_DATA = {
     accent: 'hsl(var(--primary))'
   },
   outbound: {
-    title: 'International Hub (Dubai)',
+    title: 'Serendib Travel & Tours',
     subtitle: 'Global coordination for the modern explorer.',
-    address: 'Level 12, Emirates Towers, Sheikh Zayed Road, Dubai, UAE',
-    phone: '+971 4 330 0000',
+    address: 'Serendib Group of Companies',
+    phone: '+94 11 234 5678',
     email: 'outbound@serendibtravel.com',
     hours: 'Sun - Thu: 9:00 AM - 6:00 PM',
     accent: 'hsl(var(--accent))'
@@ -28,8 +28,8 @@ export default function ContactSection({ type = 'inbound' }) {
 
   return (
     <section style={{ marginTop: '6rem', marginBottom: '4rem' }}>
-      <div 
-        style={{ 
+      <div
+        style={{
           padding: '4rem',
           borderRadius: '2.5rem',
           background: 'linear-gradient(135deg, hsl(var(--secondary) / 0.03) 0%, hsl(var(--primary) / 0.05) 100%)',
@@ -61,7 +61,7 @@ export default function ContactSection({ type = 'inbound' }) {
               {data.subtitle} Our dedicated {type} team is ready to help you plan your perfect journey.
             </p>
 
-            <motion.div 
+            <motion.div
               whileHover={{ x: 10 }}
               style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', color: data.accent, fontWeight: '800', cursor: 'pointer' }}
             >
