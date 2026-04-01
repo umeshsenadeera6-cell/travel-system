@@ -46,16 +46,16 @@ runCommand('npm run build', path.join(process.cwd(), 'frontend'));
 
 // 3. Staging build artifacts
 console.log('\n📂 Staging build artifacts...');
-const rootDist = path.join(process.cwd(), 'dist');
+const rootPublic = path.join(process.cwd(), 'public');
 const frontendDist = path.join(process.cwd(), 'frontend', 'dist');
 
-if (fs.existsSync(rootDist)) {
-  console.log('🧹 Cleaning old root dist directory...');
-  fs.rmSync(rootDist, { recursive: true, force: true });
+if (fs.existsSync(rootPublic)) {
+  console.log('🧹 Cleaning old root public directory...');
+  fs.rmSync(rootPublic, { recursive: true, force: true });
 }
 
-console.log(`📁 Copying from ${frontendDist} to ${rootDist}...`);
-copyRecursiveSync(frontendDist, rootDist);
+console.log(`📁 Copying from ${frontendDist} to ${rootPublic}...`);
+copyRecursiveSync(frontendDist, rootPublic);
 
-console.log('\n✅ Build complete! Artifacts are staged in the root /dist directory.');
+console.log('\n✅ Build complete! Artifacts are staged in the root /public directory.');
 console.log('🔗 You can now push your changes to trigger a Vercel deployment.');

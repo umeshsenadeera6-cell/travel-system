@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "install:all": "npm install --prefix frontend && npm install --prefix backend",
-    "build": "node scripts/build.js",
+    "build": "node scripts/build.js && echo 'Build complete'",
     "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
     "start": "npm start --prefix backend",
     "frontend": "npm run dev --prefix frontend",
