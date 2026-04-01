@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
-const dns = require('dns');
+
 
 // Force using Google's DNS to resolve SRV records if the local DNS is failing (NXDOMAIN)
-dns.setServers(['8.8.8.8']);
+
 
 const connectDB = async () => {
   try {
@@ -10,7 +10,7 @@ const connectDB = async () => {
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
-    process.exit(1);
+    // No longer exiting process so server can stay alive for health checks/debugging
   }
 };
 
