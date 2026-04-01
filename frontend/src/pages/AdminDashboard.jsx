@@ -45,13 +45,17 @@ export default function AdminDashboard() {
         fetch(`${API_URL}/packages`)
       ]);
       
+      if (!bookingsRes.ok) throw new Error('Failed to fetch bookings');
+      if (!packagesRes.ok) throw new Error('Failed to fetch packages');
+      
       const bookingsData = await bookingsRes.json();
       const packagesData = await packagesRes.json();
       
-      setBookings(bookingsData);
-      setPackages(packagesData);
+      if (Array.isArray(bookingsData)) setBookings(bookingsData);
+      if (Array.isArray(packagesData)) setPackages(packagesData);
     } catch (err) {
       setError(err.message);
+      console.error(err);
     } finally {
       setIsLoading(false);
     }
