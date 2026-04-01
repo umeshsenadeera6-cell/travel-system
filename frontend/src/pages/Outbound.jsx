@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PackageCard from '../components/PackageCard';
 import TourModal from '../components/TourModal';
 import { OUTBOUND_PACKAGES } from '../data/tours';
+import ContactSection from '../components/ContactSection';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -66,6 +67,8 @@ export default function Outbound() {
               </motion.div>
             ))}
           </motion.div>
+          
+          <ContactSection type="outbound" />
         </motion.section>
       </div>
       
