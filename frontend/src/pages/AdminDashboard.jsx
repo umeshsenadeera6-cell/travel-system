@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import API_URL from '../config';
 import { 
   Users, 
   Calendar, 
@@ -31,7 +32,7 @@ export default function AdminDashboard() {
   const fetchBookings = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5001/api/bookings');
+      const response = await fetch(`${API_URL}/bookings`);
       if (!response.ok) throw new Error('Failed to fetch bookings');
       const data = await response.json();
       setBookings(data);
@@ -45,7 +46,7 @@ export default function AdminDashboard() {
   const handleDelete = async (id) => {
     if (!window.confirm('Are you sure you want to delete this booking?')) return;
     try {
-      const response = await fetch(`http://localhost:5001/api/bookings/${id}`, {
+      const response = await fetch(`${API_URL}/bookings/${id}`, {
         method: 'DELETE'
       });
       if (!response.ok) throw new Error('Failed to delete booking');
