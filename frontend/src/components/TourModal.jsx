@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Clock, MapPin, CheckCircle2, ShieldCheck, ChevronRight } from 'lucide-react';
+import MapComponent from './MapComponent';
 
 export default function TourModal({ isOpen, onClose, tour }) {
   const navigate = useNavigate();
@@ -13,122 +14,6 @@ export default function TourModal({ isOpen, onClose, tour }) {
   const rawPath = tour.route?.path ?? stops.map((s) => ({ lat: s.lat, lng: s.lng }));
 
   const hasRoute = Array.isArray(stops) && stops.length > 0 && Array.isArray(rawPath) && rawPath.length > 0;
-
-  // Project lat/lng into a simple 2D box (schematic route map).
-  const project = (point, bounds, width, height, padding) => {
-    const { minLat, maxLat, minLng, maxLng } = bounds;
-    const latRange = Math.max(1e-6, maxLat - minLat);
-    const lngRange = Math.max(1e-6, maxLng - minLng);
-    const x = ((point.lng - minLng) / lngRange) * (width - padding * 2) + padding;
-    const y = ((maxLat - point.lat) / latRange) * (height - padding * 2) + padding;
-    return { x, y };
-  };
-
-  let routeSvg = null;
-  if (hasRoute) {
-    const width = 560;
-    const height = 220;
-    const padding = 22;
-
-    const lats = rawPath.map((p) => p.lat).filter((v) => typeof v === 'number');
-    const lngs = rawPath.map((p) => p.lng).filter((v) => typeof v === 'number');
-    if (lats.length === 0 || lngs.length === 0) {
-      routeSvg = null;
-    } else {
-      const bounds = {
-        minLat: Math.min(...lats),
-        maxLat: Math.max(...lats),
-        minLng: Math.min(...lngs),
-        maxLng: Math.max(...lngs),
-      };
-
-      const projectedPath = rawPath.map((p) => project(p, bounds, width, height, padding));
-      const d = projectedPath
-        .map((p, idx) => `${idx === 0 ? 'M' : 'L'}${p.x},${p.y}`)
-        .join(' ');
-
-      routeSvg = (
-        <div style={{ width: '100%' }}>
-          <svg viewBox={`0 0 ${width} ${height}`} width="100%" height="220" role="img" aria-label="Route map">
-            <defs>
-              <linearGradient id="routeStroke" x1="0" y1="0" x2="1" y2="1">
-                <stop offset="0%" stopColor="hsl(var(--primary))" stopOpacity="0.95" />
-                <stop offset="100%" stopColor="hsl(var(--accent))" stopOpacity="0.95" />
-              </linearGradient>
-            </defs>
-
-            <motion.path
-              d={d}
-              fill="none"
-              stroke="url(#routeStroke)"
-              strokeWidth="3"
-              strokeLinecap="round"
-              pathLength={1}
-              initial={{ strokeDashoffset: 1 }}
-              animate={{ strokeDashoffset: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              style={{ strokeDasharray: 1 }}
-            />
-
-            {stops.map((s, idx) => {
-              const { x, y } = project({ lat: s.lat, lng: s.lng }, bounds, width, height, padding);
-              return (
-                <g key={`${s.label ?? idx}-${idx}`}>
-                  <circle cx={x} cy={y} r={7} fill="white" stroke="hsl(var(--primary))" strokeWidth={3} />
-                  <motion.circle
-                    cx={x}
-                    cy={y}
-                    r={10}
-                    fill="hsl(var(--primary) / 0.08)"
-                    initial={{ opacity: 0, scale: 0.6 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: idx * 0.08, duration: 0.3 }}
-                  />
-                  {s.label ? (
-                    <text
-                      x={x + 10}
-                      y={y - 10}
-                      fontSize="12"
-                      fill="hsl(var(--foreground))"
-                      opacity={0.75}
-                    >
-                      {s.label}
-                    </text>
-                  ) : null}
-                </g>
-              );
-            })}
-          </svg>
-
-          <div style={{ marginTop: '1rem', display: 'flex', flexDirection: 'column', gap: '0.6rem' }}>
-            {stops.map((s, idx) => (
-              <div key={`${s.label ?? idx}-${idx}`} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-                <div
-                  style={{
-                    width: '24px',
-                    height: '24px',
-                    borderRadius: '50%',
-                    backgroundColor: 'hsl(var(--primary) / 0.1)',
-                    color: 'hsl(var(--primary))',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontWeight: '800',
-                    fontSize: '0.75rem',
-                  }}
-                >
-                  {idx + 1}
-                </div>
-                <div style={{ fontSize: '0.95rem', color: 'hsl(var(--foreground) / 0.75)' }}>
-                  {s.label ?? `Stop ${idx + 1}`}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      );
-    }
-  }
 
   return (
     <AnimatePresence>
@@ -385,15 +270,19 @@ export default function TourModal({ isOpen, onClose, tour }) {
                 Route Map
               </h3>
               <div style={{
+                borderRadius: '1.5rem',
+                overflow: 'hidden',
                 backgroundColor: 'hsl(var(--primary) / 0.03)',
-                border: '1px solid hsl(var(--primary) / 0.1)',
-                padding: '1.5rem',
-                borderRadius: '1.5rem'
+                border: '1px solid hsl(var(--primary) / 0.1)'
               }}>
-                {routeSvg ?? (
-                  <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7 }}>
-                    Route map will be shown when route coordinates are available for this tour.
-                  </p>
+                {hasRoute ? (
+                  <MapComponent stops={stops} path={rawPath} />
+                ) : (
+                  <div style={{ padding: '2rem', textAlign: 'center' }}>
+                    <p style={{ color: 'hsl(var(--foreground) / 0.7)', lineHeight: 1.7 }}>
+                      Route map will be shown when route coordinates are available for this tour.
+                    </p>
+                  </div>
                 )}
               </div>
             </div>
