@@ -1,30 +1,30 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock, ArrowRight } from 'lucide-react';
+import { TRANSLATIONS } from '../data/translations';
 
 const CONTACT_DATA = {
   inbound: {
-    title: 'Sri Lanka Support Office',
-    subtitle: 'Local expertise for your island adventure.',
+    titleKey: 'contactTitle',
+    subtitleKey: 'contactSubtitle',
     address: 'No 45, Galle Road, Colombo 03, Sri Lanka',
     phone: '+94 11 234 5678',
     email: 'inbound@serendibtravel.com',
-    hours: 'Mon - Sat: 9:00 AM - 6:00 PM',
     accent: 'hsl(var(--primary))'
   },
   outbound: {
-    title: 'Serendib Travel & Tours',
-    subtitle: 'Global coordination for the modern explorer.',
+    titleKey: 'contactTitle',
+    subtitleKey: 'contactSubtitle',
     address: 'Serendib Group of Companies',
     phone: '+94 11 234 5678',
     email: 'outbound@serendibtravel.com',
-    hours: 'Sun - Thu: 9:00 AM - 6:00 PM',
     accent: 'hsl(var(--accent))'
   }
 };
 
-export default function ContactSection({ type = 'inbound' }) {
-  const data = CONTACT_DATA[type] || CONTACT_DATA.inbound;
+export default function ContactSection({ type = 'inbound', lang = 'en' }) {
+  const source = CONTACT_DATA[type] || CONTACT_DATA.inbound;
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   return (
     <section style={{ marginTop: '6rem', marginBottom: '4rem' }}>
@@ -45,7 +45,7 @@ export default function ContactSection({ type = 'inbound' }) {
           right: '-100px',
           width: '400px',
           height: '400px',
-          backgroundColor: data.accent,
+          backgroundColor: source.accent,
           opacity: 0.03,
           borderRadius: '50%',
           filter: 'blur(80px)',
@@ -55,17 +55,17 @@ export default function ContactSection({ type = 'inbound' }) {
         <div style={{ position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '4rem', alignItems: 'center' }}>
           {/* Text Content */}
           <div>
-            <p className="section-label" style={{ color: data.accent }}>NEED ASSISTANCE?</p>
-            <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '1rem' }}>{data.title}</h2>
+            <p className="section-label" style={{ color: source.accent }}>{t.contactLabel}</p>
+            <h2 style={{ fontSize: '2.5rem', fontWeight: '900', marginBottom: '1rem' }}>{t[source.titleKey]}</h2>
             <p style={{ fontSize: '1.1rem', opacity: 0.7, marginBottom: '2.5rem', maxWidth: '450px' }}>
-              {data.subtitle} Our dedicated {type} team is ready to help you plan your perfect journey.
+              {t[source.subtitleKey]} {t.contactTeam}
             </p>
 
             <motion.div
               whileHover={{ x: 10 }}
-              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', color: data.accent, fontWeight: '800', cursor: 'pointer' }}
+              style={{ display: 'inline-flex', alignItems: 'center', gap: '0.75rem', color: source.accent, fontWeight: '800', cursor: 'pointer' }}
             >
-              Get a Personalized Quote <ArrowRight size={20} />
+              {t.contactCTA} <ArrowRight size={20} />
             </motion.div>
           </div>
 
@@ -80,10 +80,10 @@ export default function ContactSection({ type = 'inbound' }) {
             flexDirection: 'column',
             gap: '1.5rem'
           }}>
-            <DetailItem icon={<MapPin size={20} color={data.accent} />} label="Address" value={data.address} />
-            <DetailItem icon={<Phone size={20} color={data.accent} />} label="Hotline" value={data.phone} />
-            <DetailItem icon={<Mail size={20} color={data.accent} />} label="Email" value={data.email} />
-            <DetailItem icon={<Clock size={20} color={data.accent} />} label="Office Hours" value={data.hours} />
+            <DetailItem icon={<MapPin size={20} color={source.accent} />} label={t.contactAddress} value={source.address} />
+            <DetailItem icon={<Phone size={20} color={source.accent} />} label={t.contactHotline} value={source.phone} />
+            <DetailItem icon={<Mail size={20} color={source.accent} />} label={t.contactEmail} value={source.email} />
+            <DetailItem icon={<Clock size={20} color={source.accent} />} label={t.contactHours} value={t.officeHoursDays} />
           </div>
         </div>
       </div>

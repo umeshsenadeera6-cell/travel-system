@@ -5,6 +5,7 @@ import TourModal from '../components/TourModal';
 import { INBOUND_PACKAGES } from '../data/tours';
 import ContactSection from '../components/ContactSection';
 import LanguagePicker from '../components/LanguagePicker';
+import { TRANSLATIONS } from '../data/translations';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -46,6 +47,8 @@ export default function Inbound() {
     window.scrollTo(0, 0);
   }, []);
 
+  const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS.en;
+
   return (
     <main style={{ minHeight: '100vh', padding: '160px 0 100px 0' }}>
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
@@ -57,10 +60,10 @@ export default function Inbound() {
           <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '4rem' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
               <div>
-                <p className="section-label">SRI LANKA'S HIDDEN GEMS</p>
-                <h2 className="section-title" style={{ marginBottom: '0.25rem' }}>Inbound Tours</h2>
+                <p className="section-label">{t.inboundLabel}</p>
+                <h2 className="section-title" style={{ marginBottom: '0.25rem' }}>{t.inboundTitle}</h2>
                 <p style={{ maxWidth: '600px', opacity: 0.6, fontSize: '1.1rem' }}>
-                  Explore the untouched beauty of the pearl of the Indian Ocean. From ancient cities to golden beaches.
+                  {t.inboundDesc}
                 </p>
               </div>
               <div style={{ alignSelf: 'flex-start', marginTop: '2.5rem' }}>
@@ -77,7 +80,7 @@ export default function Inbound() {
             ))}
           </motion.div>
           
-          <ContactSection type="inbound" />
+          <ContactSection type="inbound" lang={selectedLanguage} />
         </motion.section>
       </div>
       

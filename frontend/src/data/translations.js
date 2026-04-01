@@ -1,0 +1,62 @@
+export const TRANSLATIONS = {
+  en: {
+    inboundLabel: "SRI LANKA'S HIDDEN GEMS",
+    inboundTitle: "Inbound Tours",
+    inboundDesc: "Explore the untouched beauty of the pearl of the Indian Ocean. From ancient cities to golden beaches.",
+    contactTitle: "Sri Lanka Support Office",
+    contactSubtitle: "Local expertise for your island adventure.",
+    contactLabel: "NEED ASSISTANCE?",
+    contactAddress: "Address",
+    contactHotline: "Hotline",
+    contactEmail: "Email",
+    contactHours: "Office Hours",
+    contactCTA: "Get a Personalized Quote",
+    contactTeam: "Our dedicated team is ready to help you plan your perfect journey.",
+    officeHoursDays: "Mon - Sat: 9:00 AM - 6:00 PM"
+  },
+  de: {
+    inboundLabel: "SRI LANKAS VERBORGENE SCHÄTZE",
+    inboundTitle: "Inbound-Touren",
+    inboundDesc: "Entdecken Sie die unberührte Schönheit der Perle des Indischen Ozeans. Von antiken Städten bis zu goldenen Stränden.",
+    contactTitle: "Support-Büro Sri Lanka",
+    contactSubtitle: "Lokale Expertise für Ihr Inselabenteuer.",
+    contactLabel: "BRAUCHEN SIE HILFE?",
+    contactAddress: "Adresse",
+    contactHotline: "Hotline",
+    contactEmail: "E-Mail",
+    contactHours: "Bürozeiten",
+    contactCTA: "Holen Sie sich ein persönliches Angebot",
+    contactTeam: "Unser engagiertes Team ist bereit, Ihnen bei der Planung Ihrer perfekten Reise zu helfen.",
+    officeHoursDays: "Mo - Sa: 9:00 - 18:00 Uhr"
+  },
+  fr: {
+    inboundLabel: "LES TRÉSORS CACHÉS DU SRI LANKA",
+    inboundTitle: "Tours Entrants",
+    inboundDesc: "Explorez la beauté intacte de la perle de l'océan Indien. Des cités anciennes aux plages dorées.",
+    contactTitle: "Bureau d'assistance au Sri Lanka",
+    contactSubtitle: "Expertise locale pour votre aventure sur l'île.",
+    contactLabel: "BESOIN D'AIDE ?",
+    contactAddress: "Adresse",
+    contactHotline: "Ligne directe",
+    contactEmail: "E-mail",
+    contactHours: "Heures d'ouverture",
+    contactCTA: "Obtenez un devis personnalisé",
+    contactTeam: "Notre équipe dévouée est prête à vous aider à planifier votre voyage parfait.",
+    officeHoursDays: "Lun - Sam : 09h00 - 18h00"
+  },
+  zh: {
+    inboundLabel: "斯里兰卡隐藏的瑰宝",
+    inboundTitle: "入境旅游",
+    inboundDesc: "探索印度洋明珠未经雕琢的美丽。从古老的城市到金色的海滩。",
+    contactTitle: "斯里兰卡支持办公室",
+    contactSubtitle: "为您的海岛探险提供当地专业知识。",
+    contactLabel: "需要帮助吗？",
+    contactAddress: "地址",
+    contactHotline: "热线",
+    contactEmail: "电子邮件",
+    contactHours: "办公时间",
+    contactCTA: "获取个性化报价",
+    contactTeam: "我们的专业团队随时准备帮助您规划完美的旅程。",
+    officeHoursDays: "周一至周六：上午9:00 - 下午6:00"
+  }
+};
