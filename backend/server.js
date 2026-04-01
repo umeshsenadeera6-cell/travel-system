@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Package = require('./models/Package');
+const Booking = require('./models/Booking');
 
 const app = express();
 const PORT = process.env.PORT || 5001;
@@ -67,6 +68,39 @@ app.delete('/api/packages/:id', async (req, res) => {
     const deletedPkg = await Package.findByIdAndDelete(req.params.id);
     if (!deletedPkg) return res.status(404).json({ message: 'Package not found' });
     res.json({ message: 'Package deleted successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+// BOOKING ROUTES
+
+// GET all bookings (Admin)
+app.get('/api/bookings', async (req, res) => {
+  try {
+    const bookings = await Booking.find().sort({ submittedAt: -1 });
+    res.json(bookings);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// POST new booking
+app.post('/api/bookings', async (req, res) => {
+  const booking = new Booking(req.body);
+  try {
+    const savedBooking = await booking.save();
+    res.status(201).json(savedBooking);
+  } catch (err) {
+    res.status(400).json({ message: err.message });
+  }
+});
+
+// DELETE booking
+app.delete('/api/bookings/:id', async (req, res) => {
+  try {
+    const deletedBooking = await Booking.findByIdAndDelete(req.params.id);
+    if (!deletedBooking) return res.status(404).json({ message: 'Booking not found' });
+    res.json({ message: 'Booking deleted successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X, Clock, MapPin, CheckCircle2, ShieldCheck } from 'lucide-react';
 
 export default function TourModal({ isOpen, onClose, tour }) {
+  const navigate = useNavigate();
   if (!isOpen || !tour) return null;
 
   const stops = tour.route?.stops ?? [];
@@ -370,6 +372,10 @@ export default function TourModal({ isOpen, onClose, tour }) {
                   <motion.button
                     whileHover={{ scale: 1.02 }}
                     whileTap={{ scale: 0.98 }}
+                    onClick={() => {
+                      onClose();
+                      navigate('/booking', { state: { tour } });
+                    }}
                     className="btn btn-primary"
                     style={{
                       width: '100%',

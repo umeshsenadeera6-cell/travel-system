@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import Inbound from "./pages/Inbound";
 import Outbound from "./pages/Outbound";
+import BookingPage from "./pages/BookingPage";
+import AdminDashboard from "./pages/AdminDashboard";
 
 export default function App() {
   return (
@@ -28,6 +30,8 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/inbound" element={<Inbound />} />
             <Route path="/outbound" element={<Outbound />} />
+            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/admin" element={<AdminDashboard />} />
           </Routes>
         </div>
 
