@@ -126,9 +126,11 @@ export default function BookingPage() {
           className="main-booking-grid"
           style={{ 
             display: 'grid', 
-            gridTemplateColumns: tour ? '1fr 1.6fr' : '1fr', 
-            gap: '4rem', 
-            alignItems: 'start' 
+            gridTemplateColumns: '1fr', 
+            gap: '3rem', 
+            alignItems: 'start',
+            maxWidth: '800px',
+            margin: '0 auto'
           }}
         >
 
@@ -142,9 +144,7 @@ export default function BookingPage() {
               padding: '2.5rem',
               borderRadius: '2.5rem',
               boxShadow: '0 20px 40px -15px rgba(0,0,0,0.06)',
-              border: '1px solid hsl(var(--primary) / 0.08)',
-              position: 'sticky',
-              top: '120px'
+              border: '1px solid hsl(var(--primary) / 0.08)'
             }}
           >
             <div style={{
