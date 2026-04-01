@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion';
 import { MapPin, Star, ArrowRight } from 'lucide-react';
 import { TRANSLATIONS } from '../data/translations';
 

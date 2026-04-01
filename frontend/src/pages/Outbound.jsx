@@ -4,6 +4,8 @@ import PackageCard from '../components/PackageCard';
 import TourModal from '../components/TourModal';
 import { OUTBOUND_PACKAGES } from '../data/tours';
 import ContactSection from '../components/ContactSection';
+import LanguagePicker from '../components/LanguagePicker';
+import { TRANSLATIONS } from '../data/translations';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -28,6 +30,7 @@ const staggerContainer = {
 export default function Outbound() {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const openTour = (tour) => {
     setSelectedTour(tour);
@@ -44,6 +47,8 @@ export default function Outbound() {
     window.scrollTo(0, 0);
   }, []);
 
+  const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS.en;
+
   return (
     <main style={{ minHeight: '100vh', padding: '160px 0 100px 0' }}>
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
@@ -53,26 +58,33 @@ export default function Outbound() {
           variants={fadeInUp}
         >
           <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '4rem' }}>
-            <p className="section-label" style={{ color: 'hsl(var(--accent))' }}>GLOBAL ESCAPES</p>
-            <h2 className="section-title">Outbound Tours</h2>
-            <p style={{ maxWidth: '600px', opacity: 0.6, fontSize: '1.1rem' }}>
-              Experience the world with our premium international packages. Curated journeys for the global explorer.
-            </p>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+              <div>
+                <p className="section-label" style={{ color: 'hsl(var(--accent))' }}>{t.outboundLabel}</p>
+                <h2 className="section-title" style={{ marginBottom: '0.25rem' }}>{t.outboundTitle}</h2>
+                <p style={{ maxWidth: '600px', opacity: 0.6, fontSize: '1.1rem' }}>
+                  {t.outboundDesc}
+                </p>
+              </div>
+              <div style={{ alignSelf: 'flex-start', marginTop: '2.5rem' }}>
+                <LanguagePicker currentLang={selectedLanguage} onSelect={setSelectedLanguage} />
+              </div>
+            </div>
           </div>
 
           <motion.div variants={staggerContainer} className="grid-layout">
             {OUTBOUND_PACKAGES.map(p => (
               <motion.div variants={fadeInUp} key={p.id}>
-                <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} />
+                <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
               </motion.div>
             ))}
           </motion.div>
           
-          <ContactSection type="outbound" />
+          <ContactSection type="outbound" lang={selectedLanguage} />
         </motion.section>
       </div>
       
-      <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} />
+      <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} lang={selectedLanguage} />
     </main>
   );
 }

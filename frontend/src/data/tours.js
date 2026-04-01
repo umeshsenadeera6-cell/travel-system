@@ -319,6 +319,44 @@ export const OUTBOUND_PACKAGES = [
         ]
       }
     ],
+    localizations: {
+      de: {
+        title: "Paris Romantik",
+        description: "Klassische Pariser Highlights mit kuratierten Stadterlebnissen, ikonischen Wahrzeichen und Cafékultur.",
+        itinerary: [
+          { day: "Tag 1", activities: [{ time: "Ankunft", location: "Paris", text: "Ankunft und entspannter Spaziergang an der Seine." }] },
+          { day: "Tag 2", activities: [{ time: "Vormittag", location: "Eiffelturm", text: "Eiffelturm-Aussichten und Spaziergang entlang der Champs-Élysées." }] },
+          { day: "Tag 3", activities: [{ time: "Ganzjährig", location: "Louvre", text: "Louvre-Tag mit kuratierten Highlights." }] },
+          { day: "Tag 4", activities: [{ time: "Nachmittag", location: "Montmartre", text: "Montmartre-Charme und Abendatmosphäre." }] },
+          { day: "Tag 5", activities: [{ time: "Abreise", location: "Flughafen", text: "Frühstück und Transfer zum Flughafen." }] }
+        ],
+        inclusions: ["Hotelaufenthalt", "Flughafentransfer", "Stadtführung", "Eintrittskarten"]
+      },
+      fr: {
+        title: "Romance à Paris",
+        description: "Les classiques de Paris avec des expériences urbaines choisies, des monuments emblématiques et la culture des cafés.",
+        itinerary: [
+          { day: "Jour 1", activities: [{ time: "Arrivée", location: "Paris", text: "Arrivée et promenade relaxante sur la Seine." }] },
+          { day: "Jour 2", activities: [{ time: "Matin", location: "Tour Eiffel", text: "Vues sur la Tour Eiffel et promenade sur les Champs-Élysées." }] },
+          { day: "Jour 3", activities: [{ time: "Journée", location: "Musée du Louvre", text: "Journée au Louvre avec des points forts sélectionnés." }] },
+          { day: "Jour 4", activities: [{ time: "Après-midi", location: "Montmartre", text: "Charme de Montmartre et atmosphère de soirée." }] },
+          { day: "Jour 5", activities: [{ time: "Départ", location: "Aéroport", text: "Petit-déjeuner et transferts vers l'aéroport." }] }
+        ],
+        inclusions: ["Séjour à l'hôtel", "Transferts aéroport", "Visite de la ville", "Billets sélectionnés"]
+      },
+      zh: {
+        title: "巴黎浪漫之旅",
+        description: "经典的巴黎亮点，精心策划的城市体验，标志性地标和咖啡馆文化。",
+        itinerary: [
+          { day: "第 1 天", activities: [{ time: "抵达", location: "巴黎", text: "抵达并进行悠闲的塞纳河散步。" }] },
+          { day: "第 2 天", activities: [{ time: "上午", location: "埃菲尔铁塔", text: "欣赏埃菲尔铁塔美景并沿着香榭丽舍大街漫步。" }] },
+          { day: "第 3 天", activities: [{ time: "全天", location: "卢浮宫", text: "卢浮宫博物馆日，参观精心挑选的内容。" }] },
+          { day: "第 4 天", activities: [{ time: "下午", location: "蒙马特", text: "蒙马特魅力、观景点和晚间咖啡馆氛围。" }] },
+          { day: "第 5 天", activities: [{ time: "离境", location: "机场", text: "最后的早餐和机场送机。" }] }
+        ],
+        inclusions: ["酒店住宿", "机场接送", "城市游览", "部分门票"]
+      }
+    },
     route: {
       stops: [
         { label: "Paris Center", lat: 48.8566, lng: 2.3522 },
@@ -372,8 +410,46 @@ export const OUTBOUND_PACKAGES = [
         activities: [
           { time: "Evening", location: "Tokyo", text: "Free exploration time with optional suggestions." }
         ]
+      },
+      {
+        day: "Day 6",
+        activities: [
+          { time: "Departure", location: "Airport", text: "Departure transfers and last-minute shopping." }
+        ]
       }
     ],
+    localizations: {
+      de: {
+        title: "Tokio Neonnächte",
+        description: "Eine moderne Reise nach Tokio, die Neonstraßen, ruhige Schreine und unvergessliche Food-Spots mischt.",
+        itinerary: [
+          { day: "Tag 1", activities: [{ time: "Ankunft", location: "Shibuya", text: "Shibuya & Shinjuku Neinstraßen." }] },
+          { day: "Tag 2", activities: [{ time: "Vormittag", location: "Asakusa", text: "Asakusa Tempel + Skytree Bereich." }] },
+          { day: "Tag 6", activities: [{ time: "Abreise", location: "Flughafen", text: "Transfer zum Flughafen." }] }
+        ],
+        inclusions: ["5 Nächte Unterkunft", "Privater Guide", "Metro-Pass", "Eintrittsgelder"]
+      },
+      fr: {
+        title: "Nuits de Néon à Tokyo",
+        description: "Un voyage moderne à Tokyo mêlant rues de néon, sanctuaires calmes et lieux de restauration inoubliables.",
+        itinerary: [
+          { day: "Jour 1", activities: [{ time: "Arrivée", location: "Shibuya", text: "Rues de néon de Shibuya et Shinjuku." }] },
+          { day: "Jour 2", activities: [{ time: "Matin", location: "Asakusa", text: "Temples d'Asakusa + zone Skytree." }] },
+          { day: "Jour 6", activities: [{ time: "Départ", location: "Aéroport", text: "Transferts de départ." }] }
+        ],
+        inclusions: ["5 nuits d'hébergement", "Guide privé", "Pass métro", "Frais d'entrée"]
+      },
+      zh: {
+        title: "东京霓虹之夜",
+        description: "现代东京之旅，融合了霓虹灯街道、宁静的神社和令人难忘的美食点。",
+        itinerary: [
+          { day: "第 1 天", activities: [{ time: "抵达", location: "涩谷", text: "涩谷和新宿的霓虹街道。" }] },
+          { day: "第 2 天", activities: [{ time: "上午", location: "浅草", text: "浅草寺 + 晴空塔区域。" }] },
+          { day: "第 6 天", activities: [{ time: "离境", location: "机场", text: "送机并进行最后的购物。" }] }
+        ],
+        inclusions: ["5 晚住宿", "私人导游", "地铁通行证", "入场费"]
+      }
+    },
     route: {
       stops: [
         { label: "Tokyo", lat: 35.6762, lng: 139.6503 },
