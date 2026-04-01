@@ -16,11 +16,10 @@ app.use(express.json());
 // Database Connection
 connectDB();
 
-// Routes
-app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to Serendib Travel API', status: 'available' });
-});
+// Serving static files from the root /public directory (where frontend is built)
+app.use(express.static(path.join(__dirname, '../public')));
 
+// API Routes
 // GET all packages
 app.get('/api/packages', async (req, res) => {
   try {
@@ -106,6 +105,11 @@ app.delete('/api/bookings/:id', async (req, res) => {
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
+});
+
+// Catch-all route to serve the React app - MUST be after all API routes
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../public', 'index.html'));
 });
 
 app.listen(PORT, () => {
