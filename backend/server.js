@@ -20,9 +20,13 @@ app.use(express.json());
 connectDB();
 
 // API Routes
-app.get('/', (req, res) => {
+app.get('/api/status', (req, res) => {
   res.json({ message: 'Welcome to Serendib Travel API', status: 'available' });
 });
+
+// Serve frontend static files
+const frontendPath = path.join(__dirname, '../public');
+app.use(express.static(frontendPath));
 
 // GET all packages
 app.get('/api/packages', async (req, res) => {
@@ -126,6 +130,10 @@ app.patch('/api/bookings/:id', async (req, res) => {
   }
 });
 
+// Catch-all route to serve the React app for non-API requests
+app.get('*', (req, res) => {
+  res.sendFile(path.join(frontendPath, 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
