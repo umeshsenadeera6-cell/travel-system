@@ -20,11 +20,10 @@ export default function Hero() {
 
   return (
     <section style={{
-      height: '90vh',
-      minHeight: '700px',
+      height: '70vh',
+      minHeight: '500px',
       width: '100%',
       position: 'relative',
-      marginTop: '80px',
       display: 'flex',
       flexDirection: 'row',
       borderRadius: '2.5rem',
