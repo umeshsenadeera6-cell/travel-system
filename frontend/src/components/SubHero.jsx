@@ -78,7 +78,7 @@ const SubHero = ({
       <div style={{
         position: 'absolute',
         inset: 0,
-        background: 'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 40%, rgba(0,0,0,0.8) 100%)',
+        background: 'linear-gradient(to right, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.3) 50%, transparent 100%), linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, transparent 40%, rgba(0,0,0,0.7) 100%)',
         zIndex: 1
       }} />
 
@@ -88,29 +88,34 @@ const SubHero = ({
         zIndex: 2,
         maxWidth: '1440px',
         width: '100%',
-        padding: '0 5%',
+        padding: '0 8%',
         textAlign: isRtl ? 'right' : 'left',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'center'
       }}>
         <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={containerVariants}
+            initial="hidden"
+            animate="visible"
+            variants={containerVariants}
         >
           {/* Label / Breadcrumb */}
           <motion.span 
             variants={itemVariants}
             style={{ 
-              color: accentColor, 
+              color: 'white', 
+              opacity: 0.9,
               fontWeight: 800, 
               letterSpacing: '0.4em', 
-              fontSize: '0.85rem',
+              fontSize: '0.9rem',
               textTransform: 'uppercase',
               display: 'block',
               marginBottom: '1.5rem',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+              borderLeft: isRtl ? 'none' : `4px solid ${accentColor}`,
+              borderRight: isRtl ? `4px solid ${accentColor}` : 'none',
+              paddingLeft: isRtl ? '0' : '1.5rem',
+              paddingRight: isRtl ? '1.5rem' : '0'
             }}
           >
             {label}
@@ -126,6 +131,7 @@ const SubHero = ({
               lineHeight: 1,
               marginBottom: '2rem',
               maxWidth: '900px',
+              color: 'white',
               textShadow: '0 20px 50px rgba(0,0,0,0.9), 0 10px 20px rgba(0,0,0,0.5)'
             }}
           >
@@ -137,7 +143,7 @@ const SubHero = ({
             variants={itemVariants}
             style={{ 
               fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', 
-              opacity: 0.9, 
+              color: 'rgba(255, 255, 255, 0.9)',
               maxWidth: '650px',
               lineHeight: 1.6,
               marginBottom: '3rem',

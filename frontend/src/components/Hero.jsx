@@ -78,9 +78,12 @@ export default function Hero() {
               fontWeight: '800', 
               letterSpacing: '0.3em', 
               marginBottom: '1.5rem',
-              color: 'hsl(var(--primary))',
+              color: 'white',
+              opacity: 0.9,
               display: 'block',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+              borderLeft: '4px solid hsl(var(--primary))',
+              paddingLeft: '1.5rem'
             }}>AUTHENTIC SRI LANKA</span>
             <h2 className="serif" style={{ 
               fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
@@ -160,9 +163,12 @@ export default function Hero() {
               fontWeight: '800', 
               letterSpacing: '0.3em', 
               marginBottom: '1.5rem',
-              color: 'hsl(var(--accent))',
+              color: 'white',
+              opacity: 0.9,
               display: 'block',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+              borderRight: '4px solid hsl(var(--accent))',
+              paddingRight: '1.5rem'
             }}>GLOBAL EXPLORATION</span>
             <h2 className="serif" style={{ 
               fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 

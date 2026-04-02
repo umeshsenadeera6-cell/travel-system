@@ -136,14 +136,17 @@ export default function HeroCarousel() {
               transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
             >
               <span style={{ 
-                color: 'hsl(var(--primary))', 
+                color: 'white', 
+                opacity: 0.9,
                 fontWeight: 800, 
                 textTransform: 'uppercase', 
                 letterSpacing: '4px',
                 fontSize: '0.9rem',
                 display: 'block',
                 marginBottom: '1rem',
-                textShadow: '0 2px 10px rgba(0,0,0,0.5)'
+                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
+                borderLeft: '4px solid hsl(var(--primary))',
+                paddingLeft: '1.5rem'
               }}>
                 Luxury Travel Experiences
               </span>
