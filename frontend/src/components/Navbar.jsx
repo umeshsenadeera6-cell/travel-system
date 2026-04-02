@@ -1,125 +1,228 @@
-import React, { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import { Link } from 'react-router-dom';
-import logoImg from '../assets/logo.png';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Link, useLocation } from "react-router-dom";
+import logoImg from "../assets/logo.png";
+import { Menu, X, ChevronRight } from "lucide-react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      setScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "Inbound", path: "/inbound" },
+    { name: "Outbound", path: "/outbound" },
+  ];
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <motion.header
-      initial={{ y: -120, opacity: 0 }}
-      animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ y: -100 }}
+      animate={{ y: 0 }}
+      className={scrolled ? "glass-nav" : ""}
       style={{
-        position: 'fixed',
+        position: "fixed",
         top: 0,
         left: 0,
         right: 0,
-        zIndex: 100,
-        padding: scrolled ? '1rem 0' : '2rem 0',
-        transition: 'all 0.5s cubic-bezier(0.4, 0, 0.2, 1)',
-        backgroundColor: scrolled ? 'hsla(0, 0%, 100%, 0.95)' : 'transparent',
-        backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-        borderBottom: scrolled ? '1px solid hsla(142, 76%, 36%, 0.1)' : 'none',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
+        zIndex: 1000,
+        padding: scrolled ? "0.75rem 0" : "1.5rem 0",
+        transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
+        backgroundColor: scrolled ? "hsla(0, 0%, 100%, 0.8)" : "transparent",
       }}
     >
-      <div style={{
-        maxWidth: '1440px',
-        width: '100%',
-        padding: '0 5%',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-      }}>
-        <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-          <motion.div 
-            initial={{ scale: 0.95, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.8 }}
-            whileHover={{ scale: 1.01 }}
-            style={{ 
-              display: 'flex', 
-              flexDirection: 'row',
-              alignItems: 'center', 
-              gap: '2rem', 
-              cursor: 'pointer' 
+      <nav
+        style={{
+          maxWidth: "1440px",
+          margin: "0 auto",
+          padding: "0 5%",
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        {/* Logo Section */}
+        <Link to="/" style={{ textDecoration: "none" }}>
+          <motion.div
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "1rem",
             }}
+            whileHover={{ scale: 1.02 }}
           >
-            {/* Brand Logo Image */}
-            <motion.img 
+            <img
               src={logoImg}
               alt="Serendib Logo"
-              initial={{ x: -20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
               style={{
-                height: scrolled ? '60px' : '80px',
-                width: 'auto',
-                transition: 'height 0.4s ease'
+                height: scrolled ? "45px" : "60px",
+                width: "auto",
+                transition: "height 0.4s ease",
               }}
             />
-
-            {/* Vertical Separator */}
-            <motion.div 
-              initial={{ scaleY: 0, opacity: 0 }}
-              animate={{ scaleY: 1, opacity: 1 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              style={{
-                width: '1.5px',
-                height: scrolled ? '40px' : '60px',
-                backgroundColor: 'hsla(0, 0%, 0%, 0.1)',
-                transition: 'height 0.4s ease'
-              }}
-            />
-
-            {/* Brand Name Text */}
-            <motion.div
-              initial={{ x: 20, opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              style={{ 
-                display: 'flex', 
-                flexDirection: 'column',
-                justifyContent: 'center'
-              }}
-            >
-              <span style={{ 
-                fontSize: scrolled ? '1.5rem' : '2.2rem', 
-                fontWeight: '900', 
-                letterSpacing: '2px',
-                color: 'hsl(240, 10%, 4%)',
-                lineHeight: 1,
-                transition: 'font-size 0.4s ease'
-              }}>
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              <span
+                style={{
+                  fontSize: scrolled ? "1.2rem" : "1.6rem",
+                  fontWeight: "900",
+                  letterSpacing: "1px",
+                  color: "hsl(var(--foreground))",
+                  lineHeight: 1,
+                  transition: "font-size 0.4s ease",
+                }}
+              >
                 SERENDIB
               </span>
-              <span style={{ 
-                fontSize: scrolled ? '0.7rem' : '0.9rem', 
-                fontWeight: '700', 
-                letterSpacing: '5px',
-                color: 'hsl(142, 76%, 36%)',
-                marginTop: '4px',
-                opacity: 0.9,
-                transition: 'font-size 0.4s ease'
-              }}>
+              <span
+                style={{
+                  fontSize: scrolled ? "0.6rem" : "0.75rem",
+                  fontWeight: "700",
+                  letterSpacing: "3px",
+                  color: "hsl(var(--primary))",
+                  marginTop: "2px",
+                  transition: "font-size 0.4s ease",
+                }}
+              >
                 TRAVEL & TOURS
               </span>
-            </motion.div>
+            </div>
           </motion.div>
         </Link>
-      </div>
+
+        {/* Desktop Links */}
+        <div
+          style={{
+            display: "none",
+            gap: "2.5rem",
+            alignItems: "center",
+          }}
+          className="desktop-links"
+        >
+          {navLinks.map((link) => (
+            <Link
+              key={link.path}
+              to={link.path}
+              style={{
+                textDecoration: "none",
+                fontSize: "0.95rem",
+                fontWeight: "600",
+                color: isActive(link.path)
+                  ? "hsl(var(--primary))"
+                  : "hsl(var(--foreground))",
+                transition: "color 0.3s ease",
+                position: "relative",
+              }}
+            >
+              {link.name}
+              {isActive(link.path) && (
+                <motion.div
+                  layoutId="nav-underline"
+                  style={{
+                    position: "absolute",
+                    bottom: "-4px",
+                    left: 0,
+                    right: 0,
+                    height: "2px",
+                    backgroundColor: "hsl(var(--primary))",
+                    borderRadius: "2px",
+                  }}
+                />
+              )}
+            </Link>
+          ))}
+        </div>
+
+
+        {/* Mobile Menu Toggle */}
+        <button
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          style={{
+            display: "none",
+            background: "none",
+            border: "none",
+            cursor: "pointer",
+            color: "hsl(var(--foreground))",
+          }}
+          className="mobile-toggle"
+        >
+          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
+      </nav>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              right: 0,
+              background: "white",
+              padding: "2rem",
+              borderBottom: "1px solid hsl(var(--glass-border))",
+              boxShadow: "0 20px 40px rgba(0,0,0,0.1)",
+              zIndex: 999,
+            }}
+          >
+            <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.path}
+                  to={link.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  style={{
+                    textDecoration: "none",
+                    fontSize: "1.2rem",
+                    fontWeight: "700",
+                    color: isActive(link.path)
+                      ? "hsl(var(--primary))"
+                      : "hsl(var(--foreground))",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  {link.name}
+                  <ChevronRight size={20} />
+                </Link>
+              ))}
+              <Link
+                to="/booking"
+                onClick={() => setMobileMenuOpen(false)}
+                className="btn btn-primary"
+                style={{ marginTop: "1rem" }}
+              >
+                Book Your Trip
+              </Link>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <style>{`
+        @media (min-width: 969px) {
+          .desktop-links { display: flex !important; }
+          .mobile-toggle { display: none !important; }
+        }
+        @media (max-width: 968px) {
+          .desktop-links { display: none !important; }
+          .mobile-toggle { display: block !important; }
+        }
+      `}</style>
     </motion.header>
   );
 }

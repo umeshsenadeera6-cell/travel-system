@@ -58,124 +58,114 @@ const infiniteReviews = [...reviews, ...reviews];
 
 export default function ReviewCarousel() {
   return (
-    <section style={{ 
-      padding: '80px 0', 
-      backgroundColor: 'hsl(var(--background))',
-      overflow: 'hidden',
-      position: 'relative'
-    }}>
-      <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-        <p className="section-label">Wall of Love</p>
-        <h2 className="section-title">What Our Travelers Say</h2>
-      </div>
+    <div style={{ position: 'relative', width: '100%', overflow: 'hidden', padding: '2rem 0' }}>
+      {/* Fading Edges */}
+      <div style={{
+        position: 'absolute',
+        left: 0,
+        top: 0,
+        bottom: 0,
+        width: '200px',
+        background: 'linear-gradient(to right, hsl(var(--background)), transparent)',
+        zIndex: 10,
+        pointerEvents: 'none'
+      }} />
+      <div style={{
+        position: 'absolute',
+        right: 0,
+        top: 0,
+        bottom: 0,
+        width: '200px',
+        background: 'linear-gradient(to left, hsl(var(--background)), transparent)',
+        zIndex: 10,
+        pointerEvents: 'none'
+      }} />
 
-      {/* Carousel Container */}
-      <div style={{ position: 'relative', width: '100%' }}>
-        {/* Fading Edges */}
-        <div style={{
-          position: 'absolute',
-          left: 0,
-          top: 0,
-          bottom: 0,
-          width: '150px',
-          background: 'linear-gradient(to right, hsl(var(--background)), transparent)',
-          zIndex: 10,
-          pointerEvents: 'none'
-        }} />
-        <div style={{
-          position: 'absolute',
-          right: 0,
-          top: 0,
-          bottom: 0,
-          width: '150px',
-          background: 'linear-gradient(to left, hsl(var(--background)), transparent)',
-          zIndex: 10,
-          pointerEvents: 'none'
-        }} />
+      {/* Animated Track */}
+      <motion.div 
+        animate={{ 
+          x: [0, -2592] // (400px width + 32px gap) * 6 reviews
+        }}
+        transition={{ 
+          duration: 40, 
+          repeat: Infinity, 
+          ease: "linear" 
+        }}
+        style={{ 
+          display: 'flex', 
+          gap: '2.5rem',
+          width: 'max-content',
+          padding: '40px 0'
+        }}
+      >
+        {infiniteReviews.map((review, index) => (
+          <motion.div 
+            key={`${review.id}-${index}`}
+            whileHover={{ y: -10, scale: 1.02 }}
+            className="glass"
+            style={{
+              width: '420px',
+              padding: '3rem 2.5rem',
+              borderRadius: '2rem',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '1.5rem',
+              flexShrink: 0,
+              position: 'relative',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.05)',
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+            }}
+          >
+            <div style={{ 
+              position: 'absolute', 
+              top: '2rem', 
+              right: '2.5rem',
+              color: 'hsla(var(--primary) / 0.1)'
+            }}>
+              <Quote size={48} fill="currentColor" />
+            </div>
 
-        {/* Animated Track */}
-        <motion.div 
-          animate={{ 
-            x: [0, -2592] // (400px width + 32px gap) * 6 reviews
-          }}
-          transition={{ 
-            duration: 50, 
-            repeat: Infinity, 
-            ease: "linear" 
-          }}
-          style={{ 
-            display: 'flex', 
-            gap: '2rem',
-            width: 'max-content',
-            padding: '20px 0'
-          }}
-        >
-          {infiniteReviews.map((review, index) => (
-            <div 
-              key={`${review.id}-${index}`}
-              style={{
-                width: '400px',
-                padding: '2rem',
-                borderRadius: '1.5rem',
-                backgroundColor: 'white',
-                border: '1px solid hsla(var(--primary) / 0.1)',
-                boxShadow: 'var(--shadow)',
+            <div style={{ display: 'flex', gap: '4px' }}>
+              {[...Array(review.rating)].map((_, i) => (
+                <Star key={i} size={18} fill="hsl(var(--primary))" color="hsl(var(--primary))" />
+              ))}
+            </div>
+
+            <p style={{ 
+              fontSize: '1.1rem', 
+              color: 'hsl(var(--foreground))',
+              lineHeight: '1.8',
+              opacity: 0.8,
+              fontStyle: 'italic',
+              flex: 1
+            }}>
+              "{review.text}"
+            </p>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem', marginTop: '1rem' }}>
+              <div style={{
+                width: '56px',
+                height: '56px',
+                borderRadius: '1rem',
+                backgroundColor: 'hsl(var(--primary))',
                 display: 'flex',
-                flexDirection: 'column',
-                gap: '1.5rem',
-                flexShrink: 0,
-                position: 'relative'
-              }}
-            >
-              <div style={{ 
-                position: 'absolute', 
-                top: '1.5rem', 
-                right: '2rem',
-                color: 'hsla(var(--primary) / 0.1)'
+                alignItems: 'center',
+                justifyContent: 'center',
+                color: 'white',
+                fontWeight: '800',
+                fontSize: '1rem',
+                boxShadow: '0 10px 20px hsla(var(--primary) / 0.2)'
               }}>
-                <Quote size={40} fill="currentColor" />
+                {review.avatar}
               </div>
-
-              <div style={{ display: 'flex', gap: '4px' }}>
-                {[...Array(review.rating)].map((_, i) => (
-                  <Star key={i} size={16} fill="hsl(var(--primary))" color="hsl(var(--primary))" />
-                ))}
-              </div>
-
-              <p style={{ 
-                fontSize: '1rem', 
-                color: 'hsl(var(--foreground) / 0.8)',
-                lineHeight: '1.6',
-                fontStyle: 'italic',
-                flex: 1
-              }}>
-                "{review.text}"
-              </p>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
-                <div style={{
-                  width: '48px',
-                  height: '48px',
-                  borderRadius: '50%',
-                  backgroundColor: 'hsla(var(--primary) / 1)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'white',
-                  fontWeight: '700',
-                  fontSize: '0.9rem'
-                }}>
-                  {review.avatar}
-                </div>
-                <div>
-                  <h4 style={{ fontSize: '1rem', fontWeight: '800', margin: 0 }}>{review.name}</h4>
-                  <p style={{ fontSize: '0.85rem', color: 'hsl(var(--foreground) / 0.6)', margin: 0 }}>{review.location}</p>
-                </div>
+              <div>
+                <h4 style={{ fontSize: '1.1rem', fontWeight: '800', margin: 0, color: 'hsl(var(--secondary))' }}>{review.name}</h4>
+                <p style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground))', opacity: 0.5, margin: 0 }}>{review.location}</p>
               </div>
             </div>
-          ))}
-        </motion.div>
-      </div>
-    </section>
+          </motion.div>
+        ))}
+      </motion.div>
+    </div>
   );
 }

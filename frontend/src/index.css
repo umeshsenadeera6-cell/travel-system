@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
 @import "leaflet/dist/leaflet.css";
 
 :root {
@@ -51,11 +51,22 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.1;
 }
 
+.serif {
+  font-family: 'Playfair Display', serif;
+}
+
 .glass {
   background: hsl(var(--glass));
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid hsl(var(--glass-border));
+}
+
+.glass-nav {
+  background: hsla(0, 0%, 100%, 0.7);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid hsla(142, 76%, 36%, 0.08);
 }
 
 .glass-dark {
@@ -89,7 +100,7 @@ h1, h2, h3, h4, h5, h6 {
 .btn-primary:hover {
   filter: brightness(1.1);
   transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px hsla(var(--primary) / 0.3);
+  box-shadow: 0 10px 20px -5px hsla(var(--primary) / 0.4);
 }
 
 .btn-ghost {
@@ -117,6 +128,16 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.04em;
   margin-bottom: 1rem;
 }
+
+.full-bleed {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+}
+
 
 
 /* Split Hero Custom Styles */

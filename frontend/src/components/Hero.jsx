@@ -14,22 +14,24 @@ export default function Hero() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] }
     }
   };
 
   return (
-    <section style={{
-      height: '70vh',
-      minHeight: '500px',
-      width: '100%',
+    <div style={{
+      height: '80vh',
+      minHeight: '600px',
+      width: '100vw',
       position: 'relative',
+      left: '50%',
+      right: '50%',
+      marginLeft: '-50vw',
+      marginRight: '-50vw',
       display: 'flex',
       flexDirection: 'row',
-      borderRadius: '2.5rem',
       overflow: 'hidden',
       backgroundColor: '#000',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
       cursor: 'default'
     }} className="hero-split-container">
       
@@ -40,8 +42,8 @@ export default function Hero() {
         onClick={() => navigate('/inbound')}
         style={{
           position: 'relative',
-          flex: hovered === 'left' ? 1.5 : (hovered === 'right' ? 0.5 : 1),
-          transition: 'flex 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+          flex: hovered === 'left' ? 1.4 : (hovered === 'right' ? 0.6 : 1),
+          transition: 'flex 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
           overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
@@ -57,10 +59,10 @@ export default function Hero() {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            filter: 'brightness(0.6)'
+            filter: hovered === 'left' ? 'brightness(0.7)' : 'brightness(0.5) grayscale(20%)'
           }}
           animate={{ scale: hovered === 'left' ? 1.05 : 1 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1.2 }}
         />
         
         <div style={{
@@ -68,27 +70,31 @@ export default function Hero() {
           zIndex: 2,
           textAlign: 'center',
           color: 'white',
-          padding: '2rem'
+          padding: '4rem'
         }}>
-          <motion.div variants={itemVariants} initial="hidden" animate="visible">
-            <p style={{ 
-              fontSize: '0.9rem', 
+          <motion.div initial="hidden" whileInView="visible" variants={itemVariants}>
+            <span style={{ 
+              fontSize: '0.85rem', 
               fontWeight: '800', 
-              letterSpacing: '0.2em', 
-              marginBottom: '1rem',
-              color: 'white',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
-            }}>SRI LANKA</p>
-            <h2 style={{ 
-              fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
-              fontWeight: '900', 
+              letterSpacing: '0.3em', 
               marginBottom: '1.5rem',
-              lineHeight: 1.1,
+              color: 'hsl(var(--primary))',
+              display: 'block'
+            }}>AUTHENTIC SRI LANKA</span>
+            <h2 className="serif" style={{ 
+              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
+              fontWeight: 800, 
+              marginBottom: '2rem',
+              lineHeight: 1,
               color: 'white',
-              textShadow: '0 4px 20px rgba(0,0,0,0.6)'
+              textShadow: '0 4px 30px rgba(0,0,0,0.5)'
             }}>Explore <br/> Serendib</h2>
-            <div className="btn btn-primary" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
-              View Tours <ChevronRight size={18} />
+            <div className="btn" style={{ 
+              backgroundColor: 'white', 
+              color: 'black',
+              padding: '1rem 2.5rem'
+            }}>
+              View Packages <ChevronRight size={20} />
             </div>
           </motion.div>
         </div>
@@ -97,7 +103,7 @@ export default function Hero() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to right, rgba(0,0,0,0.4), transparent)',
+          background: 'linear-gradient(to right, rgba(0,0,0,0.6), transparent)',
           zIndex: 1
         }} />
       </motion.div>
@@ -106,7 +112,7 @@ export default function Hero() {
       <div style={{
         width: '1px',
         height: '100%',
-        backgroundColor: 'rgba(255,255,255,0.1)',
+        backgroundColor: 'rgba(255,255,255,0.15)',
         zIndex: 3
       }} className="hero-divider" />
 
@@ -117,8 +123,8 @@ export default function Hero() {
         onClick={() => navigate('/outbound')}
         style={{
           position: 'relative',
-          flex: hovered === 'right' ? 1.5 : (hovered === 'left' ? 0.5 : 1),
-          transition: 'flex 0.7s cubic-bezier(0.16, 1, 0.3, 1)',
+          flex: hovered === 'right' ? 1.4 : (hovered === 'left' ? 0.6 : 1),
+          transition: 'flex 0.8s cubic-bezier(0.16, 1, 0.3, 1)',
           overflow: 'hidden',
           display: 'flex',
           alignItems: 'center',
@@ -134,10 +140,10 @@ export default function Hero() {
             width: '100%',
             height: '100%',
             objectFit: 'cover',
-            filter: 'brightness(0.6)'
+            filter: hovered === 'right' ? 'brightness(0.7)' : 'brightness(0.5) grayscale(20%)'
           }}
           animate={{ scale: hovered === 'right' ? 1.05 : 1 }}
-          transition={{ duration: 0.8 }}
+          transition={{ duration: 1.2 }}
         />
 
         <div style={{
@@ -145,33 +151,31 @@ export default function Hero() {
           zIndex: 2,
           textAlign: 'center',
           color: 'white',
-          padding: '2rem'
+          padding: '4rem'
         }}>
-          <motion.div variants={itemVariants} initial="hidden" animate="visible">
-            <p style={{ 
-              fontSize: '0.9rem', 
+          <motion.div initial="hidden" whileInView="visible" variants={itemVariants}>
+            <span style={{ 
+              fontSize: '0.85rem', 
               fontWeight: '800', 
-              letterSpacing: '0.2em', 
-              marginBottom: '1rem',
-              color: 'white',
-              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
-            }}>WORLDWIDE</p>
-            <h2 style={{ 
-              fontSize: 'clamp(2rem, 5vw, 3.5rem)', 
-              fontWeight: '900', 
+              letterSpacing: '0.3em', 
               marginBottom: '1.5rem',
-              lineHeight: 1.1,
+              color: 'hsl(var(--accent))',
+              display: 'block'
+            }}>GLOBAL EXPLORATION</span>
+            <h2 className="serif" style={{ 
+              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
+              fontWeight: 800, 
+              marginBottom: '2rem',
+              lineHeight: 1,
               color: 'white',
-              textShadow: '0 4px 20px rgba(0,0,0,0.6)'
+              textShadow: '0 4px 30px rgba(0,0,0,0.5)'
             }}>World of <br/> Wonder</h2>
             <div className="btn" style={{ 
-              display: 'inline-flex', 
-              alignItems: 'center', 
-              gap: '0.5rem',
-              backgroundColor: 'hsl(var(--accent))',
-              color: 'white'
+              backgroundColor: 'white', 
+              color: 'black',
+              padding: '1rem 2.5rem'
             }}>
-              Discover More <ChevronRight size={18} />
+              Discover More <ChevronRight size={20} />
             </div>
           </motion.div>
         </div>
@@ -180,10 +184,10 @@ export default function Hero() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to left, rgba(0,0,0,0.4), transparent)',
+          background: 'linear-gradient(to left, rgba(0,0,0,0.6), transparent)',
           zIndex: 1
         }} />
       </motion.div>
-    </section>
+    </div>
   );
 }

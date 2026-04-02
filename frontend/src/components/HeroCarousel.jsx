@@ -58,49 +58,41 @@ export default function HeroCarousel() {
 
   const variants = {
     enter: (direction) => ({
-      x: direction > 0 ? 1000 : -1000,
+      scale: 1.1,
       opacity: 0,
-      scale: 1.1
+      filter: 'blur(10px)'
     }),
     center: {
       zIndex: 1,
-      x: 0,
-      opacity: 1,
       scale: 1,
+      opacity: 1,
+      filter: 'blur(0px)',
       transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.6 },
-        scale: { duration: 0.8, ease: "easeOut" }
+        duration: 1.2,
+        ease: [0.16, 1, 0.3, 1]
       }
     },
-    exit: (direction) => ({
+    exit: {
       zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
       opacity: 0,
-      scale: 1.1,
+      scale: 1.05,
       transition: {
-        x: { type: "spring", stiffness: 300, damping: 30 },
-        opacity: { duration: 0.6 },
-        scale: { duration: 0.8, ease: "easeIn" }
+        duration: 1.2
       }
-    })
+    }
   };
 
   return (
     <div style={{
       position: 'relative',
-      height: '85vh',
+      height: '95vh',
       width: '100%',
       overflow: 'hidden',
-      borderRadius: '2.5rem',
       backgroundColor: '#000',
-      boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
-      marginTop: '120px'
     }}>
       <AnimatePresence initial={false} custom={direction}>
         <motion.div
           key={current}
-          custom={direction}
           variants={variants}
           initial="enter"
           animate="center"
@@ -114,7 +106,7 @@ export default function HeroCarousel() {
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%)',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%)',
             zIndex: 1
           }} />
           
@@ -130,72 +122,75 @@ export default function HeroCarousel() {
 
           <div style={{
             position: 'absolute',
-            bottom: '15%',
-            left: '8%',
-            maxWidth: '600px',
+            bottom: '20%',
+            left: '10%',
+            right: '10%',
+            maxWidth: '1200px',
+            margin: '0 auto',
             zIndex: 2,
             color: 'white'
           }}>
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.8 }}
-              style={{
-                fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-                fontWeight: 900,
-                lineHeight: 1.1,
+              transition={{ delay: 0.4, duration: 1, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span style={{ 
+                color: 'hsl(var(--primary))', 
+                fontWeight: 800, 
+                textTransform: 'uppercase', 
+                letterSpacing: '4px',
+                fontSize: '0.9rem',
+                display: 'block',
+                marginBottom: '1rem'
+              }}>
+                Luxury Travel Experiences
+              </span>
+              <h1 className="serif" style={{
+                fontSize: 'clamp(3rem, 8vw, 6rem)',
+                fontWeight: 800,
+                lineHeight: 1,
                 marginBottom: '1.5rem',
-                textShadow: '0 4px 20px rgba(0,0,0,0.6)',
-                color: 'white'
-              }}
-            >
-              {slides[current].title}
-            </motion.h1>
-            
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.5, duration: 0.8 }}
-              style={{
-                fontSize: '1.25rem',
+                textShadow: '0 4px 30px rgba(0,0,0,0.3)',
+              }}>
+                {slides[current].title}
+              </h1>
+              
+              <p style={{
+                fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
                 opacity: 0.9,
-                marginBottom: '2.5rem',
+                marginBottom: '3rem',
                 lineHeight: 1.6,
+                maxWidth: '700px',
                 fontWeight: 400,
-                textShadow: '0 2px 10px rgba(0,0,0,0.5)',
-                color: 'white'
-              }}
-            >
-              {slides[current].subtitle}
-            </motion.p>
-            
-            <motion.button
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              transition={{ delay: 0.7 }}
-              onClick={() => navigate(slides[current].link)}
-              style={{
-                background: 'rgba(255, 255, 255, 0.1)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255, 255, 255, 0.2)',
-                padding: '1rem 2rem',
-                borderRadius: '100px',
-                color: 'white',
-                fontSize: '1rem',
-                fontWeight: 600,
-                cursor: 'pointer',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '0.75rem',
-                boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
-                transition: 'all 0.3s ease'
-              }}
-            >
-              {slides[current].cta} <ArrowRight size={20} />
-            </motion.button>
+                textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+              }}>
+                {slides[current].subtitle}
+              </p>
+              
+              <motion.button
+                whileHover={{ scale: 1.05, backgroundColor: 'white', color: 'black' }}
+                whileTap={{ scale: 0.95 }}
+                onClick={() => navigate(slides[current].link)}
+                style={{
+                  background: 'transparent',
+                  backdropFilter: 'blur(12px)',
+                  border: '2px solid white',
+                  padding: '1.25rem 2.5rem',
+                  borderRadius: '100px',
+                  color: 'white',
+                  fontSize: '1.1rem',
+                  fontWeight: 700,
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '1rem',
+                  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
+                }}
+              >
+                {slides[current].cta} <ArrowRight size={22} />
+              </motion.button>
+            </motion.div>
           </div>
         </motion.div>
       </AnimatePresence>
@@ -203,58 +198,70 @@ export default function HeroCarousel() {
       {/* Controls */}
       <div style={{
         position: 'absolute',
-        bottom: '5%',
-        right: '5%',
+        bottom: '8%',
+        left: '10%',
+        right: '10%',
         zIndex: 10,
         display: 'flex',
-        gap: '1rem',
+        justifyContent: 'space-between',
         alignItems: 'center'
       }}>
-        <button onClick={prevSlide} style={controlBtnStyle}>
-          <ChevronLeft size={24} />
-        </button>
         <div style={{
           display: 'flex',
-          gap: '0.5rem'
+          gap: '1rem'
         }}>
           {slides.map((_, idx) => (
-            <div
+            <motion.div
               key={idx}
+              initial={false}
+              animate={{ 
+                width: current === idx ? '50px' : '10px',
+                backgroundColor: current === idx ? 'white' : 'rgba(255,255,255,0.4)'
+              }}
               onClick={() => {
-                setDirection(idx > current ? 1 : -1);
                 setCurrent(idx);
               }}
               style={{
-                width: current === idx ? '30px' : '8px',
-                height: '8px',
-                borderRadius: '4px',
-                background: current === idx ? 'white' : 'rgba(255,255,255,0.3)',
-                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                height: '4px',
+                borderRadius: '2px',
                 cursor: 'pointer'
               }}
             />
           ))}
         </div>
-        <button onClick={nextSlide} style={controlBtnStyle}>
-          <ChevronRight size={24} />
-        </button>
+
+        <div style={{ display: 'flex', gap: '1.5rem' }}>
+          <button onClick={prevSlide} style={controlBtnStyle}>
+            <ChevronLeft size={24} />
+          </button>
+          <button onClick={nextSlide} style={controlBtnStyle}>
+            <ChevronRight size={24} />
+          </button>
+        </div>
       </div>
+
+      <style>{`
+        @keyframes reveal {
+          from { clip-path: inset(0 100% 0 0); }
+          to { clip-path: inset(0 0 0 0); }
+        }
+      `}</style>
     </div>
   );
 }
 
 const controlBtnStyle = {
-  background: 'rgba(255, 255, 255, 0.1)',
-  backdropFilter: 'blur(10px)',
-  WebkitBackdropFilter: 'blur(10px)',
-  border: '1px solid rgba(255, 255, 255, 0.2)',
+  background: 'rgba(255, 255, 255, 0.15)',
+  backdropFilter: 'blur(15px)',
+  border: '1px solid rgba(255, 255, 255, 0.3)',
   color: 'white',
-  width: '50px',
-  height: '50px',
+  width: '60px',
+  height: '60px',
   borderRadius: '50%',
   display: 'flex',
   alignItems: 'center',
   justifyContent: 'center',
   cursor: 'pointer',
-  transition: 'all 0.3s ease'
+  transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+  boxShadow: '0 10px 30px rgba(0,0,0,0.1)'
 };
