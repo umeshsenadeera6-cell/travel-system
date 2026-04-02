@@ -67,7 +67,8 @@ export default function Navbar() {
               style={{
                 height: scrolled ? "45px" : "60px",
                 width: "auto",
-                transition: "height 0.4s ease",
+                transition: "all 0.4s ease",
+                filter: scrolled ? "none" : "brightness(1.5) drop-shadow(0 2px 4px rgba(0,0,0,0.3))",
               }}
             />
             <div style={{ display: "flex", flexDirection: "column" }}>
@@ -76,9 +77,10 @@ export default function Navbar() {
                   fontSize: scrolled ? "1.2rem" : "1.6rem",
                   fontWeight: "900",
                   letterSpacing: "1px",
-                  color: "hsl(var(--foreground))",
+                  color: scrolled ? "hsl(var(--foreground))" : "white",
                   lineHeight: 1,
-                  transition: "font-size 0.4s ease",
+                  transition: "all 0.4s ease",
+                  textShadow: scrolled ? "none" : "0 2px 10px rgba(0,0,0,0.5)",
                 }}
               >
                 SERENDIB
@@ -88,9 +90,11 @@ export default function Navbar() {
                   fontSize: scrolled ? "0.6rem" : "0.75rem",
                   fontWeight: "700",
                   letterSpacing: "3px",
-                  color: "hsl(var(--primary))",
+                  color: scrolled ? "hsl(var(--primary))" : "hsl(var(--primary))",
                   marginTop: "2px",
                   transition: "font-size 0.4s ease",
+                  textShadow: scrolled ? "none" : "0 1px 5px rgba(0,0,0,0.5)",
+                  filter: scrolled ? "none" : "saturate(1.5) brightness(1.2)",
                 }}
               >
                 TRAVEL & TOURS
@@ -98,7 +102,7 @@ export default function Navbar() {
             </div>
           </motion.div>
         </Link>
-
+ 
         {/* Desktop Links */}
         <div
           style={{
@@ -118,9 +122,12 @@ export default function Navbar() {
                 fontWeight: "600",
                 color: isActive(link.path)
                   ? "hsl(var(--primary))"
-                  : "hsl(var(--foreground))",
-                transition: "color 0.3s ease",
+                  : scrolled
+                  ? "hsl(var(--foreground))"
+                  : "white",
+                transition: "all 0.3s ease",
                 position: "relative",
+                textShadow: scrolled ? "none" : "0 1px 10px rgba(0,0,0,0.3)",
               }}
             >
               {link.name}
@@ -141,8 +148,8 @@ export default function Navbar() {
             </Link>
           ))}
         </div>
-
-
+ 
+ 
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -151,7 +158,8 @@ export default function Navbar() {
             background: "none",
             border: "none",
             cursor: "pointer",
-            color: "hsl(var(--foreground))",
+            color: scrolled ? "hsl(var(--foreground))" : "white",
+            transition: "all 0.3s ease",
           }}
           className="mobile-toggle"
         >
