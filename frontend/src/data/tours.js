@@ -131,6 +131,7 @@ export const INBOUND_PACKAGES = [
         { lat: 7.8636, lng: 80.6550 },
       ],
     },
+    type: "Day",
     inclusions: ["Private transport", "English-speaking guide", "Bottled water", "Hotel pickup & drop-off"],
   },
   {
@@ -227,6 +228,7 @@ export const INBOUND_PACKAGES = [
         { lat: 6.8649, lng: 81.0550 },
       ],
     },
+    type: "Round",
     inclusions: ["Transport", "Guide assistance", "Viewpoint visits", "Optional train support"],
   },
   {
@@ -324,6 +326,7 @@ export const INBOUND_PACKAGES = [
         { lat: 6.0535, lng: 80.2210 },
       ],
     },
+    type: "Day",
     inclusions: ["Transport", "Fort tour", "Photo stops"],
   },
   {
@@ -368,6 +371,7 @@ export const INBOUND_PACKAGES = [
         { lat: 7.2889, lng: 80.6320 },
       ],
     },
+    type: "Day",
     inclusions: ["Transport", "Reserved seating (subject to availability)"],
   }
 ];
@@ -500,6 +504,7 @@ export const OUTBOUND_PACKAGES = [
         { lat: 48.8867, lng: 2.3431 },
       ],
     },
+    type: "Round",
     inclusions: ["Hotel stay", "Airport transfers", "City tour", "Selected tickets (varies)"],
   },
   {
@@ -621,6 +626,7 @@ export const OUTBOUND_PACKAGES = [
         { lat: 35.7148, lng: 139.8138 },
       ],
     },
+    type: "Round",
     inclusions: ["Hotel stay", "Metro guidance", "Local tour options"],
   },
   {
@@ -720,6 +726,7 @@ export const OUTBOUND_PACKAGES = [
         { lat: 25.0786, lng: 55.1391 },
       ],
     },
+    type: "Round",
     inclusions: ["Hotel stay", "Transfers", "Desert safari", "Selected experiences"],
   },
   {

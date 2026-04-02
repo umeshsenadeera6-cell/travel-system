@@ -29,6 +29,12 @@ const staggerContainer = {
 };
 
 import SubHero from '../components/SubHero';
+import SubAboutUs from '../components/SubAboutUs';
+import SectionHeader from '../components/SectionHeader';
+import DestinationsGrid from '../components/DestinationsGrid';
+import ServicesGrid from '../components/ServicesGrid';
+import BlogPreview from '../components/BlogPreview';
+import ReviewCarousel from '../components/ReviewCarousel';
 import parisImg from '../assets/paris.png';
 
 export default function Outbound() {
@@ -48,7 +54,6 @@ export default function Outbound() {
     setSelectedTour(null);
   };
 
-  // Scroll to top and fetch data on mount
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchPackages();
@@ -59,7 +64,6 @@ export default function Outbound() {
       const res = await fetch(`${API_URL}/packages`);
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      // Filter for Outbound only
       setDynamicPackages(data.filter(p => p.category === 'Outbound'));
     } catch (err) {
       console.error("Error fetching packages:", err);
@@ -68,10 +72,26 @@ export default function Outbound() {
     }
   };
 
-  // Merge static and dynamic packages
   const allPackages = [...OUTBOUND_PACKAGES, ...dynamicPackages];
+  const roundTours = allPackages.filter(p => p.type === 'Round');
+  const dayTours = allPackages.filter(p => !p.type || p.type === 'Day');
 
   const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS.en;
+
+  const destinations = [
+    { name: "Paris", description: "The city of light and romance.", image: parisImg },
+    { name: "Dubai", description: "Futuristic skylines and desert luxury." },
+    { name: "Tokyo", description: "Neon streets and ancient culture." },
+    { name: "London", description: "Historic landmarks and modern energy." },
+    { name: "Singapore", description: "A garden city with vibrant beats." }
+  ];
+
+  const serviceLabels = {
+    transport: t.serviceTransport,
+    hotels: t.serviceHotels,
+    activities: t.serviceActivities,
+    events: t.serviceEvents
+  };
 
   return (
     <main 
@@ -89,21 +109,48 @@ export default function Outbound() {
       />
 
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
-        <motion.section 
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-        >
-          <motion.div variants={staggerContainer} className="grid-layout">
-            {allPackages.map(p => (
-              <motion.div variants={fadeInUp} key={p._id || p.id}>
-                <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
-              </motion.div>
-            ))}
-          </motion.div>
-          
-          <ContactSection type="outbound" lang={selectedLanguage} />
-        </motion.section>
+        <SubAboutUs title={t.aboutTitle} content={t.aboutGlobal} accentColor="hsl(var(--accent))" />
+
+        {/* Round Tours Section */}
+        {roundTours.length > 0 && (
+          <section style={{ padding: '60px 0' }}>
+            <SectionHeader title={t.roundToursTitle} label="WORLD TOURS" accentColor="hsl(var(--accent))" />
+            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
+              {roundTours.map(p => (
+                <motion.div variants={fadeInUp} key={p._id || p.id}>
+                  <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </section>
+        )}
+
+        {/* Day Tours Section */}
+        {dayTours.length > 0 && (
+          <section style={{ padding: '60px 0' }}>
+            <SectionHeader title={t.dayToursTitle} label="CITY BREAKS" accentColor="hsl(var(--accent))" />
+            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
+              {dayTours.map(p => (
+                <motion.div variants={fadeInUp} key={p._id || p.id}>
+                  <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </section>
+        )}
+
+        <DestinationsGrid title={t.destinationsTitle} destinations={destinations} accentColor="hsl(var(--accent))" />
+        
+        <ServicesGrid title={t.servicesTitle} serviceLabels={serviceLabels} accentColor="hsl(var(--accent))" />
+        
+        <BlogPreview title={t.guideTitle} accentColor="hsl(var(--accent))" />
+
+        <section style={{ padding: '80px 0' }}>
+          <SectionHeader title="Global Feedback" center={true} accentColor="hsl(var(--accent))" />
+          <ReviewCarousel />
+        </section>
+        
+        <ContactSection type="outbound" lang={selectedLanguage} />
       </div>
       
       <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} lang={selectedLanguage} />

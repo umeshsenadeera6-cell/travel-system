@@ -29,6 +29,12 @@ const staggerContainer = {
 };
 
 import SubHero from '../components/SubHero';
+import SubAboutUs from '../components/SubAboutUs';
+import SectionHeader from '../components/SectionHeader';
+import DestinationsGrid from '../components/DestinationsGrid';
+import ServicesGrid from '../components/ServicesGrid';
+import BlogPreview from '../components/BlogPreview';
+import ReviewCarousel from '../components/ReviewCarousel';
 import sigiriyaImg from '../assets/sigiriya.png';
 
 export default function Inbound() {
@@ -48,7 +54,6 @@ export default function Inbound() {
     setSelectedTour(null);
   };
 
-  // Scroll to top and fetch data on mount
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchPackages();
@@ -59,7 +64,6 @@ export default function Inbound() {
       const res = await fetch(`${API_URL}/packages`);
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      // Filter for Inbound only
       setDynamicPackages(data.filter(p => p.category === 'Inbound'));
     } catch (err) {
       console.error("Error fetching packages:", err);
@@ -68,10 +72,26 @@ export default function Inbound() {
     }
   };
 
-  // Merge static and dynamic packages
   const allPackages = [...INBOUND_PACKAGES, ...dynamicPackages];
+  const roundTours = allPackages.filter(p => p.type === 'Round');
+  const dayTours = allPackages.filter(p => !p.type || p.type === 'Day');
 
   const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS.en;
+
+  const destinations = [
+    { name: "Sigiriya", description: "The iconic Lion Rock fortress.", image: sigiriyaImg },
+    { name: "Kandy", description: "The cultural heart and scenic hills." },
+    { name: "Mirissa", description: "Whale watching and pristine beaches." },
+    { name: "Galle", description: "Colonial charm and historic ramparts." },
+    { name: "Trincomalee", description: "Crystal clear waters and golden sand." }
+  ];
+
+  const serviceLabels = {
+    transport: t.serviceTransport,
+    hotels: t.serviceHotels,
+    activities: t.serviceActivities,
+    events: t.serviceEvents
+  };
 
   return (
     <main 
@@ -89,21 +109,48 @@ export default function Inbound() {
       />
 
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
-        <motion.section 
-          initial="hidden"
-          animate="visible"
-          variants={fadeInUp}
-        >
-          <motion.div variants={staggerContainer} className="grid-layout">
-            {allPackages.map(p => (
-              <motion.div variants={fadeInUp} key={p._id || p.id}>
-                <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
-              </motion.div>
-            ))}
-          </motion.div>
-          
-          <ContactSection type="inbound" lang={selectedLanguage} />
-        </motion.section>
+        <SubAboutUs title={t.aboutTitle} content={t.aboutSriLanka} />
+
+        {/* Round Tours Section */}
+        {roundTours.length > 0 && (
+          <section style={{ padding: '60px 0' }}>
+            <SectionHeader title={t.roundToursTitle} label="EXCURSIONS" />
+            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
+              {roundTours.map(p => (
+                <motion.div variants={fadeInUp} key={p._id || p.id}>
+                  <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </section>
+        )}
+
+        {/* Day Tours Section */}
+        {dayTours.length > 0 && (
+          <section style={{ padding: '60px 0' }}>
+            <SectionHeader title={t.dayToursTitle} label="DAY TRIPS" />
+            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
+              {dayTours.map(p => (
+                <motion.div variants={fadeInUp} key={p._id || p.id}>
+                  <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
+                </motion.div>
+              ))}
+            </motion.div>
+          </section>
+        )}
+
+        <DestinationsGrid title={t.destinationsTitle} destinations={destinations} />
+        
+        <ServicesGrid title={t.servicesTitle} serviceLabels={serviceLabels} />
+        
+        <BlogPreview title={t.guideTitle} />
+
+        <section style={{ padding: '80px 0' }}>
+          <SectionHeader title="What Travelers' Say" center={true} />
+          <ReviewCarousel />
+        </section>
+        
+        <ContactSection type="inbound" lang={selectedLanguage} />
       </div>
       
       <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} lang={selectedLanguage} />
