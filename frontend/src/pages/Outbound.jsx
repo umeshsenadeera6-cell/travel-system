@@ -28,6 +28,9 @@ const staggerContainer = {
   }
 };
 
+import SubHero from '../components/SubHero';
+import parisImg from '../assets/paris.png';
+
 export default function Outbound() {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
@@ -73,29 +76,24 @@ export default function Outbound() {
   return (
     <main 
       dir={selectedLanguage === 'ar' ? 'rtl' : 'ltr'}
-      style={{ minHeight: '100vh', padding: '160px 0 100px 0', textAlign: selectedLanguage === 'ar' ? 'right' : 'left' }}
+      style={{ minHeight: '100vh', padding: '0 0 100px 0', textAlign: selectedLanguage === 'ar' ? 'right' : 'left' }}
     >
+      <SubHero 
+        title={t.outboundTitle}
+        subtitle={t.outboundDesc}
+        label={t.outboundLabel}
+        image={parisImg}
+        currentLang={selectedLanguage}
+        onLangChange={setSelectedLanguage}
+        accentColor="hsl(var(--accent))"
+      />
+
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
         <motion.section 
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
         >
-          <div style={{ display: 'flex', flexDirection: 'column', marginBottom: '4rem' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
-              <div>
-                <p className="section-label" style={{ color: 'hsl(var(--accent))' }}>{t.outboundLabel}</p>
-                <h2 className="section-title" style={{ marginBottom: '0.25rem' }}>{t.outboundTitle}</h2>
-                <p style={{ maxWidth: '600px', opacity: 0.6, fontSize: '1.1rem' }}>
-                  {t.outboundDesc}
-                </p>
-              </div>
-              <div style={{ alignSelf: 'flex-start', marginTop: '2.5rem' }}>
-                <LanguagePicker currentLang={selectedLanguage} onSelect={setSelectedLanguage} />
-              </div>
-            </div>
-          </div>
-
           <motion.div variants={staggerContainer} className="grid-layout">
             {allPackages.map(p => (
               <motion.div variants={fadeInUp} key={p._id || p.id}>

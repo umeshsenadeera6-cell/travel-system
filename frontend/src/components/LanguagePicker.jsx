@@ -12,7 +12,7 @@ const LANGUAGES = [
   { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
 ];
 
-export default function LanguagePicker({ currentLang = 'en', onSelect }) {
+export default function LanguagePicker({ currentLang = 'en', onSelect, darkMode = false }) {
   const [isOpen, setIsOpen] = useState(false);
   const selectedLang = LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0];
 
@@ -27,22 +27,24 @@ export default function LanguagePicker({ currentLang = 'en', onSelect }) {
           gap: '0.75rem',
           padding: '0.6rem 1.25rem',
           borderRadius: '999px',
-          backgroundColor: 'white',
-          border: '1.5px solid hsl(var(--primary) / 0.1)',
+          backgroundColor: darkMode ? 'transparent' : 'white',
+          border: darkMode ? '1px solid rgba(255,255,255,0.2)' : '1.5px solid hsl(var(--primary) / 0.1)',
           cursor: 'pointer',
           fontWeight: '700',
           fontSize: '0.9rem',
-          color: 'hsl(var(--secondary))',
-          boxShadow: '0 4px 10px rgba(0,0,0,0.02)',
+          color: darkMode ? 'white' : 'hsl(var(--secondary))',
+          boxShadow: darkMode ? 'none' : '0 4px 10px rgba(0,0,0,0.02)',
           transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = 'hsl(var(--primary) / 0.3)';
+          e.currentTarget.style.borderColor = darkMode ? 'rgba(255,255,255,0.45)' : 'hsl(var(--primary) / 0.3)';
           e.currentTarget.style.transform = 'translateY(-1px)';
+          if (darkMode) e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.borderColor = 'hsl(var(--primary) / 0.1)';
+          e.currentTarget.style.borderColor = darkMode ? 'rgba(255,255,255,0.2)' : 'hsl(var(--primary) / 0.1)';
           e.currentTarget.style.transform = 'translateY(0)';
+          if (darkMode) e.currentTarget.style.backgroundColor = 'transparent';
         }}
       >
         <span style={{ fontSize: '1.2rem' }}>{selectedLang.flag}</span>
@@ -51,7 +53,8 @@ export default function LanguagePicker({ currentLang = 'en', onSelect }) {
           size={16} 
           style={{ 
             transition: 'transform 0.3s ease',
-            transform: isOpen ? 'rotate(180deg)' : 'rotate(0)'
+            transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
+            opacity: darkMode ? 0.7 : 1
           }} 
         />
       </button>
@@ -75,11 +78,12 @@ export default function LanguagePicker({ currentLang = 'en', onSelect }) {
                 top: '100%',
                 right: 0,
                 width: '200px',
-                backgroundColor: 'white',
+                backgroundColor: darkMode ? 'rgba(30, 30, 30, 0.85)' : 'white',
+                backdropFilter: darkMode ? 'blur(20px)' : 'none',
                 borderRadius: '1.25rem',
                 padding: '0.5rem',
-                border: '1px solid hsl(var(--glass-border))',
-                boxShadow: '0 10px 40px -10px rgba(0,0,0,0.1)',
+                border: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid hsl(var(--glass-border))',
+                boxShadow: '0 10px 40px -10px rgba(0,0,0,0.3)',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '0.25rem',
@@ -100,30 +104,38 @@ export default function LanguagePicker({ currentLang = 'en', onSelect }) {
                     padding: '0.75rem 0.75rem',
                     borderRadius: '0.75rem',
                     border: 'none',
-                    backgroundColor: currentLang === lang.code ? 'hsl(var(--primary) / 0.05)' : 'transparent',
+                    backgroundColor: currentLang === lang.code 
+                      ? (darkMode ? 'rgba(255, 255, 255, 0.1)' : 'hsl(var(--primary) / 0.05)') 
+                      : 'transparent',
                     cursor: 'pointer',
                     width: '100%',
                     textAlign: 'left',
                     transition: 'all 0.2s',
                   }}
                   onMouseEnter={(e) => {
-                    if (currentLang !== lang.code) e.currentTarget.style.backgroundColor = 'hsl(var(--primary) / 0.03)';
+                    if (currentLang !== lang.code) {
+                      e.currentTarget.style.backgroundColor = darkMode ? 'rgba(255, 255, 255, 0.05)' : 'hsl(var(--primary) / 0.03)';
+                    }
                   }}
                   onMouseLeave={(e) => {
-                    if (currentLang !== lang.code) e.currentTarget.style.backgroundColor = 'transparent';
+                    if (currentLang !== lang.code) {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }
                   }}
                 >
                   <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                     <span style={{ fontSize: '1.2rem' }}>{lang.flag}</span>
                     <span style={{ 
                       fontWeight: currentLang === lang.code ? '700' : '500',
-                      color: currentLang === lang.code ? 'hsl(var(--primary))' : 'hsl(var(--secondary))',
+                      color: currentLang === lang.code 
+                        ? (darkMode ? 'white' : 'hsl(var(--primary))') 
+                        : (darkMode ? 'rgba(255, 255, 255, 0.7)' : 'hsl(var(--secondary))'),
                       fontSize: '0.95rem'
                     }}>
                       {lang.name}
                     </span>
                   </div>
-                  {currentLang === lang.code && <Check size={14} color="hsl(var(--primary))" />}
+                  {currentLang === lang.code && <Check size={14} color={darkMode ? 'white' : 'hsl(var(--primary))'} />}
                 </button>
               ))}
             </motion.div>
