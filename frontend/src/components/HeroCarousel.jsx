@@ -106,7 +106,7 @@ export default function HeroCarousel() {
           <div style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 50%, rgba(0,0,0,0.4) 100%)',
+            background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.6) 100%)',
             zIndex: 1
           }} />
           
@@ -142,7 +142,8 @@ export default function HeroCarousel() {
                 letterSpacing: '4px',
                 fontSize: '0.9rem',
                 display: 'block',
-                marginBottom: '1rem'
+                marginBottom: '1rem',
+                textShadow: '0 2px 10px rgba(0,0,0,0.5)'
               }}>
                 Luxury Travel Experiences
               </span>
@@ -151,22 +152,25 @@ export default function HeroCarousel() {
                 fontWeight: 800,
                 lineHeight: 1,
                 marginBottom: '1.5rem',
-                textShadow: '0 4px 30px rgba(0,0,0,0.3)',
+                color: 'white',
+                textShadow: '0 10px 40px rgba(0,0,0,0.9), 0 4px 15px rgba(0,0,0,0.7)',
               }}>
                 {slides[current].title}
               </h1>
+
               
               <p style={{
                 fontSize: 'clamp(1.1rem, 2vw, 1.4rem)',
-                opacity: 0.9,
+                opacity: 1,
                 marginBottom: '3rem',
                 lineHeight: 1.6,
                 maxWidth: '700px',
-                fontWeight: 400,
-                textShadow: '0 2px 10px rgba(0,0,0,0.3)',
+                fontWeight: 500,
+                textShadow: '0 2px 15px rgba(0,0,0,0.8)',
               }}>
                 {slides[current].subtitle}
               </p>
+
               
               <motion.button
                 whileHover={{ scale: 1.05, backgroundColor: 'white', color: 'black' }}

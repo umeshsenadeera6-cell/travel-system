@@ -79,7 +79,8 @@ export default function Hero() {
               letterSpacing: '0.3em', 
               marginBottom: '1.5rem',
               color: 'hsl(var(--primary))',
-              display: 'block'
+              display: 'block',
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
             }}>AUTHENTIC SRI LANKA</span>
             <h2 className="serif" style={{ 
               fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
@@ -87,7 +88,7 @@ export default function Hero() {
               marginBottom: '2rem',
               lineHeight: 1,
               color: 'white',
-              textShadow: '0 4px 30px rgba(0,0,0,0.5)'
+              textShadow: '0 10px 40px rgba(0,0,0,0.8), 0 4px 10px rgba(0,0,0,0.5)'
             }}>Explore <br/> Serendib</h2>
             <div className="btn" style={{ 
               backgroundColor: 'white', 
@@ -103,7 +104,7 @@ export default function Hero() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to right, rgba(0,0,0,0.6), transparent)',
+          background: 'linear-gradient(to right, rgba(0,0,0,0.8), rgba(0,0,0,0.2) 60%, transparent)',
           zIndex: 1
         }} />
       </motion.div>
@@ -160,7 +161,8 @@ export default function Hero() {
               letterSpacing: '0.3em', 
               marginBottom: '1.5rem',
               color: 'hsl(var(--accent))',
-              display: 'block'
+              display: 'block',
+              textShadow: '0 2px 10px rgba(0,0,0,0.5)'
             }}>GLOBAL EXPLORATION</span>
             <h2 className="serif" style={{ 
               fontSize: 'clamp(2.5rem, 6vw, 4.5rem)', 
@@ -168,7 +170,7 @@ export default function Hero() {
               marginBottom: '2rem',
               lineHeight: 1,
               color: 'white',
-              textShadow: '0 4px 30px rgba(0,0,0,0.5)'
+              textShadow: '0 10px 40px rgba(0,0,0,0.8), 0 4px 10px rgba(0,0,0,0.5)'
             }}>World of <br/> Wonder</h2>
             <div className="btn" style={{ 
               backgroundColor: 'white', 
@@ -184,7 +186,7 @@ export default function Hero() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'linear-gradient(to left, rgba(0,0,0,0.6), transparent)',
+          background: 'linear-gradient(to left, rgba(0,0,0,0.8), rgba(0,0,0,0.2) 60%, transparent)',
           zIndex: 1
         }} />
       </motion.div>
