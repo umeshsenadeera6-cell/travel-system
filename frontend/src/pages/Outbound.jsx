@@ -6,6 +6,7 @@ import { OUTBOUND_PACKAGES } from '../data/tours';
 import ContactSection from '../components/ContactSection';
 import LanguagePicker from '../components/LanguagePicker';
 import { TRANSLATIONS } from '../data/translations';
+import API_URL from '../config';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
@@ -31,6 +32,8 @@ export default function Outbound() {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [dynamicPackages, setDynamicPackages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   const openTour = (tour) => {
     setSelectedTour(tour);
@@ -42,10 +45,28 @@ export default function Outbound() {
     setSelectedTour(null);
   };
 
-  // Scroll to top on mount
+  // Scroll to top and fetch data on mount
   useEffect(() => {
     window.scrollTo(0, 0);
+    fetchPackages();
   }, []);
+
+  const fetchPackages = async () => {
+    try {
+      const res = await fetch(`${API_URL}/packages`);
+      if (!res.ok) throw new Error('Failed to fetch');
+      const data = await res.json();
+      // Filter for Outbound only
+      setDynamicPackages(data.filter(p => p.category === 'Outbound'));
+    } catch (err) {
+      console.error("Error fetching packages:", err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // Merge static and dynamic packages
+  const allPackages = [...OUTBOUND_PACKAGES, ...dynamicPackages];
 
   const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS.en;
 
@@ -76,8 +97,8 @@ export default function Outbound() {
           </div>
 
           <motion.div variants={staggerContainer} className="grid-layout">
-            {OUTBOUND_PACKAGES.map(p => (
-              <motion.div variants={fadeInUp} key={p.id}>
+            {allPackages.map(p => (
+              <motion.div variants={fadeInUp} key={p._id || p.id}>
                 <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
               </motion.div>
             ))}

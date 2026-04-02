@@ -548,20 +548,19 @@ export default function AdminDashboard() {
 
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                     <label style={{ fontSize: '0.85rem', fontWeight: '800', opacity: 0.6 }}>
-                      Itinerary JSON (Advanced)
+                      {"Itinerary JSON (e.g. [{\"day\": 1, \"title\": \"Arrival\"}])"}
                     </label>
                     <textarea 
                       className="form-control"
                       style={{ minHeight: '120px', fontSize: '0.8rem', fontFamily: 'monospace' }}
-                      value={JSON.stringify(formData.itinerary, null, 2)}
+                      value={formData._rawItinerary || JSON.stringify(formData.itinerary, null, 2)}
                       onChange={e => {
+                        const newVal = e.target.value;
                         try {
-                          const parsed = JSON.parse(e.target.value);
-                          setFormData({ ...formData, itinerary: parsed });
+                          const parsed = JSON.parse(newVal);
+                          setFormData({ ...formData, itinerary: parsed, _rawItinerary: null });
                         } catch (err) {
-                          // Allow typing invalid JSON temporarily
-                          const newVal = e.target.value;
-                          setFormData(prev => ({ ...prev, _rawItinerary: newVal }));
+                          setFormData({ ...formData, _rawItinerary: newVal });
                         }
                       }}
                     />
