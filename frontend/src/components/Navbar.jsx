@@ -79,8 +79,8 @@ export default function Navbar() {
               style={{
                 width: '1.5px',
                 height: scrolled ? '40px' : '60px',
-                backgroundColor: 'hsla(0, 0%, 0%, 0.1)',
-                transition: 'height 0.4s ease'
+                backgroundColor: scrolled ? 'hsla(0, 0%, 0%, 0.1)' : 'hsla(0, 0%, 100%, 0.2)',
+                transition: 'all 0.4s ease'
               }}
             />
 
@@ -99,9 +99,9 @@ export default function Navbar() {
                 fontSize: scrolled ? '1.5rem' : '2.2rem', 
                 fontWeight: '900', 
                 letterSpacing: '2px',
-                color: 'hsl(240, 10%, 4%)',
+                color: scrolled ? 'hsl(240, 10%, 4%)' : 'white',
                 lineHeight: 1,
-                transition: 'font-size 0.4s ease'
+                transition: 'all 0.4s ease'
               }}>
                 SERENDIB
               </span>
@@ -109,10 +109,10 @@ export default function Navbar() {
                 fontSize: scrolled ? '0.7rem' : '0.9rem', 
                 fontWeight: '700', 
                 letterSpacing: '5px',
-                color: 'hsl(142, 76%, 36%)',
+                color: scrolled ? 'hsl(142, 76%, 36%)' : '#34d399',
                 marginTop: '4px',
                 opacity: 0.9,
-                transition: 'font-size 0.4s ease'
+                transition: 'all 0.4s ease'
               }}>
                 TRAVEL & TOURS
               </span>
