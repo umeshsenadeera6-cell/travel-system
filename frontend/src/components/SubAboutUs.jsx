@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ShieldCheck, Star, Users } from 'lucide-react';
+import logoImg from '../assets/logo.png';
 
 const SubAboutUs = ({ title, content, accentColor = 'hsl(var(--primary))' }) => {
   const features = [
@@ -55,15 +56,17 @@ const SubAboutUs = ({ title, content, accentColor = 'hsl(var(--primary))' }) => 
             overflow: 'hidden'
           }}
         >
-          <div style={{ 
-            fontSize: '5rem', 
-            opacity: 0.1, 
-            fontWeight: 900, 
-            textAlign: 'center',
-            lineHeight: 1
-          }}>
-            SERENDIB<br/>TRAVELS
-          </div>
+          <img 
+            src={logoImg} 
+            alt="Serendib Travels Logo" 
+            style={{ 
+              maxHeight: '180px', 
+              maxWidth: '80%', 
+              objectFit: 'contain', 
+              opacity: 0.9,
+              filter: 'drop-shadow(0 10px 20px rgba(0,0,0,0.1))'
+            }} 
+          />
           <div style={{
             position: 'absolute',
             inset: '2rem',

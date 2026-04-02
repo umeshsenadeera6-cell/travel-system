@@ -36,6 +36,10 @@ import ServicesGrid from '../components/ServicesGrid';
 import BlogPreview from '../components/BlogPreview';
 import ReviewCarousel from '../components/ReviewCarousel';
 import parisImg from '../assets/paris.png';
+import dubaiImg from '../assets/dubai.png';
+import tokyoImg from '../assets/tokyo.png';
+import londonImg from '../assets/london.png';
+import singaporeImg from '../assets/singapore.png';
 
 export default function Outbound() {
   const [selectedTour, setSelectedTour] = useState(null);
@@ -80,10 +84,10 @@ export default function Outbound() {
 
   const destinations = [
     { name: "Paris", description: "The city of light and romance.", image: parisImg },
-    { name: "Dubai", description: "Futuristic skylines and desert luxury." },
-    { name: "Tokyo", description: "Neon streets and ancient culture." },
-    { name: "London", description: "Historic landmarks and modern energy." },
-    { name: "Singapore", description: "A garden city with vibrant beats." }
+    { name: "Dubai", description: "Futuristic skylines and desert luxury.", image: dubaiImg },
+    { name: "Tokyo", description: "Neon streets and ancient culture.", image: tokyoImg },
+    { name: "London", description: "Historic landmarks and modern energy.", image: londonImg },
+    { name: "Singapore", description: "A garden city with vibrant beats.", image: singaporeImg }
   ];
 
   const serviceLabels = {

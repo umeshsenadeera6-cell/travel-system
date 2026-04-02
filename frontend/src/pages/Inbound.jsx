@@ -36,6 +36,10 @@ import ServicesGrid from '../components/ServicesGrid';
 import BlogPreview from '../components/BlogPreview';
 import ReviewCarousel from '../components/ReviewCarousel';
 import sigiriyaImg from '../assets/sigiriya.png';
+import kandyImg from '../assets/kandy.png';
+import mirissaImg from '../assets/mirissa.png';
+import galleImg from '../assets/galle.png';
+import trincomaleeImg from '../assets/trincomalee.png';
 
 export default function Inbound() {
   const [selectedTour, setSelectedTour] = useState(null);
@@ -80,10 +84,10 @@ export default function Inbound() {
 
   const destinations = [
     { name: "Sigiriya", description: "The iconic Lion Rock fortress.", image: sigiriyaImg },
-    { name: "Kandy", description: "The cultural heart and scenic hills." },
-    { name: "Mirissa", description: "Whale watching and pristine beaches." },
-    { name: "Galle", description: "Colonial charm and historic ramparts." },
-    { name: "Trincomalee", description: "Crystal clear waters and golden sand." }
+    { name: "Kandy", description: "The cultural heart and scenic hills.", image: kandyImg },
+    { name: "Mirissa", description: "Whale watching and pristine beaches.", image: mirissaImg },
+    { name: "Galle", description: "Colonial charm and historic ramparts.", image: galleImg },
+    { name: "Trincomalee", description: "Crystal clear waters and golden sand.", image: trincomaleeImg }
   ];
 
   const serviceLabels = {
