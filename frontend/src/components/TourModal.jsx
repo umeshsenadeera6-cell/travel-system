@@ -67,6 +67,7 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
           exit={{ opacity: 0, scale: 0.96, y: 16 }}
           transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
           onClick={(e) => e.stopPropagation()}
+          dir={lang === 'ar' ? 'rtl' : 'ltr'}
           style={{
             position: 'relative',
             width: '100%',
@@ -77,7 +78,8 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
             overflow: 'hidden',
             boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.5)',
             display: 'flex',
-            flexDirection: 'column'
+            flexDirection: 'column',
+            textAlign: lang === 'ar' ? 'right' : 'left'
           }}
         >
           {/* Header Image Section */}
@@ -122,15 +124,16 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
             <div style={{
               position: 'absolute',
               bottom: '2rem',
-              left: '2rem',
-              right: '2rem',
+              left: lang === 'ar' ? 'auto' : '2rem',
+              right: lang === 'ar' ? '2rem' : 'auto',
+              textAlign: lang === 'ar' ? 'right' : 'left',
               color: 'white',
               zIndex: 5
             }}>
               <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
                 {displayTitle}
               </h2>
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', color: 'rgba(255, 255, 255, 0.9)' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', color: 'rgba(255, 255, 255, 0.9)', justifyContent: lang === 'ar' ? 'flex-end' : 'flex-start' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
                   <Clock size={18} />
                   <span style={{ fontWeight: '600' }}>{tour.duration}</span>

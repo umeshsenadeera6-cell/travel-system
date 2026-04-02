@@ -7,6 +7,9 @@ const LANGUAGES = [
   { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
   { code: 'fr', name: 'Français', flag: '🇫🇷' },
   { code: 'zh', name: '简体中文', flag: '🇨🇳' },
+  { code: 'jp', name: '日本語', flag: '🇯🇵' },
+  { code: 'ar', name: 'العربية', flag: '🇦🇪' },
+  { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
 ];
 
 export default function LanguagePicker({ currentLang = 'en', onSelect }) {

@@ -50,7 +50,10 @@ export default function Inbound() {
   const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS.en;
 
   return (
-    <main style={{ minHeight: '100vh', padding: '160px 0 100px 0' }}>
+    <main 
+      dir={selectedLanguage === 'ar' ? 'rtl' : 'ltr'}
+      style={{ minHeight: '100vh', padding: '160px 0 100px 0', textAlign: selectedLanguage === 'ar' ? 'right' : 'left' }}
+    >
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
         <motion.section 
           initial="hidden"
