@@ -35,6 +35,7 @@ import DestinationsGrid from '../components/DestinationsGrid';
 import ServicesGrid from '../components/ServicesGrid';
 import BlogPreview from '../components/BlogPreview';
 import ReviewCarousel from '../components/ReviewCarousel';
+import InternalNav from '../components/InternalNav';
 import sigiriyaImg from '../assets/sigiriya.png';
 import kandyImg from '../assets/kandy.png';
 import mirissaImg from '../assets/mirissa.png';
@@ -97,6 +98,16 @@ export default function Inbound() {
     events: t.serviceEvents
   };
 
+  const navLinks = [
+    { label: t.navAbout, id: 'about-section' },
+    { label: t.navTours, id: 'tours-section' },
+    { label: t.navDestinations, id: 'destinations-section' },
+    { label: t.navServices, id: 'services-section' },
+    { label: t.navGuides, id: 'guides-section' },
+    { label: t.navReviews, id: 'reviews-section' },
+    { label: t.navContact, id: 'contact-section' }
+  ];
+
   return (
     <main 
       dir={selectedLanguage === 'ar' ? 'rtl' : 'ltr'}
@@ -112,49 +123,63 @@ export default function Inbound() {
         accentColor="hsl(var(--primary))"
       />
 
+      <InternalNav links={navLinks} accentColor="hsl(var(--primary))" />
+
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
-        <SubAboutUs title={t.aboutTitle} content={t.aboutSriLanka} />
+        <div id="about-section">
+          <SubAboutUs title={t.aboutTitle} content={t.aboutSriLanka} />
+        </div>
 
-        {/* Round Tours Section */}
-        {roundTours.length > 0 && (
-          <section style={{ padding: '60px 0' }}>
-            <SectionHeader title={t.roundToursTitle} label="EXCURSIONS" />
-            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
-              {roundTours.map(p => (
-                <motion.div variants={fadeInUp} key={p._id || p.id}>
-                  <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </section>
-        )}
+        <div id="tours-section">
+          {/* Round Tours Section */}
+          {roundTours.length > 0 && (
+            <section style={{ padding: '60px 0' }}>
+              <SectionHeader title={t.roundToursTitle} label="EXCURSIONS" />
+              <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
+                {roundTours.map(p => (
+                  <motion.div variants={fadeInUp} key={p._id || p.id}>
+                    <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </section>
+          )}
 
-        {/* Day Tours Section */}
-        {dayTours.length > 0 && (
-          <section style={{ padding: '60px 0' }}>
-            <SectionHeader title={t.dayToursTitle} label="DAY TRIPS" />
-            <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
-              {dayTours.map(p => (
-                <motion.div variants={fadeInUp} key={p._id || p.id}>
-                  <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </section>
-        )}
+          {/* Day Tours Section */}
+          {dayTours.length > 0 && (
+            <section style={{ padding: '60px 0' }}>
+              <SectionHeader title={t.dayToursTitle} label="DAY TRIPS" />
+              <motion.div variants={staggerContainer} initial="hidden" animate="visible" className="grid-layout">
+                {dayTours.map(p => (
+                  <motion.div variants={fadeInUp} key={p._id || p.id}>
+                    <PackageCard pkg={p} image={p.image} onViewDetails={() => openTour(p)} lang={selectedLanguage} />
+                  </motion.div>
+                ))}
+              </motion.div>
+            </section>
+          )}
+        </div>
 
-        <DestinationsGrid title={t.destinationsTitle} destinations={destinations} />
+        <div id="destinations-section">
+          <DestinationsGrid title={t.destinationsTitle} destinations={destinations} />
+        </div>
         
-        <ServicesGrid title={t.servicesTitle} serviceLabels={serviceLabels} />
+        <div id="services-section">
+          <ServicesGrid title={t.servicesTitle} serviceLabels={serviceLabels} />
+        </div>
         
-        <BlogPreview title={t.guideTitle} />
+        <div id="guides-section">
+          <BlogPreview title={t.guideTitle} />
+        </div>
 
-        <section style={{ padding: '80px 0' }}>
+        <section id="reviews-section" style={{ padding: '80px 0' }}>
           <SectionHeader title="What Travelers' Say" center={true} />
           <ReviewCarousel />
         </section>
         
-        <ContactSection type="inbound" lang={selectedLanguage} />
+        <div id="contact-section">
+          <ContactSection type="inbound" lang={selectedLanguage} />
+        </div>
       </div>
       
       <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} lang={selectedLanguage} />

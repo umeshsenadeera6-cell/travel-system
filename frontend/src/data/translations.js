@@ -33,7 +33,14 @@ export const TRANSLATIONS = {
     serviceHotels: "Luxury Hotel Bookings",
     serviceActivities: "Activity & Tour Planning",
     serviceEvents: "Event & MICE Travels",
-    guideTitle: "Travel Guides & Blogs"
+    guideTitle: "Travel Guides & Blogs",
+    navAbout: "About",
+    navTours: "Tours",
+    navDestinations: "Destinations",
+    navServices: "Services",
+    navGuides: "Guides",
+    navReviews: "Reviews",
+    navContact: "Contact"
   },
   de: {
     inboundLabel: "SRI LANKAS VERBORGENE SCHÄTZE",
@@ -69,7 +76,14 @@ export const TRANSLATIONS = {
     serviceHotels: "Luxushotel-Buchungen",
     serviceActivities: "Aktivitäten- & Tourenplanung",
     serviceEvents: "Event- & MICE-Reisen",
-    guideTitle: "Reiseführer & Blogs"
+    guideTitle: "Reiseführer & Blogs",
+    navAbout: "Über uns",
+    navTours: "Touren",
+    navDestinations: "Ziele",
+    navServices: "Dienste",
+    navGuides: "Guides",
+    navReviews: "Bewertungen",
+    navContact: "Kontakt"
   },
   fr: {
     inboundLabel: "LES TRÉSORS CACHÉS DU SRI LANKA",
@@ -105,7 +119,14 @@ export const TRANSLATIONS = {
     serviceHotels: "Réservations d'hôtels de luxe",
     serviceActivities: "Planification d'activités",
     serviceEvents: "Événements & Voyages MICE",
-    guideTitle: "Guides de voyage & Blogs"
+    guideTitle: "Guides de voyage & Blogs",
+    navAbout: "À propos",
+    navTours: "Circuits",
+    navDestinations: "Destinations",
+    navServices: "Services",
+    navGuides: "Guides",
+    navReviews: "Avis",
+    navContact: "Contact"
   },
   zh: {
     inboundLabel: "斯里兰卡隐藏的瑰宝",
@@ -141,7 +162,14 @@ export const TRANSLATIONS = {
     serviceHotels: "豪华酒店预订",
     serviceActivities: "活动与行程规划",
     serviceEvents: "活动与会奖旅游",
-    guideTitle: "旅游指南与博客"
+    guideTitle: "旅游指南与博客",
+    navAbout: "关于",
+    navTours: "旅游",
+    navDestinations: "目的地",
+    navServices: "服务",
+    navGuides: "指南",
+    navReviews: "评价",
+    navContact: "联系我们"
   },
   jp: {
     inboundLabel: "スリランカの秘宝",
@@ -165,7 +193,14 @@ export const TRANSLATIONS = {
     uiInclusions: "含まれるもの",
     uiRouteMap: "ルートマップ",
     uiPriceFrom: "最低料金",
-    uiConfirmBooking: "予約を確定する"
+    uiConfirmBooking: "予約を確定する",
+    navAbout: "概要",
+    navTours: "ツアー",
+    navDestinations: "目的地",
+    navServices: "サービス",
+    navGuides: "ガイド",
+    navReviews: "レビュー",
+    navContact: "お問い合わせ"
   },
   ar: {
     inboundLabel: "الجواهر الخفية في سريلانكا",
@@ -201,7 +236,14 @@ export const TRANSLATIONS = {
     serviceHotels: "حجز الفنادق الفاخرة",
     serviceActivities: "تخطيط الأنشطة والجولات",
     serviceEvents: "الفعاليات وسفر الشركات",
-    guideTitle: "أدلة السفر والمدونات"
+    guideTitle: "أدلة السفر والمدونات",
+    navAbout: "حول",
+    navTours: "الجولات",
+    navDestinations: "الوجهات",
+    navServices: "الخدمات",
+    navGuides: "الأدلة",
+    navReviews: "المراجعات",
+    navContact: "اتصل بنا"
   },
   hi: {
     inboundLabel: "श्रीलंका के छिपे हुए रत्न",
@@ -225,6 +267,13 @@ export const TRANSLATIONS = {
     uiInclusions: "क्या शामिल है",
     uiRouteMap: "मार्ग मानचित्र",
     uiPriceFrom: "से शुरू",
-    uiConfirmBooking: "बुकिंग की पुष्टि करें"
+    uiConfirmBooking: "बुकिंग की पुष्टि करें",
+    navAbout: "बारे में",
+    navTours: "यात्रा",
+    navDestinations: "गंतव्य",
+    navServices: "सेवाएं",
+    navGuides: "गाइड",
+    navReviews: "समीक्षा",
+    navContact: "संपर्क"
   }
 };
