@@ -12,6 +12,7 @@ import Inbound from "./pages/Inbound";
 import Outbound from "./pages/Outbound";
 import BookingPage from "./pages/BookingPage";
 import AdminDashboard from "./pages/AdminDashboard";
+import TermsConditions from "./pages/TermsConditions";
 
 export default function App() {
   return (
@@ -32,6 +33,7 @@ export default function App() {
             <Route path="/outbound" element={<Outbound />} />
             <Route path="/booking" element={<BookingPage />} />
             <Route path="/admin" element={<AdminDashboard />} />
+            <Route path="/terms" element={<TermsConditions />} />
           </Routes>
         </div>
 

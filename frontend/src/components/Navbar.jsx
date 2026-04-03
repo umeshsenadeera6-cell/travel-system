@@ -21,6 +21,7 @@ export default function Navbar() {
     { name: "Home", path: "/" },
     { name: "Inbound", path: "/inbound" },
     { name: "Outbound", path: "/outbound" },
+    { name: "Terms & Conditions", path: "/terms" },
   ];
 
   const isActive = (path) => location.pathname === path;
