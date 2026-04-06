@@ -35,7 +35,6 @@ import DestinationsGrid from '../components/DestinationsGrid';
 import ServicesGrid from '../components/ServicesGrid';
 import BlogPreview from '../components/BlogPreview';
 import ReviewCarousel from '../components/ReviewCarousel';
-import InternalNav from '../components/InternalNav';
 import parisImg from '../assets/paris.png';
 import dubaiImg from '../assets/dubai.png';
 import tokyoImg from '../assets/tokyo.png';
@@ -97,15 +96,7 @@ export default function Outbound({ selectedLanguage = 'en', setSelectedLanguage 
     events: t.serviceEvents
   };
 
-  const navLinks = [
-    { label: t.navAbout, id: 'about-section' },
-    { label: t.navTours, id: 'tours-section' },
-    { label: t.navDestinations, id: 'destinations-section' },
-    { label: t.navServices, id: 'services-section' },
-    { label: t.navGuides, id: 'guides-section' },
-    { label: t.navReviews, id: 'reviews-section' },
-    { label: t.navContact, id: 'contact-section' }
-  ];
+
 
   return (
     <main 
@@ -120,7 +111,7 @@ export default function Outbound({ selectedLanguage = 'en', setSelectedLanguage 
         accentColor="hsl(var(--accent))"
       />
 
-      <InternalNav links={navLinks} accentColor="hsl(var(--accent))" />
+
 
       <div style={{ maxWidth: '1440px', margin: '0 auto', padding: '0 5%' }}>
         <div id="about-section">
