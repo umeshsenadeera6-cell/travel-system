@@ -91,6 +91,11 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                 muted
                 loop
                 playsInline
+                onError={(e) => {
+                  e.target.style.display = 'none';
+                  const img = e.target.nextSibling;
+                  if (img) img.style.display = 'block';
+                }}
                 style={{ 
                   width: '100%', 
                   height: '100%', 
@@ -98,13 +103,17 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                   filter: 'brightness(0.8)'
                 }}
               />
-            ) : (
-              <img
-                src={tour.image}
-                alt={displayTitle}
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-              />
-            )}
+            ) : null}
+            <img
+              src={tour.image}
+              alt={displayTitle}
+              style={{ 
+                width: '100%', 
+                height: '100%', 
+                objectFit: 'cover',
+                display: (tour.video || tour.videoUrl) ? 'none' : 'block'
+              }}
+            />
             <div style={{
               position: 'absolute',
               top: 0,
