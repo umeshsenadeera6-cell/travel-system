@@ -13,6 +13,7 @@ import Outbound from "./pages/Outbound";
 import BookingPage from "./pages/BookingPage";
 import AdminDashboard from "./pages/AdminDashboard";
 import TermsConditions from "./pages/TermsConditions";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 export default function App() {
   const [currentLanguage, setCurrentLanguage] = React.useState(() => {
@@ -42,6 +43,7 @@ export default function App() {
             <Route path="/booking" element={<BookingPage currentLanguage={currentLanguage} />} />
             <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/terms" element={<TermsConditions currentLanguage={currentLanguage} />} />
+            <Route path="/privacy" element={<PrivacyPolicy />} />
           </Routes>
         </div>
 
