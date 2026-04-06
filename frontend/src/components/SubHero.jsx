@@ -154,10 +154,6 @@ const SubHero = ({
             {subtitle}
           </motion.p>
 
-          {/* Language Picker */}
-          <motion.div variants={itemVariants} style={{ alignSelf: isRtl ? 'flex-end' : 'flex-start' }}>
-            <LanguagePicker currentLang={currentLang} onSelect={onLangChange} darkMode={true} />
-          </motion.div>
         </motion.div>
       </div>
 

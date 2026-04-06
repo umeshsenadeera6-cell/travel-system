@@ -15,6 +15,8 @@ import AdminDashboard from "./pages/AdminDashboard";
 import TermsConditions from "./pages/TermsConditions";
 
 export default function App() {
+  const [currentLanguage, setCurrentLanguage] = React.useState('en');
+
   return (
     <Router>
       <div style={{
@@ -24,16 +26,16 @@ export default function App() {
         display: 'flex',
         flexDirection: 'column'
       }}>
-        <Navbar />
+        <Navbar currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
         
         <div style={{ flex: 1 }}>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/inbound" element={<Inbound />} />
-            <Route path="/outbound" element={<Outbound />} />
-            <Route path="/booking" element={<BookingPage />} />
+            <Route path="/" element={<Home currentLanguage={currentLanguage} />} />
+            <Route path="/inbound" element={<Inbound selectedLanguage={currentLanguage} setSelectedLanguage={setCurrentLanguage} />} />
+            <Route path="/outbound" element={<Outbound selectedLanguage={currentLanguage} setSelectedLanguage={setCurrentLanguage} />} />
+            <Route path="/booking" element={<BookingPage currentLanguage={currentLanguage} />} />
             <Route path="/admin" element={<AdminDashboard />} />
-            <Route path="/terms" element={<TermsConditions />} />
+            <Route path="/terms" element={<TermsConditions currentLanguage={currentLanguage} />} />
           </Routes>
         </div>
 

@@ -42,10 +42,9 @@ import tokyoImg from '../assets/tokyo.png';
 import londonImg from '../assets/london.png';
 import singaporeImg from '../assets/singapore.png';
 
-export default function Outbound() {
+export default function Outbound({ selectedLanguage = 'en', setSelectedLanguage }) {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [dynamicPackages, setDynamicPackages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -118,8 +117,6 @@ export default function Outbound() {
         subtitle={t.outboundDesc}
         label={t.outboundLabel}
         image={parisImg}
-        currentLang={selectedLanguage}
-        onLangChange={setSelectedLanguage}
         accentColor="hsl(var(--accent))"
       />
 

@@ -3,8 +3,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
 import logoImg from "../assets/logo.png";
 import { Menu, X, ChevronRight } from "lucide-react";
+import LanguagePicker from "./LanguagePicker";
 
-export default function Navbar() {
+export default function Navbar({ currentLanguage = 'en', onLanguageChange }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
@@ -148,6 +149,10 @@ export default function Navbar() {
               )}
             </Link>
           ))}
+          
+          <div style={{ marginLeft: "1rem" }}>
+            <LanguagePicker currentLang={currentLanguage} onSelect={onLanguageChange} darkMode={!scrolled} />
+          </div>
         </div>
  
  
@@ -217,6 +222,16 @@ export default function Navbar() {
               >
                 Book Your Trip
               </Link>
+              
+              <div style={{ 
+                marginTop: "1.5rem", 
+                paddingTop: "1.5rem", 
+                borderTop: "1px solid hsl(var(--glass-border))",
+                display: "flex",
+                justifyContent: "center"
+              }}>
+                <LanguagePicker currentLang={currentLanguage} onSelect={onLanguageChange} darkMode={false} />
+              </div>
             </div>
           </motion.div>
         )}

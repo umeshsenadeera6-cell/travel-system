@@ -42,10 +42,9 @@ import mirissaImg from '../assets/mirissa.png';
 import galleImg from '../assets/galle.png';
 import trincomaleeImg from '../assets/trincomalee.png';
 
-export default function Inbound() {
+export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }) {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
   const [dynamicPackages, setDynamicPackages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -118,8 +117,6 @@ export default function Inbound() {
         subtitle={t.inboundDesc}
         label={t.inboundLabel}
         image={sigiriyaImg}
-        currentLang={selectedLanguage}
-        onLangChange={setSelectedLanguage}
         accentColor="hsl(var(--primary))"
       />
 
