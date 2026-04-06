@@ -6,6 +6,9 @@ import { useNavigate } from 'react-router-dom';
 import beachImg from '../assets/carousel-beach.png';
 import mountainImg from '../assets/carousel-mountain.png';
 import cityImg from '../assets/carousel-city.png';
+import safariImg from '../assets/carousel-safari.png';
+import wildlifeLankaImg from '../assets/carousel-wildlife-lanka.png';
+import lagoonImg from '../assets/carousel-lagoon.png';
 
 const slides = [
   {
@@ -30,6 +33,30 @@ const slides = [
     title: "Vibrant City Beats",
     subtitle: "Immerse yourself in the energy of the world's most dynamic capitals.",
     cta: "Start Your Journey",
+    link: "/outbound"
+  },
+  {
+    id: 4,
+    image: safariImg,
+    title: "Untamed Safari",
+    subtitle: "Witness the majesty of nature's finest in the heart of the savannah.",
+    cta: "Explore Wildlife",
+    link: "/outbound"
+  },
+  {
+    id: 5,
+    image: wildlifeLankaImg,
+    title: "Wild Sri Lanka",
+    subtitle: "Encounter the rare Sri Lankan leopard and majestic elephant herds.",
+    cta: "Start Your Safari",
+    link: "/inbound"
+  },
+  {
+    id: 6,
+    image: lagoonImg,
+    title: "Azure Tranquility",
+    subtitle: "Surrender to the serenity of crystal waters and island bliss.",
+    cta: "Book Your Escape",
     link: "/outbound"
   }
 ];
