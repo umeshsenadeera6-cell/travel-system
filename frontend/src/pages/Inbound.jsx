@@ -104,49 +104,10 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
     { label: t.navServices, id: 'services-section' },
     { label: t.navGuides, id: 'guides-section' },
     { label: t.navReviews, id: 'reviews-section' },
-    { label: t.navTerms, id: 'terms-section' },
+    { label: t.navTerms, path: '/terms' },
     { label: t.navContact, id: 'contact-section' }
   ];
 
-  const termsData = [
-    {
-      id: 1,
-      title: "1. Introduction",
-      content: "Welcome to Serendib Travels and Tours (“we”, “our”, “us”). By booking any tour, package, or service with us, you agree to the following Terms & Conditions."
-    },
-    {
-      id: 2,
-      title: "2. Booking & Confirmation",
-      points: [
-        "All bookings must be made via email, phone, or our official platforms.",
-        "A booking is confirmed only after receiving the required deposit or full payment.",
-        "You are responsible for providing accurate personal and travel details."
-      ]
-    },
-    {
-      id: 3,
-      title: "3. Payments",
-      points: [
-        "A deposit (usually 20%–50%) is required to confirm bookings.",
-        "Full payment must be completed before the start of the tour.",
-        "Payments can be made via bank transfer, online payment gateways, or other agreed methods."
-      ]
-    },
-    {
-      id: 4,
-      title: "4. Cancellation & Refund Policy",
-      points: [
-        "Cancellations must be made in writing.",
-        "Cancellation charges may apply depending on the timing.",
-        "Refunds (if applicable) will be processed within a reasonable period."
-      ]
-    },
-    {
-      id: 13,
-      title: "5. Governing Law",
-      content: "These Terms & Conditions are governed by the laws of Sri Lanka."
-    }
-  ];
 
   return (
     <main 
@@ -215,58 +176,6 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
           <ReviewCarousel />
         </section>
         
-        <section id="terms-section" style={{ padding: '80px 0' }}>
-          <SectionHeader title={t.navTerms} label="LEGAL POLICIES" center={true} />
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
-            gap: '2rem',
-            marginTop: '3rem'
-          }}>
-            {termsData.map((section, idx) => (
-              <motion.div
-                key={section.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1 }}
-                style={{
-                  padding: '2rem',
-                  borderRadius: '1.5rem',
-                  background: 'hsla(var(--background) / 0.4)',
-                  backdropFilter: 'blur(10px)',
-                  border: '1px solid hsla(var(--primary) / 0.1)',
-                  boxShadow: '0 8px 32px -8px rgba(0,0,0,0.05)',
-                }}
-              >
-                <h4 className="serif" style={{ 
-                  fontSize: '1.25rem', 
-                  color: 'hsl(var(--secondary))',
-                  marginBottom: '1rem',
-                  borderBottom: '1px solid hsla(var(--primary) / 0.1)',
-                  paddingBottom: '0.5rem'
-                }}>
-                  {section.title}
-                </h4>
-                {section.content && (
-                  <p style={{ fontSize: '0.95rem', opacity: 0.8, lineHeight: 1.6 }}>
-                    {section.content}
-                  </p>
-                )}
-                {section.points && (
-                  <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
-                    {section.points.map((p, i) => (
-                      <li key={i} style={{ display: 'flex', gap: '0.75rem', fontSize: '0.9rem', opacity: 0.7 }}>
-                        <span style={{ color: 'hsl(var(--primary))' }}>•</span>
-                        {p}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </section>
 
         <div id="contact-section">
           <ContactSection type="inbound" lang={selectedLanguage} />

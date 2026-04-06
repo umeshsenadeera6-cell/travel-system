@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Link } from 'react-router-dom';
 
 const InternalNav = ({ links, accentColor = 'hsl(var(--primary))' }) => {
   const [activeSection, setActiveSection] = useState('');
@@ -134,14 +135,25 @@ const InternalNav = ({ links, accentColor = 'hsl(var(--primary))' }) => {
           `}
         </style>
         {links.map((link) => (
-          <div
-            key={link.id}
-            data-section-id={link.id}
-            onClick={() => scrollToSection(link.id)}
-            className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
-          >
-            {link.label}
-          </div>
+          link.path ? (
+            <Link
+              key={link.path}
+              to={link.path}
+              className="nav-link"
+              style={{ textDecoration: 'none' }}
+            >
+              {link.label}
+            </Link>
+          ) : (
+            <div
+              key={link.id}
+              data-section-id={link.id}
+              onClick={() => scrollToSection(link.id)}
+              className={`nav-link ${activeSection === link.id ? 'active' : ''}`}
+            >
+              {link.label}
+            </div>
+          )
         ))}
       </div>
     </nav>
