@@ -29,8 +29,6 @@ export default function App() {
     <Router>
       <div style={{
         minHeight: '100vh',
-        backgroundColor: 'hsl(var(--background))',
-        color: 'hsl(var(--foreground))',
         display: 'flex',
         flexDirection: 'column',
         position: 'relative'
