@@ -1,16 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import HeroCarousel from '../components/HeroCarousel';
 import Hero from '../components/Hero';
 import AboutUs from '../components/AboutUs';
 import ReviewCarousel from '../components/ReviewCarousel';
+import LimitedTimeTours from '../components/LimitedTimeTours';
+import TourModal from '../components/TourModal';
 
-export default function Home() {
+export default function Home({ currentLanguage = 'en' }) {
+  const [selectedTour, setSelectedTour] = useState(null);
+  const [tourOpen, setTourOpen] = useState(false);
+
+  const openTour = (tour) => {
+    setSelectedTour(tour);
+    setTourOpen(true);
+  };
+
+  const closeTour = () => {
+    setTourOpen(false);
+    setSelectedTour(null);
+  };
+
   return (
     <main style={{ width: '100%', overflowX: 'hidden' }}>
       <section>
         <HeroCarousel />
       </section>
+
+      <LimitedTimeTours onOpenTour={openTour} />
       
       <section style={{ padding: '80px 5% 40px', maxWidth: '1440px', margin: '0 auto' }}>
         <motion.div 
@@ -49,6 +66,13 @@ export default function Home() {
           <ReviewCarousel />
         </div>
       </section>
+
+      <TourModal 
+        isOpen={tourOpen} 
+        onClose={closeTour} 
+        tour={selectedTour} 
+        lang={currentLanguage} 
+      />
     </main>
   );
 }

@@ -133,6 +133,9 @@ export const INBOUND_PACKAGES = [
     },
     type: "Day",
     inclusions: ["Private transport", "English-speaking guide", "Bottled water", "Hotel pickup & drop-off"],
+    isLimitedTime: true,
+    discountPercentage: 15,
+    expiryDate: "2026-04-08T18:00:00Z",
   },
   {
     id: 2,
@@ -628,6 +631,9 @@ export const OUTBOUND_PACKAGES = [
     },
     type: "Round",
     inclusions: ["Hotel stay", "Metro guidance", "Local tour options"],
+    isLimitedTime: true,
+    discountPercentage: 25,
+    expiryDate: "2026-04-09T10:00:00Z",
   },
   {
     id: 7,
@@ -728,6 +734,9 @@ export const OUTBOUND_PACKAGES = [
     },
     type: "Round",
     inclusions: ["Hotel stay", "Transfers", "Desert safari", "Selected experiences"],
+    isLimitedTime: true,
+    discountPercentage: 20,
+    expiryDate: "2026-04-08T12:00:00Z",
   },
   {
     id: 8,
