@@ -10,7 +10,6 @@ const LANGUAGES = [
   { code: 'jp', name: '日本語', flag: '🇯🇵' },
   { code: 'ar', name: 'العربية', flag: '🇦🇪' },
   { code: 'hi', name: 'हिन्दी', flag: '🇮🇳' },
-  { code: 'si', name: 'සිංහල', flag: '🇱🇰' },
 ];
 
 export default function LanguagePicker({ currentLang = 'en', onSelect, darkMode = false }) {
