@@ -15,7 +15,13 @@ import AdminDashboard from "./pages/AdminDashboard";
 import TermsConditions from "./pages/TermsConditions";
 
 export default function App() {
-  const [currentLanguage, setCurrentLanguage] = React.useState('en');
+  const [currentLanguage, setCurrentLanguage] = React.useState(() => {
+    return localStorage.getItem('app_language') || 'en';
+  });
+
+  React.useEffect(() => {
+    localStorage.setItem('app_language', currentLanguage);
+  }, [currentLanguage]);
 
   return (
     <Router>
