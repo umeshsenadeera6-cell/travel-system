@@ -5,6 +5,7 @@ import "./index.css";
 // Components
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import FloatingObjects from "./components/FloatingObjects";
 
 // Pages
 import Home from "./pages/Home";
@@ -31,8 +32,10 @@ export default function App() {
         backgroundColor: 'hsl(var(--background))',
         color: 'hsl(var(--foreground))',
         display: 'flex',
-        flexDirection: 'column'
+        flexDirection: 'column',
+        position: 'relative'
       }}>
+        <FloatingObjects />
         <Navbar currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
         
         <div style={{ flex: 1 }}>
