@@ -82,20 +82,37 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
             textAlign: lang === 'ar' ? 'right' : 'left'
           }}
         >
-          {/* Header Image Section */}
-          <div style={{ position: 'relative', height: '300px', flexShrink: 0 }}>
-            <img
-              src={tour.image}
-              alt={displayTitle}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+          {/* Header Image/Video Section */}
+          <div style={{ position: 'relative', height: '300px', flexShrink: 0, overflow: 'hidden' }}>
+            {tour.video || tour.videoUrl ? (
+              <video
+                src={tour.video || tour.videoUrl}
+                autoPlay
+                muted
+                loop
+                playsInline
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'cover',
+                  filter: 'brightness(0.8)'
+                }}
+              />
+            ) : (
+              <img
+                src={tour.image}
+                alt={displayTitle}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            )}
             <div style={{
               position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))'
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))',
+              backdropFilter: 'contrast(1.1) saturate(1.1)'
             }} />
 
             <button

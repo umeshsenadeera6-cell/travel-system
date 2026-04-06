@@ -19,6 +19,7 @@ const INBOUND_PACKAGES = [
       "04:30 PM - Traditional tea service and return to hotel"
     ],
     inclusions: ["Luxury Transport", "English Speaking Guide", "Entrance Fees", "Traditional Buffet Lunch", "Mineral Water"],
+    videoUrl: "https://vjs.zencdn.net/v/oceans.mp4",
     category: "Inbound"
   },
   { 
@@ -35,6 +36,7 @@ const INBOUND_PACKAGES = [
       "03:00 PM - Refreshing dip in Ravana Falls"
     ],
     inclusions: ["Round-trip Transport", "Expert Hiking Guide", "Picnic Meal Kit", "First Aid Support"],
+    videoUrl: "https://vjs.zencdn.net/v/oceans.mp4",
     category: "Inbound"
   },
   { 
@@ -51,6 +53,7 @@ const INBOUND_PACKAGES = [
       "04:00 PM - Beach time at Unawatuna"
     ],
     inclusions: ["AC Van Transport", "Historical Guide", "Photography Session", "Fort Entrance"],
+    videoUrl: "https://vjs.zencdn.net/v/oceans.mp4",
     category: "Inbound"
   },
   { 
@@ -67,6 +70,7 @@ const INBOUND_PACKAGES = [
       "05:00 PM - Cultural dance show"
     ],
     inclusions: ["Guided City Tour", "Temple Entrance", "Botanical Garden Ticket", "Dance Show Ticket"],
+    videoUrl: "https://vjs.zencdn.net/v/oceans.mp4",
     category: "Inbound"
   }
 ];
