@@ -17,7 +17,7 @@ export default function LanguagePicker({ currentLang = 'en', onSelect, darkMode 
   const selectedLang = LANGUAGES.find(l => l.code === currentLang) || LANGUAGES[0];
 
   return (
-    <div style={{ position: 'relative', zIndex: 100 }}>
+    <div style={{ position: 'relative', zIndex: 100, display: 'inline-block' }}>
       {/* Target/Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
@@ -25,36 +25,37 @@ export default function LanguagePicker({ currentLang = 'en', onSelect, darkMode 
           display: 'flex',
           alignItems: 'center',
           gap: '0.75rem',
-          padding: '0.6rem 1.25rem',
+          padding: '0.75rem 1.5rem',
           borderRadius: '999px',
-          backgroundColor: darkMode ? 'transparent' : 'white',
+          backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'white',
+          backdropFilter: darkMode ? 'blur(12px)' : 'none',
           border: darkMode ? '1px solid rgba(255,255,255,0.2)' : '1.5px solid hsl(var(--primary) / 0.1)',
           cursor: 'pointer',
           fontWeight: '700',
           fontSize: '0.9rem',
           color: darkMode ? 'white' : 'hsl(var(--secondary))',
-          boxShadow: darkMode ? 'none' : '0 4px 10px rgba(0,0,0,0.02)',
-          transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+          boxShadow: darkMode ? '0 4px 20px rgba(0,0,0,0.2)' : '0 4px 10px rgba(0,0,0,0.02)',
+          transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
         }}
         onMouseEnter={(e) => {
-          e.currentTarget.style.borderColor = darkMode ? 'rgba(255,255,255,0.45)' : 'hsl(var(--primary) / 0.3)';
-          e.currentTarget.style.transform = 'translateY(-1px)';
-          if (darkMode) e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.05)';
+          e.currentTarget.style.borderColor = darkMode ? 'rgba(255,255,255,0.4)' : 'hsl(var(--primary) / 0.3)';
+          e.currentTarget.style.transform = 'translateY(-2px)';
+          if (darkMode) e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.15)';
         }}
         onMouseLeave={(e) => {
           e.currentTarget.style.borderColor = darkMode ? 'rgba(255,255,255,0.2)' : 'hsl(var(--primary) / 0.1)';
           e.currentTarget.style.transform = 'translateY(0)';
-          if (darkMode) e.currentTarget.style.backgroundColor = 'transparent';
+          if (darkMode) e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.1)';
         }}
       >
-        <span style={{ fontSize: '1.2rem' }}>{selectedLang.flag}</span>
+        <span style={{ fontSize: '1.2rem', filter: darkMode ? 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))' : 'none' }}>{selectedLang.flag}</span>
         <span>{selectedLang.name}</span>
         <ChevronDown 
           size={16} 
           style={{ 
-            transition: 'transform 0.3s ease',
+            transition: 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
             transform: isOpen ? 'rotate(180deg)' : 'rotate(0)',
-            opacity: darkMode ? 0.7 : 1
+            opacity: darkMode ? 0.8 : 1
           }} 
         />
       </button>
@@ -70,23 +71,24 @@ export default function LanguagePicker({ currentLang = 'en', onSelect, darkMode 
             />
             
             <motion.div
-              initial={{ opacity: 0, scale: 0.95, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 4 }}
-              exit={{ opacity: 0, scale: 0.95, y: 10 }}
+              initial={{ opacity: 0, scale: 0.95, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 8 }}
+              exit={{ opacity: 0, scale: 0.95, y: 12 }}
               style={{
                 position: 'absolute',
                 top: '100%',
-                right: 0,
-                width: '200px',
-                backgroundColor: darkMode ? 'rgba(30, 30, 30, 0.85)' : 'white',
-                backdropFilter: darkMode ? 'blur(20px)' : 'none',
-                borderRadius: '1.25rem',
-                padding: '0.5rem',
+                left: currentLang === 'ar' ? 'auto' : 0,
+                right: currentLang === 'ar' ? 0 : 'auto',
+                width: '220px',
+                backgroundColor: darkMode ? 'rgba(20, 20, 20, 0.85)' : 'white',
+                backdropFilter: 'blur(24px)',
+                borderRadius: '1.5rem',
+                padding: '0.6rem',
                 border: darkMode ? '1px solid rgba(255,255,255,0.1)' : '1px solid hsl(var(--glass-border))',
-                boxShadow: '0 10px 40px -10px rgba(0,0,0,0.3)',
+                boxShadow: darkMode ? '0 25px 50px -12px rgba(0, 0, 0, 0.5)' : '0 10px 40px -10px rgba(0,0,0,0.3)',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.25rem',
+                gap: '0.2rem',
                 overflow: 'hidden'
               }}
             >

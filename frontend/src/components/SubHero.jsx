@@ -154,19 +154,8 @@ const SubHero = ({
             {subtitle}
           </motion.p>
 
-          {/* Language Picker in Glassmorphic Wrapper */}
-          <motion.div 
-            variants={itemVariants}
-            style={{ 
-              alignSelf: isRtl ? 'flex-end' : 'flex-start',
-              background: 'rgba(255,255,255,0.1)',
-              backdropFilter: 'blur(15px)',
-              padding: '0.75rem 1.5rem',
-              borderRadius: '100px',
-              border: '1px solid rgba(255,255,255,0.2)',
-              display: 'inline-block'
-            }}
-          >
+          {/* Language Picker */}
+          <motion.div variants={itemVariants} style={{ alignSelf: isRtl ? 'flex-end' : 'flex-start' }}>
             <LanguagePicker currentLang={currentLang} onSelect={onLangChange} darkMode={true} />
           </motion.div>
         </motion.div>
