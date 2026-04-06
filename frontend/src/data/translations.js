@@ -40,7 +40,8 @@ export const TRANSLATIONS = {
     navServices: "Services",
     navGuides: "Guides",
     navReviews: "Reviews",
-    navContact: "Contact"
+    navContact: "Contact",
+    navTerms: "Terms"
   },
   de: {
     inboundLabel: "SRI LANKAS VERBORGENE SCHÄTZE",
@@ -83,7 +84,8 @@ export const TRANSLATIONS = {
     navServices: "Dienste",
     navGuides: "Guides",
     navReviews: "Bewertungen",
-    navContact: "Kontakt"
+    navContact: "Kontakt",
+    navTerms: "AGB"
   },
   fr: {
     inboundLabel: "LES TRÉSORS CACHÉS DU SRI LANKA",
@@ -126,7 +128,8 @@ export const TRANSLATIONS = {
     navServices: "Services",
     navGuides: "Guides",
     navReviews: "Avis",
-    navContact: "Contact"
+    navContact: "Contact",
+    navTerms: "Conditions"
   },
   zh: {
     inboundLabel: "斯里兰卡隐藏的瑰宝",
@@ -169,7 +172,8 @@ export const TRANSLATIONS = {
     navServices: "服务",
     navGuides: "指南",
     navReviews: "评价",
-    navContact: "联系我们"
+    navContact: "联系我们",
+    navTerms: "条款"
   },
   jp: {
     inboundLabel: "スリランカの秘宝",
@@ -200,7 +204,8 @@ export const TRANSLATIONS = {
     navServices: "サービス",
     navGuides: "ガイド",
     navReviews: "レビュー",
-    navContact: "お問い合わせ"
+    navContact: "お問い合わせ",
+    navTerms: "利用規約"
   },
   ar: {
     inboundLabel: "الجواهر الخفية في سريلانكا",
@@ -243,7 +248,8 @@ export const TRANSLATIONS = {
     navServices: "الخدمات",
     navGuides: "الأدلة",
     navReviews: "المراجعات",
-    navContact: "اتصل بنا"
+    navContact: "اتصل بنا",
+    navTerms: "الشروط"
   },
   hi: {
     inboundLabel: "श्रीलंका के छिपे हुए रत्न",
@@ -274,6 +280,7 @@ export const TRANSLATIONS = {
     navServices: "सेवाएं",
     navGuides: "गाइड",
     navReviews: "समीक्षा",
-    navContact: "संपर्क"
+    navContact: "संपर्क",
+    navTerms: "शर्तें"
   }
 };
