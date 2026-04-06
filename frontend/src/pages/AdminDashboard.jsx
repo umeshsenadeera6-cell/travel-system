@@ -321,7 +321,7 @@ export default function AdminDashboard() {
                     style={{
                       padding: '0.5rem 1.25rem',
                       borderRadius: '999px',
-                      backgroundColor: bookingFilter === f ? 'hsl(var(--primary))' : 'white',
+                      backgroundColor: bookingFilter === f ? 'hsl(var(--primary))' : 'hsla(142, 40%, 98%, 1)',
                       color: bookingFilter === f ? 'white' : 'hsl(var(--primary))',
                       border: '1px solid hsl(var(--primary) / 0.1)',
                       fontWeight: '700',

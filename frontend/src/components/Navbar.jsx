@@ -39,7 +39,7 @@ export default function Navbar({ currentLanguage = 'en', onLanguageChange }) {
         zIndex: 1000,
         padding: scrolled ? "0.75rem 0" : "1.5rem 0",
         transition: "all 0.4s cubic-bezier(0.16, 1, 0.3, 1)",
-        backgroundColor: scrolled ? "hsla(0, 0%, 100%, 0.8)" : "transparent",
+        backgroundColor: scrolled ? "hsla(142, 40%, 98%, 0.8)" : "transparent",
       }}
     >
       <nav

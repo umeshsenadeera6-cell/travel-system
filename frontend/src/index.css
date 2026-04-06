@@ -12,13 +12,13 @@
   --accent: 142 70% 45%; /* Vibrant Leaf */
   --accent-foreground: 0 0% 100%;
 
-  --background: 0 0% 100%;
+  --background: 142 40% 97%;
   --foreground: 240 10% 4%;
 
-  --card: 0 0% 100%;
+  --card: 142 30% 100%;
   --card-foreground: 222 47% 11%;
 
-  --glass: 0 0% 100% / 0.8;
+  --glass: 142 40% 100% / 0.8;
   --glass-border: 142 76% 36% / 0.1;
 
   --radius: 1.5rem;
@@ -65,7 +65,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .glass-nav {
-  background: hsla(0, 0%, 100%, 0.7);
+  background: hsla(142, 40%, 98%, 0.7);
   backdrop-filter: blur(20px) saturate(180%);
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   border-bottom: 1px solid hsla(142, 76%, 36%, 0.08);
@@ -267,7 +267,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .dashboard-sidebar {
   width: 280px;
-  background: white;
+  background: hsl(var(--card));
   border-right: 1px solid hsl(var(--glass-border));
   padding: 2rem 1.5rem;
   display: flex;
@@ -320,7 +320,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .glass-card {
-  background: white;
+  background: hsl(var(--card));
   border-radius: 1.5rem;
   padding: 2rem;
   border: 1px solid hsl(var(--glass-border));
