@@ -41,7 +41,17 @@ export const TRANSLATIONS = {
     navGuides: "Guides",
     navReviews: "Reviews",
     navContact: "Contact",
-    navTerms: "Terms"
+    navTerms: "Terms",
+    flashSaleLabel: "FLASH SALE",
+    flashSaleTitle: "Wait's Nearly Over. Adventure Awaits.",
+    flashSaleSubtitle: "Our most exclusive journeys, temporarily available at exceptional value. Reserve your spot before the clock runs out.",
+    flashSaleSave: "SAVE",
+    flashSaleEndsIn: "ENDS IN",
+    flashSaleView: "View Offer",
+    timerDays: "D",
+    timerHours: "H",
+    timerMinutes: "M",
+    timerSeconds: "S"
   },
   de: {
     inboundLabel: "SRI LANKAS VERBORGENE SCHÄTZE",
@@ -85,7 +95,17 @@ export const TRANSLATIONS = {
     navGuides: "Guides",
     navReviews: "Bewertungen",
     navContact: "Kontakt",
-    navTerms: "AGB"
+    navTerms: "AGB",
+    flashSaleLabel: "BLITZANGEBOT",
+    flashSaleTitle: "Warten ist fast vorbei. Das Abenteuer wartet.",
+    flashSaleSubtitle: "Unsere exklusivsten Reisen, vorübergehend zu außergewöhnlichen Preisen erhältlich. Reservieren Sie Ihren Platz, bevor die Zeit abläuft.",
+    flashSaleSave: "SPAREN",
+    flashSaleEndsIn: "ENDET IN",
+    flashSaleView: "Angebot ansehen",
+    timerDays: "T",
+    timerHours: "St",
+    timerMinutes: "Min",
+    timerSeconds: "Sek"
   },
   fr: {
     inboundLabel: "LES TRÉSORS CACHÉS DU SRI LANKA",
@@ -129,7 +149,17 @@ export const TRANSLATIONS = {
     navGuides: "Guides",
     navReviews: "Avis",
     navContact: "Contact",
-    navTerms: "Conditions"
+    navTerms: "Conditions",
+    flashSaleLabel: "VENTE FLASH",
+    flashSaleTitle: "L'attente est presque finie. L'aventure vous attend.",
+    flashSaleSubtitle: "Nos voyages les plus exclusifs, temporairement disponibles à une valeur exceptionnelle. Réservez votre place avant la fin du temps imparti.",
+    flashSaleSave: "ÉCONOMISEZ",
+    flashSaleEndsIn: "FINIT DANS",
+    flashSaleView: "Voir l'offre",
+    timerDays: "J",
+    timerHours: "H",
+    timerMinutes: "M",
+    timerSeconds: "S"
   },
   zh: {
     inboundLabel: "斯里兰卡隐藏的瑰宝",
@@ -173,7 +203,17 @@ export const TRANSLATIONS = {
     navGuides: "指南",
     navReviews: "评价",
     navContact: "联系我们",
-    navTerms: "条款"
+    navTerms: "条款",
+    flashSaleLabel: "限时秒杀",
+    flashSaleTitle: "等待即将结束，冒险就在前方。",
+    flashSaleSubtitle: "我们最专属的旅程，限时以超值价格提供。在时间耗尽前锁定您的名额。",
+    flashSaleSave: "节省",
+    flashSaleEndsIn: "距离结束还有",
+    flashSaleView: "查看优惠",
+    timerDays: "天",
+    timerHours: "时",
+    timerMinutes: "分",
+    timerSeconds: "秒"
   },
   jp: {
     inboundLabel: "スリランカの秘宝",
@@ -205,7 +245,17 @@ export const TRANSLATIONS = {
     navGuides: "ガイド",
     navReviews: "レビュー",
     navContact: "お問い合わせ",
-    navTerms: "利用規約"
+    navTerms: "利用規約",
+    flashSaleLabel: "タイムセール",
+    flashSaleTitle: "冒険はすぐそこに。特別な瞬間を。",
+    flashSaleSubtitle: "最も限定的なプランを、期間限定の特別価格で。カウントダウン終了前に、今のうちに予約を。",
+    flashSaleSave: "割引",
+    flashSaleEndsIn: "終了まで",
+    flashSaleView: "プランを見る",
+    timerDays: "日",
+    timerHours: "時",
+    timerMinutes: "分",
+    timerSeconds: "秒"
   },
   ar: {
     inboundLabel: "الجواهر الخفية في سريلانكا",
@@ -249,7 +299,17 @@ export const TRANSLATIONS = {
     navGuides: "الأدلة",
     navReviews: "المراجعات",
     navContact: "اتصل بنا",
-    navTerms: "الشروط"
+    navTerms: "الشروط",
+    flashSaleLabel: "عرض محدود",
+    flashSaleTitle: "الانتظار أوشك على الانتهاء. المغامرة في انتظارك.",
+    flashSaleSubtitle: "رحلاتنا الأكثر حصرية، متاحة مؤقتًا بقيمة استثنائية. احجز مكانك قبل نفاد الوقت.",
+    flashSaleSave: "وفر",
+    flashSaleEndsIn: "ينتهي في",
+    flashSaleView: "عرض الرحلة",
+    timerDays: "يوم",
+    timerHours: "ساعة",
+    timerMinutes: "دقيقة",
+    timerSeconds: "ثانية"
   },
   hi: {
     inboundLabel: "श्रीलंका के छिपे हुए रत्न",
@@ -281,6 +341,16 @@ export const TRANSLATIONS = {
     navGuides: "गाइड",
     navReviews: "समीक्षा",
     navContact: "संपर्क",
-    navTerms: "शर्तें"
+    navTerms: "शर्तें",
+    flashSaleLabel: "फ्लैश सेल",
+    flashSaleTitle: "प्रतीक्षा समाप्त होने वाली है। साहसिक कार्य आपकी प्रतीक्षा कर रहा है।",
+    flashSaleSubtitle: "हमारी सबसे विशिष्ट यात्राएं, अस्थायी रूप से असाधारण मूल्य पर उपलब्ध हैं। समय समाप्त होने से पहले अपना स्थान आरक्षित करें।",
+    flashSaleSave: "बचत करें",
+    flashSaleEndsIn: "इसमें समाप्त होता है",
+    flashSaleView: "ऑफर देखें",
+    timerDays: "दिन",
+    timerHours: "घंटे",
+    timerMinutes: "मिनट",
+    timerSeconds: "सेकंड"
   }
 };

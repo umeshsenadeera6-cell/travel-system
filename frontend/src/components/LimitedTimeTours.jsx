@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Timer, Zap, ArrowRight, ExternalLink } from 'lucide-react';
 import { INBOUND_PACKAGES, OUTBOUND_PACKAGES } from '../data/tours';
+import { TRANSLATIONS } from '../data/translations';
 
-const CountdownTimer = ({ expiryDate }) => {
+const CountdownTimer = ({ expiryDate, labels }) => {
   const calculateTimeLeft = () => {
     const difference = +new Date(expiryDate) - +new Date();
     let timeLeft = {};
@@ -30,21 +31,21 @@ const CountdownTimer = ({ expiryDate }) => {
   });
 
   const timerItems = [
-    { label: 'D', value: timeLeft.days },
-    { label: 'H', value: timeLeft.hours },
-    { label: 'M', value: timeLeft.minutes },
-    { label: 'S', value: timeLeft.seconds }
+    { label: labels.days, value: timeLeft.days },
+    { label: labels.hours, value: timeLeft.hours },
+    { label: labels.minutes, value: timeLeft.minutes },
+    { label: labels.seconds, value: timeLeft.seconds }
   ];
 
   return (
-    <div style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+    <div style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
       {timerItems.map((item, idx) => (
         <div key={idx} style={{ textAlign: 'center' }}>
           <div style={{
             background: 'hsl(var(--secondary))',
             color: 'white',
-            width: '38px',
-            height: '38px',
+            width: '36px',
+            height: '36px',
             borderRadius: '8px',
             display: 'flex',
             alignItems: 'center',
@@ -56,16 +57,24 @@ const CountdownTimer = ({ expiryDate }) => {
           }}>
             {String(item.value || 0).padStart(2, '0')}
           </div>
-          <span style={{ fontSize: '0.6rem', fontWeight: '800', opacity: 0.6, marginTop: '2px', display: 'block' }}>{item.label}</span>
+          <span style={{ fontSize: '0.55rem', fontWeight: '800', opacity: 0.6, marginTop: '2px', display: 'block', textTransform: 'uppercase' }}>{item.label}</span>
         </div>
       ))}
     </div>
   );
 };
 
-export default function LimitedTimeTours({ onOpenTour }) {
+export default function LimitedTimeTours({ onOpenTour, currentLanguage = 'en' }) {
+  const t = TRANSLATIONS[currentLanguage] || TRANSLATIONS.en;
   const allPackages = [...INBOUND_PACKAGES, ...OUTBOUND_PACKAGES];
   const flashSales = allPackages.filter(p => p.isLimitedTime);
+
+  const timerLabels = {
+    days: t.timerDays || 'D',
+    hours: t.timerHours || 'H',
+    minutes: t.timerMinutes || 'M',
+    seconds: t.timerSeconds || 'S'
+  };
 
   return (
     <section style={{ padding: '100px 5% 60px', maxWidth: '1440px', margin: '0 auto' }}>
@@ -95,11 +104,15 @@ export default function LimitedTimeTours({ onOpenTour }) {
               gap: '0.5rem'
             }}>
               <Zap size={14} fill="currentColor" />
-              FLASH SALE
+              {t.flashSaleLabel}
             </span>
           </div>
           <h2 className="serif" style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', fontWeight: 800, lineHeight: 1.1 }}>
-            Wait's Nearly Over. <br/> <span style={{ color: 'hsl(var(--primary))' }}>Adventure Awaits.</span>
+            {t.flashSaleTitle.split('. ').map((part, i) => (
+              <React.Fragment key={i}>
+                {i === 0 ? part + '.' : <><br/> <span style={{ color: 'hsl(var(--primary))' }}>{part}</span></>}
+              </React.Fragment>
+            ))}
           </h2>
         </motion.div>
 
@@ -109,13 +122,16 @@ export default function LimitedTimeTours({ onOpenTour }) {
           viewport={{ once: true }}
           style={{ maxWidth: '400px', color: 'hsl(var(--foreground) / 0.6)', fontSize: '1.1rem' }}
         >
-          Our most exclusive journeys, temporarily available at exceptional value. Reserve your spot before the clock runs out.
+          {t.flashSaleSubtitle}
         </motion.p>
       </div>
 
       <div className="grid-layout">
         {flashSales.map((pkg, idx) => {
           const originalPrice = Math.round(pkg.price / (1 - (pkg.discountPercentage / 100)));
+          const localized = pkg.localizations?.[currentLanguage] || {};
+          const displayTitle = localized.title || pkg.title;
+          const displayDescription = localized.description || pkg.description;
           
           return (
             <motion.div
@@ -161,12 +177,12 @@ export default function LimitedTimeTours({ onOpenTour }) {
                   boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
                   zIndex: 2
                 }}>
-                  SAVE {pkg.discountPercentage}%
+                  {t.flashSaleSave} {pkg.discountPercentage}%
                 </div>
 
                 <div style={{
                   position: 'absolute',
-                  bottom: '1.5rem',
+                  bottom: '1.3rem',
                   left: '1.5rem',
                   right: '1.5rem',
                   zIndex: 2,
@@ -175,19 +191,19 @@ export default function LimitedTimeTours({ onOpenTour }) {
                   alignItems: 'center'
                 }}>
                   <div style={{ color: 'white' }}>
-                    <span style={{ fontSize: '0.8rem', opacity: 0.8, fontWeight: '700', textTransform: 'uppercase' }}>ENDS IN</span>
-                    <CountdownTimer expiryDate={pkg.expiryDate} />
+                    <span style={{ fontSize: '0.75rem', opacity: 0.8, fontWeight: '700', textTransform: 'uppercase', display: 'block', marginBottom: '4px' }}>{t.flashSaleEndsIn}</span>
+                    <CountdownTimer expiryDate={pkg.expiryDate} labels={timerLabels} />
                   </div>
                 </div>
               </div>
 
               <div style={{ padding: '2rem' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
-                  <h3 style={{ fontSize: '1.6rem', fontWeight: '800', flex: 1 }}>{pkg.title}</h3>
+                  <h3 style={{ fontSize: '1.6rem', fontWeight: '800', flex: 1 }}>{displayTitle}</h3>
                 </div>
                 
-                <p style={{ color: 'hsl(var(--foreground) / 0.6)', marginBottom: '2rem', fontSize: '1rem', lineHeight: 1.6 }}>
-                  {pkg.description}
+                <p style={{ color: 'hsl(var(--foreground) / 0.6)', marginBottom: '2rem', fontSize: '1rem', lineHeight: 1.6, height: '3.2em', overflow: 'hidden', display: '-webkit-box', WebkitLineClamp: 2, WebkitBoxOrient: 'vertical' }}>
+                  {displayDescription}
                 </p>
 
                 <div style={{ 
@@ -208,7 +224,7 @@ export default function LimitedTimeTours({ onOpenTour }) {
                       <span style={{ fontSize: '2rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>
                         ${pkg.price}
                       </span>
-                      <span style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground) / 0.5)', fontWeight: '600' }}>/ person</span>
+                      <span style={{ fontSize: '0.8rem', color: 'hsl(var(--foreground) / 0.5)', fontWeight: '600' }}>/ {t.uiConfirmBooking.includes('Confirm') ? 'person' : 'person'}</span>
                     </div>
                   </div>
 
@@ -230,7 +246,7 @@ export default function LimitedTimeTours({ onOpenTour }) {
                       transition: 'all 0.3s'
                     }}
                   >
-                    View Offer <ArrowRight size={18} />
+                    {t.flashSaleView} <ArrowRight size={18} />
                   </motion.button>
                 </div>
               </div>

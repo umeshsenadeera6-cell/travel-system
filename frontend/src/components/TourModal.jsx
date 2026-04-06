@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { X, Clock, MapPin, CheckCircle2, ShieldCheck, ChevronRight } from 'lucide-react';
+import { X, Clock, MapPin, CheckCircle2, ShieldCheck, ChevronRight, Zap } from 'lucide-react';
 import MapComponent from './MapComponent';
 import { TRANSLATIONS } from '../data/translations';
 
@@ -130,6 +130,24 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
               color: 'white',
               zIndex: 5
             }}>
+              {tour.isLimitedTime && (
+                <div style={{ 
+                  display: 'inline-flex', 
+                  alignItems: 'center', 
+                  gap: '0.5rem', 
+                  background: 'hsl(var(--primary))', 
+                  color: 'white',
+                  padding: '0.4rem 1rem',
+                  borderRadius: '99px',
+                  fontSize: '0.75rem',
+                  fontWeight: '900',
+                  marginBottom: '1rem',
+                  boxShadow: '0 10px 20px rgba(0,0,0,0.3)'
+                }}>
+                  <Zap size={14} fill="currentColor" />
+                  {t.flashSaleLabel} - {tour.discountPercentage}% {t.flashSaleSave}
+                </div>
+              )}
               <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
                 {displayTitle}
               </h2>

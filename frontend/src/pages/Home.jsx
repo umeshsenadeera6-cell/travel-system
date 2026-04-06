@@ -27,7 +27,7 @@ export default function Home({ currentLanguage = 'en' }) {
         <HeroCarousel />
       </section>
 
-      <LimitedTimeTours onOpenTour={openTour} />
+      <LimitedTimeTours onOpenTour={openTour} currentLanguage={currentLanguage} />
       
       <section style={{ padding: '80px 5% 40px', maxWidth: '1440px', margin: '0 auto' }}>
         <motion.div 
