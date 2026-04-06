@@ -6,7 +6,6 @@ const packageSchema = new mongoose.Schema({
   image: { type: String, required: true },
   duration: { type: String, required: true },
   description: { type: String, required: true },
-  videoUrl: { type: String },
   itinerary: [{ type: mongoose.Schema.Types.Mixed }],
   inclusions: [{ type: String }],
   category: { 

@@ -82,37 +82,12 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
             textAlign: lang === 'ar' ? 'right' : 'left'
           }}
         >
-          {/* Header Image/Video Section */}
-          <div style={{ position: 'relative', height: '300px', flexShrink: 0, overflow: 'hidden' }}>
-            {tour.video || tour.videoUrl ? (
-              <video
-                src={tour.video || tour.videoUrl}
-                autoPlay
-                muted
-                loop
-                playsInline
-                onError={(e) => {
-                  e.target.style.display = 'none';
-                  const img = e.target.nextSibling;
-                  if (img) img.style.display = 'block';
-                }}
-                style={{ 
-                  width: '100%', 
-                  height: '100%', 
-                  objectFit: 'cover',
-                  filter: 'brightness(0.8)'
-                }}
-              />
-            ) : null}
+          {/* Header Image Section */}
+          <div style={{ position: 'relative', height: '300px', flexShrink: 0 }}>
             <img
               src={tour.image}
               alt={displayTitle}
-              style={{ 
-                width: '100%', 
-                height: '100%', 
-                objectFit: 'cover',
-                display: (tour.video || tour.videoUrl) ? 'none' : 'block'
-              }}
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
             <div style={{
               position: 'absolute',
@@ -120,8 +95,7 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))',
-              backdropFilter: 'contrast(1.1) saturate(1.1)'
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))'
             }} />
 
             <button

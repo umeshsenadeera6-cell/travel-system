@@ -19,7 +19,6 @@ const INBOUND_PACKAGES = [
       "04:30 PM - Traditional tea service and return to hotel"
     ],
     inclusions: ["Luxury Transport", "English Speaking Guide", "Entrance Fees", "Traditional Buffet Lunch", "Mineral Water"],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4",
     category: "Inbound"
   },
   { 
@@ -36,7 +35,6 @@ const INBOUND_PACKAGES = [
       "03:00 PM - Refreshing dip in Ravana Falls"
     ],
     inclusions: ["Round-trip Transport", "Expert Hiking Guide", "Picnic Meal Kit", "First Aid Support"],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
     category: "Inbound"
   },
   { 
@@ -53,7 +51,6 @@ const INBOUND_PACKAGES = [
       "04:00 PM - Beach time at Unawatuna"
     ],
     inclusions: ["AC Van Transport", "Historical Guide", "Photography Session", "Fort Entrance"],
-    videoUrl: "https://vjs.zencdn.net/v/oceans.mp4",
     category: "Inbound"
   },
   { 
@@ -70,7 +67,6 @@ const INBOUND_PACKAGES = [
       "05:00 PM - Cultural dance show"
     ],
     inclusions: ["Guided City Tour", "Temple Entrance", "Botanical Garden Ticket", "Dance Show Ticket"],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4",
     category: "Inbound"
   }
 ];
@@ -122,7 +118,6 @@ const OUTBOUND_PACKAGES = [
       }
     ],
     inclusions: ["4-Star Hotel", "Daily Breakfast", "Museum Passes", "Airport Transfers"],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4",
     category: "Outbound"
   },
   { 
@@ -176,7 +171,6 @@ const OUTBOUND_PACKAGES = [
       }
     ],
     inclusions: ["Premium Hotel", "Japan Rail Pass", "Mt Fuji Day Trip", "Local Food Guide"],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
     category: "Outbound"
   },
   { 
@@ -216,7 +210,6 @@ const OUTBOUND_PACKAGES = [
       }
     ],
     inclusions: ["Luxury Resort", "Desert Safari", "Burj Khalifa Entry", "Private Driver"],
-    videoUrl: "https://vjs.zencdn.net/v/oceans.mp4",
     category: "Outbound"
   },
   { 
@@ -263,7 +256,6 @@ const OUTBOUND_PACKAGES = [
       }
     ],
     inclusions: ["Harborside Hotel", "Bridge Climb Pass", "Blue Mountains Tour", "Ferry Pass"],
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
     category: "Outbound"
   }
 ];
