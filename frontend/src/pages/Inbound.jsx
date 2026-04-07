@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import PackageCard from '../components/PackageCard';
 import TourModal from '../components/TourModal';
+import DestinationModal from '../components/DestinationModal';
 import { INBOUND_PACKAGES } from '../data/tours';
+import { DESTINATIONS } from '../data/destinations';
 import ContactSection from '../components/ContactSection';
 import LanguagePicker from '../components/LanguagePicker';
 import { TRANSLATIONS } from '../data/translations';
@@ -45,6 +47,8 @@ import trincomaleeImg from '../assets/trincomalee.png';
 export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }) {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
+  const [selectedDestination, setSelectedDestination] = useState(null);
+  const [destOpen, setDestOpen] = useState(false);
   const [dynamicPackages, setDynamicPackages] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -56,6 +60,16 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
   const closeTour = () => {
     setTourOpen(false);
     setSelectedTour(null);
+  };
+
+  const openDestination = (dest) => {
+    setSelectedDestination(dest);
+    setDestOpen(true);
+  };
+
+  const closeDestination = () => {
+    setDestOpen(false);
+    setSelectedDestination(null);
   };
 
   useEffect(() => {
@@ -82,13 +96,7 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
 
   const t = TRANSLATIONS[selectedLanguage] || TRANSLATIONS.en;
 
-  const destinations = [
-    { name: "Sigiriya", description: "The iconic Lion Rock fortress.", image: sigiriyaImg },
-    { name: "Kandy", description: "The cultural heart and scenic hills.", image: kandyImg },
-    { name: "Mirissa", description: "Whale watching and pristine beaches.", image: mirissaImg },
-    { name: "Galle", description: "Colonial charm and historic ramparts.", image: galleImg },
-    { name: "Trincomalee", description: "Crystal clear waters and golden sand.", image: trincomaleeImg }
-  ];
+  const destinations = DESTINATIONS;
 
   const serviceLabels = {
     transport: t.serviceTransport,
@@ -160,7 +168,11 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
         </div>
 
         <div id="destinations-section">
-          <DestinationsGrid title={t.destinationsTitle} destinations={destinations} />
+          <DestinationsGrid 
+            title={t.destinationsTitle} 
+            destinations={destinations} 
+            onSelectDestination={openDestination}
+          />
         </div>
         
         <div id="services-section">
@@ -183,6 +195,7 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
       </div>
       
       <TourModal isOpen={tourOpen} onClose={closeTour} tour={selectedTour} lang={selectedLanguage} />
+      <DestinationModal isOpen={destOpen} onClose={closeDestination} destination={selectedDestination} />
     </main>
   );
 }

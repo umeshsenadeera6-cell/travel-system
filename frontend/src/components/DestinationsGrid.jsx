@@ -7,6 +7,7 @@ const DestinationsGrid = ({
   title, 
   subtitle, 
   destinations, 
+  onSelectDestination,
   accentColor = 'hsl(var(--primary))' 
 }) => {
   return (
@@ -27,6 +28,7 @@ const DestinationsGrid = ({
             viewport={{ once: true }}
             transition={{ delay: i * 0.1 }}
             whileHover={{ y: -10 }}
+            onClick={() => onSelectDestination?.(dest)}
             style={{
               position: 'relative',
               height: '350px',
