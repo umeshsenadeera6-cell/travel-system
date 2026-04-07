@@ -77,7 +77,7 @@ const ServicesGrid = ({ title, accentColor = 'hsl(var(--primary))', serviceLabel
             <h4 style={{ fontSize: '1.25rem', fontWeight: 800, marginBottom: '1rem', color: 'hsl(var(--secondary))' }}>
               {service.title}
             </h4>
-            <p style={{ fontSize: '0.95rem', opacity: 0.6, lineHeight: 1.6 }}>
+            <p style={{ fontSize: '1rem', opacity: 0.85, lineHeight: 1.6, fontWeight: '450', color: 'hsl(var(--foreground))' }}>
               {service.desc}
             </p>
           </motion.div>

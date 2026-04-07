@@ -75,7 +75,7 @@ export default function PackageCard({ pkg, image, onViewDetails, lang = 'en' }) 
           {displayTitle}
         </h3>
 
-        <p style={{ color: 'hsl(var(--foreground) / 0.6)', fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: 1.5 }}>
+        <p style={{ color: 'hsl(var(--foreground) / 0.8)', fontSize: '0.95rem', marginBottom: '1.5rem', lineHeight: 1.5, fontWeight: '450' }}>
           {displayDescription}
         </p>
 
@@ -88,14 +88,14 @@ export default function PackageCard({ pkg, image, onViewDetails, lang = 'en' }) 
           borderTop: '1px solid hsl(var(--glass-border))'
         }}>
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: '600', color: 'hsl(var(--foreground) / 0.5)', textTransform: 'uppercase' }}>
+            <span style={{ fontSize: '0.75rem', fontWeight: '800', color: 'hsl(var(--foreground) / 0.7)', textTransform: 'uppercase' }}>
               {t.uiPriceFrom || 'Starts From'}
             </span>
             <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.1rem' }}>
-              <span style={{ fontSize: '1.5rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>
+              <span style={{ fontSize: '1.6rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>
                 ${pkg.price}
               </span>
-              <span style={{ fontSize: '0.8rem', color: 'hsl(var(--foreground) / 0.5)' }}>/person</span>
+              <span style={{ fontSize: '0.85rem', color: 'hsl(var(--foreground) / 0.7)', fontWeight: '700' }}>/person</span>
             </div>
           </div>
 

@@ -135,7 +135,8 @@ export default function ReviewCarousel() {
               fontSize: '1.1rem', 
               color: 'hsl(var(--foreground))',
               lineHeight: '1.8',
-              opacity: 0.8,
+              opacity: 0.9,
+              fontWeight: '450',
               fontStyle: 'italic',
               flex: 1
             }}>
@@ -160,7 +161,7 @@ export default function ReviewCarousel() {
               </div>
               <div>
                 <h4 style={{ fontSize: '1.1rem', fontWeight: '800', margin: 0, color: 'hsl(var(--secondary))' }}>{review.name}</h4>
-                <p style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground))', opacity: 0.5, margin: 0 }}>{review.location}</p>
+                <p style={{ fontSize: '0.9rem', color: 'hsl(var(--foreground))', opacity: 0.7, fontWeight: '700', margin: 0 }}>{review.location}</p>
               </div>
             </div>
           </motion.div>

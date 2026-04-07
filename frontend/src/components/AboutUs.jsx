@@ -107,7 +107,7 @@ export default function AboutUs() {
                   }}>
                     {feature.title}
                   </h4>
-                  <p style={{ color: 'hsl(var(--foreground))', opacity: 0.6, fontSize: '0.95rem', lineHeight: 1.5 }}>
+                  <p style={{ color: 'hsl(var(--foreground))', opacity: 0.8, fontSize: '0.95rem', lineHeight: 1.5, fontWeight: '450' }}>
                     {feature.description}
                   </p>
                 </div>

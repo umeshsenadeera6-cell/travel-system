@@ -279,7 +279,7 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                 <h3 style={{ fontSize: '1.5rem', fontWeight: '800', marginBottom: '1.25rem', color: 'hsl(var(--secondary))', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
                   {t.uiDescription || 'Description'}
                 </h3>
-                <p style={{ fontSize: '1.15rem', lineHeight: 1.8, color: 'hsl(var(--foreground) / 0.7)' }}>
+                <p style={{ fontSize: '1.2rem', lineHeight: 1.8, color: 'hsl(var(--foreground) / 0.9)', fontWeight: '450' }}>
                   {displayDescription}
                 </p>
               </div>
@@ -363,7 +363,7 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                               <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'hsl(var(--primary) / 0.3)' }} />
                               <span style={{ fontWeight: '600', color: 'hsl(var(--primary))', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.location}</span>
                             </div>
-                            <p style={{ color: 'hsl(var(--foreground) / 0.65)', lineHeight: 1.6 }}>{item.text}</p>
+                            <p style={{ color: 'hsl(var(--foreground) / 0.85)', lineHeight: 1.6, fontWeight: '450' }}>{item.text}</p>
                           </div>
                         </div>
                       ))}
@@ -383,7 +383,7 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                       <div style={{ color: 'hsl(var(--primary))' }}>
                         <CheckCircle2 size={18} />
                       </div>
-                      <span style={{ fontSize: '1rem', fontWeight: '500' }}>{item}</span>
+                      <span style={{ fontSize: '1rem', fontWeight: '600', color: 'hsl(var(--foreground) / 0.9)' }}>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -425,12 +425,12 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                 top: '2rem'
               }}>
                 <div style={{ marginBottom: '1.5rem' }}>
-                  <span style={{ fontSize: '0.85rem', fontWeight: '700', color: 'hsl(var(--foreground) / 0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
+                  <span style={{ fontSize: '0.9rem', fontWeight: '800', color: 'hsl(var(--foreground) / 0.65)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
                     {t.uiPriceFrom || 'Starting From'}
                   </span>
                   <div style={{ display: 'flex', alignItems: 'baseline', gap: '0.25rem' }}>
-                    <span style={{ fontSize: '2.5rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>${tour.price}</span>
-                    <span style={{ color: 'hsl(var(--foreground) / 0.5)', fontWeight: '600' }}>/person</span>
+                    <span style={{ fontSize: '2.75rem', fontWeight: '900', color: 'hsl(var(--secondary))' }}>${tour.price}</span>
+                    <span style={{ color: 'hsl(var(--foreground) / 0.7)', fontWeight: '700' }}>/person</span>
                   </div>
                 </div>
 
