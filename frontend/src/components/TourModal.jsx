@@ -290,83 +290,111 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                   {t.uiItinerary || 'Itinerary'}
                 </h3>
 
-                {/* Day Selector */}
-                {displayItinerary[0]?.day && (
-                  <div style={{ 
-                    display: 'flex', 
-                    gap: '0.75rem', 
-                    marginBottom: '2.5rem',
-                    overflowX: 'auto',
-                    paddingBottom: '0.5rem'
-                  }}>
-                    {displayItinerary.map((dayObj, idx) => (
-                      <button
-                        key={idx}
-                        onClick={() => setSelectedDayIndex(idx)}
-                        style={{
-                          padding: '0.75rem 1.75rem',
-                          borderRadius: '999px',
-                          border: '1px solid',
-                          borderColor: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'hsl(var(--glass-border))',
-                          backgroundColor: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'transparent',
-                          color: selectedDayIndex === idx ? 'white' : 'hsl(var(--foreground) / 0.6)',
-                          fontWeight: '700',
-                          cursor: 'pointer',
-                          whiteSpace: 'nowrap',
-                          transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)'
-                        }}
-                      >
-                        {dayObj.day}
-                      </button>
-                    ))}
-                  </div>
-                )}
-
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-                  <AnimatePresence mode="wait">
-                    <motion.div
-                      key={selectedDayIndex}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      exit={{ opacity: 0, x: -20 }}
-                      transition={{ duration: 0.3, ease: 'easeOut' }}
-                    >
-                      {(displayItinerary[0]?.day ? displayItinerary[selectedDayIndex].activities : displayItinerary).map((item, idx) => (
-                        <div key={idx} style={{ 
-                          display: 'flex', 
-                          gap: '1.5rem', 
-                          padding: '1.5rem',
-                          borderRadius: '1.5rem',
-                          backgroundColor: 'hsl(var(--primary) / 0.03)',
-                          border: '1px solid hsl(var(--primary) / 0.05)',
-                          marginBottom: '1rem'
-                        }}>
-                          <div style={{ 
-                            width: '48px', 
-                            height: '48px', 
-                            borderRadius: '14px', 
-                            backgroundColor: 'white',
+                <div style={{ 
+                  display: displayItinerary[0]?.day ? 'grid' : 'block',
+                  gridTemplateColumns: displayItinerary[0]?.day ? 'minmax(120px, 180px) 1fr' : 'none',
+                  gap: '3rem',
+                  alignItems: 'start'
+                }}>
+                  {/* Day Selector - Vertical Column */}
+                  {displayItinerary[0]?.day && (
+                    <div style={{ 
+                      display: 'flex', 
+                      flexDirection: 'column',
+                      gap: '0.75rem', 
+                      paddingRight: '1.5rem',
+                      borderRight: '1px solid hsl(var(--primary) / 0.1)',
+                      position: 'sticky',
+                      top: '1rem'
+                    }}>
+                      {displayItinerary.map((dayObj, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setSelectedDayIndex(idx)}
+                          style={{
+                            padding: '1rem 1.25rem',
+                            borderRadius: '1rem',
+                            border: '1px solid',
+                            borderColor: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'transparent',
+                            backgroundColor: selectedDayIndex === idx ? 'hsl(var(--primary) / 0.08)' : 'transparent',
+                            color: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'hsl(var(--foreground) / 0.5)',
+                            fontWeight: '700',
+                            textAlign: lang === 'ar' ? 'right' : 'left',
+                            cursor: 'pointer',
+                            transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
+                            fontSize: '0.95rem',
                             display: 'flex',
                             alignItems: 'center',
+                            gap: '0.75rem'
+                          }}
+                        >
+                          <span style={{ 
+                            width: '24px', 
+                            height: '24px', 
+                            display: 'flex', 
+                            alignItems: 'center', 
                             justifyContent: 'center',
-                            boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
-                            flexShrink: 0,
-                            fontWeight: '900',
-                            color: 'hsl(var(--primary))',
-                            fontSize: '0.9rem'
+                            borderRadius: '6px',
+                            backgroundColor: selectedDayIndex === idx ? 'hsl(var(--primary))' : 'hsl(var(--primary) / 0.1)',
+                            color: selectedDayIndex === idx ? 'white' : 'hsl(var(--primary))',
+                            fontSize: '0.75rem',
+                            flexShrink: 0
                           }}>
                             {idx + 1}
-                          </div>
-                          <div>
-                            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                              <span style={{ fontWeight: '600', color: 'hsl(var(--primary))', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.location}</span>
-                            </div>
-                            <p style={{ color: 'hsl(var(--foreground) / 0.85)', lineHeight: 1.6, fontWeight: '450' }}>{item.text}</p>
-                          </div>
-                        </div>
+                          </span>
+                          {dayObj.day}
+                        </button>
                       ))}
-                    </motion.div>
-                  </AnimatePresence>
+                    </div>
+                  )}
+
+                  {/* Activities List */}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
+                    <AnimatePresence mode="wait">
+                      <motion.div
+                        key={selectedDayIndex}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        transition={{ duration: 0.3, ease: 'easeOut' }}
+                      >
+                        {(displayItinerary[0]?.day ? displayItinerary[selectedDayIndex].activities : displayItinerary).map((item, idx) => (
+                          <div key={idx} style={{ 
+                            display: 'flex', 
+                            gap: '1.5rem', 
+                            padding: '1.5rem',
+                            borderRadius: '1.5rem',
+                            backgroundColor: 'hsl(var(--primary) / 0.03)',
+                            border: '1px solid hsl(var(--primary) / 0.05)',
+                            marginBottom: '1rem'
+                          }}>
+                            <div style={{ 
+                              width: '44px', 
+                              height: '44px', 
+                              borderRadius: '12px', 
+                              backgroundColor: 'white',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.05)',
+                              flexShrink: 0,
+                              fontWeight: '900',
+                              color: 'hsl(var(--primary))',
+                              fontSize: '0.85rem'
+                            }}>
+                              {idx + 1}
+                            </div>
+                            <div>
+                              <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+                                <span style={{ fontWeight: '700', color: 'hsl(var(--primary))', fontSize: '0.85rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.location}</span>
+                              </div>
+                              <p style={{ color: 'hsl(var(--foreground) / 0.85)', lineHeight: 1.6, fontWeight: '450', fontSize: '1.1rem' }}>{item.text}</p>
+                            </div>
+                          </div>
+                        ))}
+                      </motion.div>
+                    </AnimatePresence>
+                  </div>
                 </div>
               </div>
 
