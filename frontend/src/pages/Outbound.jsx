@@ -35,6 +35,7 @@ import DestinationsGrid from '../components/DestinationsGrid';
 import ServicesGrid from '../components/ServicesGrid';
 import BlogPreview from '../components/BlogPreview';
 import ReviewCarousel from '../components/ReviewCarousel';
+import PartnerLogos from '../components/PartnerLogos';
 import parisImg from '../assets/paris.png';
 import dubaiImg from '../assets/dubai.png';
 import tokyoImg from '../assets/tokyo.png';
@@ -163,6 +164,7 @@ export default function Outbound({ selectedLanguage = 'en', setSelectedLanguage 
         <section id="reviews-section" style={{ padding: '80px 0' }}>
           <SectionHeader title="Global Feedback" center={true} accentColor="hsl(var(--accent))" />
           <ReviewCarousel />
+          <PartnerLogos accentColor="hsl(var(--accent))" />
         </section>
         
         <div id="contact-section">
