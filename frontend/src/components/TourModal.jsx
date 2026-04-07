@@ -8,6 +8,7 @@ import { TRANSLATIONS } from '../data/translations';
 export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
   const navigate = useNavigate();
   const [selectedDayIndex, setSelectedDayIndex] = useState(0);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   if (!isOpen || !tour) return null;
 
@@ -23,6 +24,19 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
   const stops = tour.route?.stops ?? [];
   const rawPath = tour.route?.path ?? stops.map((s) => ({ lat: s.lat, lng: s.lng }));
   const hasRoute = Array.isArray(stops) && stops.length > 0 && Array.isArray(rawPath) && rawPath.length > 0;
+
+  const images = tour.images || [tour.image];
+  const hasMultipleImages = images.length > 1;
+
+  const nextImage = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev + 1) % images.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation();
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length);
+  };
 
   return (
     <AnimatePresence>
@@ -82,21 +96,113 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
             textAlign: lang === 'ar' ? 'right' : 'left'
           }}
         >
-          {/* Header Image Section */}
-          <div style={{ position: 'relative', height: '300px', flexShrink: 0 }}>
-            <img
-              src={tour.image}
-              alt={displayTitle}
-              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-            />
+          {/* Header Image Section (Carousel) */}
+          <div style={{ position: 'relative', height: '400px', flexShrink: 0, overflow: 'hidden', backgroundColor: '#000' }}>
+            <AnimatePresence mode="wait">
+              <motion.img
+                key={currentImageIndex}
+                src={images[currentImageIndex]}
+                alt={`${displayTitle} - ${currentImageIndex + 1}`}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+            </AnimatePresence>
+
             <div style={{
               position: 'absolute',
               top: 0,
               left: 0,
               right: 0,
               bottom: 0,
-              background: 'linear-gradient(to bottom, rgba(0,0,0,0.2), rgba(0,0,0,0.6))'
+              background: 'linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0) 40%, rgba(0,0,0,0.7) 100%)',
+              pointerEvents: 'none'
             }} />
+
+            {/* Navigation Arrows */}
+            {hasMultipleImages && (
+              <>
+                <button
+                  onClick={prevImage}
+                  style={{
+                    position: 'absolute',
+                    left: '1.5rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255,255,255,0.3)',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    zIndex: 10,
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.3)'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)'}
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button
+                  onClick={nextImage}
+                  style={{
+                    position: 'absolute',
+                    right: '1.5rem',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    width: '44px',
+                    height: '44px',
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(255,255,255,0.2)',
+                    backdropFilter: 'blur(10px)',
+                    border: '1px solid rgba(255,255,255,0.3)',
+                    color: 'white',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    cursor: 'pointer',
+                    zIndex: 10,
+                    transition: 'all 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.3)'}
+                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(255,255,255,0.2)'}
+                >
+                  <ChevronRight size={24} />
+                </button>
+
+                {/* Dots Indicators */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: '1.5rem',
+                  right: '2rem',
+                  display: 'flex',
+                  gap: '0.5rem',
+                  zIndex: 10
+                }}>
+                  {images.map((_, idx) => (
+                    <div
+                      key={idx}
+                      onClick={(e) => { e.stopPropagation(); setCurrentImageIndex(idx); }}
+                      style={{
+                        width: currentImageIndex === idx ? '24px' : '8px',
+                        height: '8px',
+                        borderRadius: '4px',
+                        backgroundColor: currentImageIndex === idx ? 'white' : 'rgba(255,255,255,0.4)',
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer'
+                      }}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
 
             <button
               onClick={onClose}
@@ -115,7 +221,7 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                 alignItems: 'center',
                 justifyContent: 'center',
                 cursor: 'pointer',
-                zIndex: 10
+                zIndex: 15
               }}
             >
               <X size={20} />
@@ -128,7 +234,8 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
               right: lang === 'ar' ? '2rem' : 'auto',
               textAlign: lang === 'ar' ? 'right' : 'left',
               color: 'white',
-              zIndex: 5
+              zIndex: 5,
+              pointerEvents: 'none'
             }}>
               {tour.isLimitedTime && (
                 <div style={{ 
@@ -148,7 +255,7 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                   {t.flashSaleLabel} - {tour.discountPercentage}% {t.flashSaleSave}
                 </div>
               )}
-              <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', marginBottom: '0.5rem', letterSpacing: '-0.02em' }}>
+              <h2 style={{ fontSize: '2.5rem', fontWeight: '900', color: 'white', marginBottom: '0.5rem', letterSpacing: '-0.02em', textShadow: '0 2px 10px rgba(0,0,0,0.3)' }}>
                 {displayTitle}
               </h2>
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem', color: 'rgba(255, 255, 255, 0.9)', justifyContent: lang === 'ar' ? 'flex-end' : 'flex-start' }}>
