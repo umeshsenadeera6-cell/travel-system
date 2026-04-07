@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import SEO from '../components/SEO';
 import HeroCarousel from '../components/HeroCarousel';
 import Hero from '../components/Hero';
 import AboutUs from '../components/AboutUs';
@@ -23,6 +24,11 @@ export default function Home({ currentLanguage = 'en' }) {
 
   return (
     <main style={{ width: '100%', overflowX: 'hidden' }}>
+      <SEO 
+        title="Home | Serendib Travel & Tours"
+        description="Experience the magic of Sri Lanka with Serendib Travel & Tours. Curated luxury adventures and cultural journeys."
+      />
+
       <section>
         <HeroCarousel />
       </section>

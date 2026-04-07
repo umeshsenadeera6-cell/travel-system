@@ -52,11 +52,17 @@ export default function Footer() {
             We provide luxury adventures that resonate with the soul and create lasting memories.
           </p>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {[Camera, MessageCircle, Users].map((Icon, idx) => (
+            {[
+              { Icon: Camera, label: "Instagram" },
+              { Icon: MessageCircle, label: "WhatsApp" },
+              { Icon: Users, label: "Facebook" }
+            ].map(({ Icon, label }, idx) => (
               <motion.a 
                 key={idx}
                 whileHover={{ y: -5, color: 'hsl(var(--primary))', backgroundColor: 'white' }}
                 href="#" 
+                aria-label={label}
+                rel="noopener noreferrer"
                 style={{ 
                   color: 'white', 
                   backgroundColor: 'rgba(255,255,255,0.05)',
@@ -76,26 +82,29 @@ export default function Footer() {
         </div>
 
         <div>
-          <h4 className="serif" style={{ color: 'white', marginBottom: '2rem', fontSize: '1.4rem', fontWeight: 600 }}>Explore</h4>
+          <h2 className="serif" style={{ color: 'white', marginBottom: '2rem', fontSize: '1.4rem', fontWeight: 600 }}>Explore</h2>
           <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '1.25rem', opacity: 0.6, fontSize: '1.1rem' }}>
-            <li style={{ cursor: 'pointer' }}>Inbound Tours</li>
-            <li style={{ cursor: 'pointer' }}>Global Wonders</li>
+            <li><Link to="/inbound" style={{ color: 'inherit', textDecoration: 'none' }}>Inbound Tours</Link></li>
+            <li><Link to="/outbound" style={{ color: 'inherit', textDecoration: 'none' }}>Global Wonders</Link></li>
             <li style={{ cursor: 'pointer' }}>Luxury Stays</li>
             <li style={{ cursor: 'pointer' }}>Curated Blogs</li>
           </ul>
         </div>
 
         <div>
-          <h4 className="serif" style={{ color: 'white', marginBottom: '2rem', fontSize: '1.4rem', fontWeight: 600 }}>Newsletter</h4>
+          <h2 className="serif" style={{ color: 'white', marginBottom: '2rem', fontSize: '1.4rem', fontWeight: 600 }}>Newsletter</h2>
           <p style={{ opacity: 0.6, marginBottom: '2rem', lineHeight: 1.6 }}>Subscribe for exclusive travel insights and offers.</p>
           <div style={{ 
             display: 'flex', 
             flexDirection: 'column',
             gap: '1rem'
           }}>
+            <label htmlFor="newsletter-email" className="sr-only" style={{ display: 'none' }}>Email address</label>
             <input 
+              id="newsletter-email"
               type="email" 
               placeholder="Your email address" 
+              aria-label="Email address for newsletter"
               style={{
                 padding: '1.25rem 1.5rem',
                 borderRadius: '1rem',

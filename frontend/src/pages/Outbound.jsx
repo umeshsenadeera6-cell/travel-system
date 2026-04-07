@@ -41,6 +41,8 @@ import tokyoImg from '../assets/tokyo.png';
 import londonImg from '../assets/london.png';
 import singaporeImg from '../assets/singapore.png';
 
+import SEO from '../components/SEO';
+
 export default function Outbound({ selectedLanguage = 'en', setSelectedLanguage }) {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
@@ -103,6 +105,11 @@ export default function Outbound({ selectedLanguage = 'en', setSelectedLanguage 
       dir={selectedLanguage === 'ar' ? 'rtl' : 'ltr'}
       style={{ minHeight: '100vh', padding: '0 0 100px 0', textAlign: selectedLanguage === 'ar' ? 'right' : 'left' }}
     >
+      <SEO 
+        title={`${t.outboundTitle} | Serendib Global Wonders`}
+        description={t.outboundDesc}
+      />
+
       <SubHero 
         title={t.outboundTitle}
         subtitle={t.outboundDesc}

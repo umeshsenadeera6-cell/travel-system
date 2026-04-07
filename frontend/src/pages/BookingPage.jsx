@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronLeft, Send, Calendar, Users, Phone, Mail, User, Info, CheckCircle2 } from 'lucide-react';
-import API_URL from '../config';
+import SEO from '../components/SEO';
 
 export default function BookingPage() {
   const location = useLocation();
@@ -25,6 +25,7 @@ export default function BookingPage() {
   if (!tour) {
     return (
       <div className="container" style={{ padding: '8rem 2rem', textAlign: 'center' }}>
+        <SEO title="No Tour Selected" description="Please select a tour to proceed with booking." />
         <h2 style={{ fontSize: '2rem', marginBottom: '1rem' }}>No Tour Selected</h2>
         <button onClick={() => navigate('/')} className="btn btn-primary">Go Home</button>
       </div>
@@ -76,6 +77,7 @@ export default function BookingPage() {
         justifyContent: 'center',
         minHeight: '60vh'
       }}>
+        <SEO title="Booking Success" description="Your booking has been successfully submitted." />
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
@@ -97,6 +99,11 @@ export default function BookingPage() {
 
   return (
     <div style={{ padding: '8rem 2rem', backgroundColor: 'hsl(var(--primary) / 0.015)', minHeight: '100vh' }}>
+      <SEO 
+        title={`Book ${tour.title} | Serendib Travel`}
+        description={`Secure your spot for the ${tour.title}. Premium Sri Lankan travel experience.`}
+      />
+
       <div className="container" style={{ maxWidth: '1100px' }}>
         <motion.button
           initial={{ opacity: 0, x: -20 }}

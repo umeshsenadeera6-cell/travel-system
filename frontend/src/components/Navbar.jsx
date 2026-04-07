@@ -158,6 +158,8 @@ export default function Navbar({ currentLanguage = 'en', onLanguageChange }) {
         {/* Mobile Menu Toggle */}
         <button
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={mobileMenuOpen}
           style={{
             display: "none",
             background: "none",

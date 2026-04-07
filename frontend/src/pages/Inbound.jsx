@@ -44,6 +44,8 @@ import mirissaImg from '../assets/mirissa.png';
 import galleImg from '../assets/galle.png';
 import trincomaleeImg from '../assets/trincomalee.png';
 
+import SEO from '../components/SEO';
+
 export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }) {
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
@@ -122,6 +124,11 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
       dir={selectedLanguage === 'ar' ? 'rtl' : 'ltr'}
       style={{ minHeight: '100vh', padding: '0 0 100px 0', textAlign: selectedLanguage === 'ar' ? 'right' : 'left' }}
     >
+      <SEO 
+        title={`${t.inboundTitle} | Serendib Inbound Tours`}
+        description={t.inboundDesc}
+      />
+
       <SubHero 
         title={t.inboundTitle}
         subtitle={t.inboundDesc}

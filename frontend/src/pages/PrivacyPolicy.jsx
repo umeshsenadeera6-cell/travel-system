@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SubHero from '../components/SubHero';
+import SEO from '../components/SEO';
 
 const PrivacyPolicy = () => {
   const [currentLang, setCurrentLang] = useState('en');
@@ -141,6 +142,10 @@ const PrivacyPolicy = () => {
 
   return (
     <div style={{ backgroundColor: 'hsl(var(--background))' }}>
+      <SEO 
+        title="Privacy Policy | Serendib Travel"
+        description="Learn how Serendib Travel & Tours collects, uses, and protects your personal data."
+      />
       <SubHero 
         title="Privacy Policy"
         subtitle="Your privacy is our priority. We are committed to safeguarding your personal data and ensuring transparency in how we handle your information."

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SubHero from '../components/SubHero';
+import SEO from '../components/SEO';
 
 const TermsConditions = () => {
   const [currentLang, setCurrentLang] = useState('en');
@@ -128,6 +129,10 @@ const TermsConditions = () => {
 
   return (
     <div style={{ backgroundColor: 'hsl(var(--background))' }}>
+      <SEO 
+        title="Terms & Conditions | Serendib Travel" 
+        description="Read our terms and conditions for booking tours and services with Serendib Travel & Tours." 
+      />
       <SubHero 
         title="Terms & Conditions"
         subtitle="Our commitment to transparency and your peace of mind while exploring the world with Serendib."
