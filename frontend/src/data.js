@@ -67,7 +67,7 @@ export const PACKAGES = [
     title: "Kandy Cultural Tour", 
     price: 80, 
     image: "/src/assets/kandy.png",
-    images: ["/src/assets/kandy.png"],
+    images: ["/src/assets/kandy.png", "/src/assets/kandy-2.png", "/src/assets/kandy-3.png"],
     duration: "Full Day",
     description: "Visit the sacred Temple of the Tooth and witness a vibrant traditional dance performance.",
     itinerary: [

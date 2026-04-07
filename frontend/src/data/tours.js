@@ -3,6 +3,11 @@ import sigiriyaImg from "../assets/sigiriya.png";
 import ellaImg from "../assets/ella.png";
 import galleImg from "../assets/galle.png";
 import kandyImg from "../assets/kandy.png";
+import sigiriyaImg2 from "../assets/sigiriya-2.png";
+import ellaImg2 from "../assets/ella-2.png";
+import galleImg2 from "../assets/galle-2.png";
+import kandyImg2 from "../assets/kandy-2.png";
+import kandyImg3 from "../assets/kandy-3.png";
 
 // Outbound Assets (Global)
 import parisImg from "../assets/paris.png";
@@ -16,6 +21,7 @@ export const INBOUND_PACKAGES = [
     title: "Sigiriya Tour",
     price: 200,
     image: sigiriyaImg,
+    images: [sigiriyaImg, sigiriyaImg2],
     duration: "Full Day",
     description: "Climb the iconic Lion Rock, explore ancient frescoes, and enjoy panoramic views over Sri Lanka’s cultural triangle.",
     localizations: {
@@ -142,6 +148,7 @@ export const INBOUND_PACKAGES = [
     title: "Ella Adventure",
     price: 150,
     image: ellaImg,
+    images: [ellaImg, ellaImg2],
     duration: "2 Day / 1 Night",
     description: "A misty mountain escape with scenic viewpoints, waterfalls, and a laid-back hill-country vibe.",
     localizations: {
@@ -239,6 +246,7 @@ export const INBOUND_PACKAGES = [
     title: "Galle Day Trip",
     price: 120,
     image: galleImg,
+    images: [galleImg, galleImg2],
     duration: "Half Day",
     description: "Walk the colonial fort, browse boutique cafés, and enjoy the coastal charm of Sri Lanka’s south.",
     localizations: {
@@ -337,6 +345,7 @@ export const INBOUND_PACKAGES = [
     title: "Kandy Cultural Show",
     price: 80,
     image: kandyImg,
+    images: [kandyImg, kandyImg2, kandyImg3],
     duration: "Evening",
     description: "An immersive cultural night featuring traditional dance, drumming, and a vibrant local atmosphere.",
     localizations: {
@@ -385,6 +394,7 @@ export const OUTBOUND_PACKAGES = [
     title: "Paris Romance",
     price: 1200,
     image: parisImg,
+    images: [parisImg],
     duration: "5 Day / 4 Night",
     description: "Classic Paris highlights with curated city experiences, iconic landmarks, and café culture.",
     itinerary: [
@@ -515,6 +525,7 @@ export const OUTBOUND_PACKAGES = [
     title: "Tokyo Neon Nights",
     price: 1500,
     image: tokyoImg,
+    images: [tokyoImg],
     duration: "6 Day / 5 Night",
     description: "A modern Tokyo journey mixing neon streets, calm shrines, and unforgettable food spots.",
     itinerary: [
@@ -640,6 +651,7 @@ export const OUTBOUND_PACKAGES = [
     title: "Dubai Luxury Desert",
     price: 900,
     image: dubaiImg,
+    images: [dubaiImg],
     duration: "4 Day / 3 Night",
     description: "City glamour meets desert adventure with skyline views, souks, and a premium desert safari.",
     itinerary: [
@@ -743,6 +755,7 @@ export const OUTBOUND_PACKAGES = [
     title: "Sydney Harbor Escape",
     price: 1100,
     image: sydneyImg,
+    images: [sydneyImg],
     duration: "5 Day / 4 Night",
     description: "Harbor vibes, coastal walks, and landmark experiences in one of the world’s best cities.",
     itinerary: [
