@@ -1,18 +1,15 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
-// Import the generated logos
-import jetwingLogo from '../assets/jetwing-logo.png';
-import cinnamonLogo from '../assets/hotel-logo-1.png'; // Placeholder for Cinnamon
-import ugaLogo from '../assets/hotel-logo-2.png';      // Placeholder for Uga Escapes
+// Import the branded logos
+import jetwingLogo from '../assets/jetwing-hotels.png';
+import cinnamonLogo from '../assets/cinnamon-hotels.png';
+import ugaLogo from '../assets/uga-escapes.png';
 
 const PARTNERS = [
   { id: 1, name: 'Jetwing Hotels', logo: jetwingLogo },
-  { id: 2, name: 'Cinnamon Hotels', logo: cinnamonLogo },
+  { id: 2, name: 'Cinnamon Hotels & Resorts', logo: cinnamonLogo },
   { id: 3, name: 'Uga Escapes', logo: ugaLogo },
-  { id: 4, name: 'Aman Resorts', logo: cinnamonLogo }, 
-  { id: 5, name: 'Shangri-La Hotels', logo: ugaLogo },
-  { id: 6, name: 'Resplendent Ceylon', logo: jetwingLogo },
 ];
 
 const PartnerLogos = ({ accentColor = 'hsl(var(--primary))' }) => {
@@ -41,8 +38,8 @@ const PartnerLogos = ({ accentColor = 'hsl(var(--primary))' }) => {
         flexWrap: 'wrap', 
         justifyContent: 'center', 
         alignItems: 'center', 
-        gap: '3rem',
-        opacity: 0.8
+        gap: '4rem',
+        opacity: 0.9
       }}>
         {PARTNERS.map((partner, index) => (
           <motion.div
@@ -53,20 +50,28 @@ const PartnerLogos = ({ accentColor = 'hsl(var(--primary))' }) => {
             transition={{ delay: index * 0.1 }}
             whileHover={{ scale: 1.05, opacity: 1 }}
             style={{ 
-              width: '180px', 
-              height: '100px', 
+              width: '220px', 
+              height: '120px', 
               display: 'flex', 
               alignItems: 'center', 
               justifyContent: 'center',
               filter: 'grayscale(100%)',
-              transition: 'filter 0.3s ease',
-              padding: '1rem',
-              borderRadius: '1rem',
-              backgroundColor: 'hsl(var(--primary) / 0.03)',
+              transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)',
+              padding: '1.5rem',
+              borderRadius: '1.5rem',
+              backgroundColor: 'hsl(var(--primary) / 0.02)',
               border: '1px solid hsl(var(--primary) / 0.05)'
             }}
-            onMouseEnter={(e) => e.currentTarget.style.filter = 'grayscale(0%)'}
-            onMouseLeave={(e) => e.currentTarget.style.filter = 'grayscale(100%)'}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.filter = 'grayscale(0%)';
+              e.currentTarget.style.backgroundColor = 'white';
+              e.currentTarget.style.boxShadow = '0 10px 30px -10px rgba(0,0,0,0.1)';
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.filter = 'grayscale(100%)';
+              e.currentTarget.style.backgroundColor = 'hsl(var(--primary) / 0.02)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
           >
             <img 
               src={partner.logo} 
