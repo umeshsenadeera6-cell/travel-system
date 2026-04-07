@@ -4,7 +4,6 @@ import HeroCarousel from '../components/HeroCarousel';
 import Hero from '../components/Hero';
 import AboutUs from '../components/AboutUs';
 import ReviewCarousel from '../components/ReviewCarousel';
-import PartnerLogos from '../components/PartnerLogos';
 import LimitedTimeTours from '../components/LimitedTimeTours';
 import TourModal from '../components/TourModal';
 
@@ -65,7 +64,6 @@ export default function Home({ currentLanguage = 'en' }) {
             </p>
           </div>
           <ReviewCarousel />
-          <PartnerLogos />
         </div>
       </section>
 
