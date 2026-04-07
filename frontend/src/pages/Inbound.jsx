@@ -37,6 +37,7 @@ import DestinationsGrid from '../components/DestinationsGrid';
 import ServicesGrid from '../components/ServicesGrid';
 import BlogPreview from '../components/BlogPreview';
 import ReviewCarousel from '../components/ReviewCarousel';
+import PartnerLogos from '../components/PartnerLogos';
 import InternalNav from '../components/InternalNav';
 import sigiriyaImg from '../assets/sigiriya.png';
 import kandyImg from '../assets/kandy.png';
@@ -186,6 +187,7 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
         <section id="reviews-section" style={{ padding: '80px 0' }}>
           <SectionHeader title="What Travelers' Say" center={true} />
           <ReviewCarousel />
+          <PartnerLogos />
         </section>
         
 
