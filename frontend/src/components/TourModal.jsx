@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { X, Clock, MapPin, CheckCircle2, ShieldCheck, ChevronRight, Zap } from 'lucide-react';
+import { X, Clock, MapPin, CheckCircle2, ShieldCheck, ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import MapComponent from './MapComponent';
 import { TRANSLATIONS } from '../data/translations';
 
