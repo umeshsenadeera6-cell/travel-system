@@ -178,6 +178,7 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
         
         <div id="services-section">
           <ServicesGrid title={t.servicesTitle} serviceLabels={serviceLabels} />
+          <PartnerLogos />
         </div>
         
         <div id="guides-section">
