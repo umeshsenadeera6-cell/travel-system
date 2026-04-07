@@ -2,16 +2,17 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 // Import the generated logos
-import logo1 from '../assets/hotel-logo-1.png';
-import logo2 from '../assets/hotel-logo-2.png';
+import jetwingLogo from '../assets/jetwing-logo.png';
+import cinnamonLogo from '../assets/hotel-logo-1.png'; // Placeholder for Cinnamon
+import ugaLogo from '../assets/hotel-logo-2.png';      // Placeholder for Uga Escapes
 
 const PARTNERS = [
-  { id: 1, name: 'Azure Luxury Resorts', logo: logo1 },
-  { id: 2, name: 'Grand Heritage Hotel', logo: logo2 },
-  { id: 3, name: 'Lumina Boutique Stays', logo: logo1 }, // Reusing for demo due to quota
-  { id: 4, name: 'Serene Oasis Hotels', logo: logo2 }, // Reusing for demo due to quota
-  { id: 5, name: 'Royal Crest Suites', logo: logo1 }, // Reusing for demo due to quota
-  { id: 6, name: 'Emerald Shores Retreat', logo: logo2 }, // Reusing for demo due to quota
+  { id: 1, name: 'Jetwing Hotels', logo: jetwingLogo },
+  { id: 2, name: 'Cinnamon Hotels', logo: cinnamonLogo },
+  { id: 3, name: 'Uga Escapes', logo: ugaLogo },
+  { id: 4, name: 'Aman Resorts', logo: cinnamonLogo }, 
+  { id: 5, name: 'Shangri-La Hotels', logo: ugaLogo },
+  { id: 6, name: 'Resplendent Ceylon', logo: jetwingLogo },
 ];
 
 const PartnerLogos = ({ accentColor = 'hsl(var(--primary))' }) => {
