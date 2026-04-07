@@ -359,8 +359,6 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                           </div>
                           <div>
                             <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
-                              <span style={{ fontWeight: '800', color: 'hsl(var(--secondary))', fontSize: '1.05rem' }}>{item.time}</span>
-                              <span style={{ width: '4px', height: '4px', borderRadius: '50%', backgroundColor: 'hsl(var(--primary) / 0.3)' }} />
                               <span style={{ fontWeight: '600', color: 'hsl(var(--primary))', fontSize: '0.9rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.location}</span>
                             </div>
                             <p style={{ color: 'hsl(var(--foreground) / 0.85)', lineHeight: 1.6, fontWeight: '450' }}>{item.text}</p>

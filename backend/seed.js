@@ -13,11 +13,11 @@ const INBOUND_PACKAGES = [
     duration: "Full Day",
     description: "Scale the majestic 'Lion Rock', a UNESCO World Heritage site featuring ancient frescoes and symmetrical water gardens.",
     itinerary: [
-      "08:00 AM - Hotel pickup and scenic drive to Sigiriya",
-      "09:30 AM - Guided climb of the 1,200 steps to the summit",
-      "12:00 PM - Authentic Sri Lankan village lunch",
-      "02:00 PM - Explore the Pidurangala Vihara temple complex",
-      "04:30 PM - Traditional tea service and return to hotel"
+      "Hotel pickup and scenic drive to Sigiriya",
+      "Guided climb of the 1,200 steps to the summit",
+      "Authentic Sri Lankan village lunch",
+      "Explore the Pidurangala Vihara temple complex",
+      "Traditional tea service and return to hotel"
     ],
     inclusions: ["Luxury Transport", "English Speaking Guide", "Entrance Fees", "Traditional Buffet Lunch", "Mineral Water"],
     category: "Inbound"
@@ -30,11 +30,11 @@ const INBOUND_PACKAGES = [
     duration: "Full Day",
     description: "Trek through misty mountains to find the iconic Nine Arch Bridge and Little Adam's Peak.",
     itinerary: [
-      "07:00 AM - Departure to Ella",
-      "09:00 AM - Hike to Little Adam's Peak for sunrise views",
-      "11:00 AM - Visit Nine Arch Bridge and watch the train pass",
-      "01:00 PM - Picnic lunch with mountain views",
-      "03:00 PM - Refreshing dip in Ravana Falls"
+      "Departure to Ella",
+      "Hike to Little Adam's Peak for sunrise views",
+      "Visit Nine Arch Bridge and watch the train pass",
+      "Picnic lunch with mountain views",
+      "Refreshing dip in Ravana Falls"
     ],
     inclusions: ["Round-trip Transport", "Expert Hiking Guide", "Picnic Meal Kit", "First Aid Support"],
     category: "Inbound"
@@ -47,11 +47,11 @@ const INBOUND_PACKAGES = [
     duration: "Full Day",
     description: "A walk through time in the Dutch Fort of Galle followed by the golden beaches of Unawatuna.",
     itinerary: [
-      "08:30 AM - Coastal drive via Southern Expressway",
-      "10:00 AM - Guided walking tour of Galle Fort",
-      "12:30 PM - Lunch at a boutique colonial restaurant",
-      "02:30 PM - Stilt fishing observation and photography",
-      "04:00 PM - Beach time at Unawatuna"
+      "Coastal drive via Southern Expressway",
+      "Guided walking tour of Galle Fort",
+      "Lunch at a boutique colonial restaurant",
+      "Stilt fishing observation and photography",
+      "Beach time at Unawatuna"
     ],
     inclusions: ["AC Van Transport", "Historical Guide", "Photography Session", "Fort Entrance"],
     category: "Inbound"
@@ -64,11 +64,11 @@ const INBOUND_PACKAGES = [
     duration: "Full Day",
     description: "Visit the sacred Temple of the Tooth and witness a vibrant traditional dance performance.",
     itinerary: [
-      "08:00 AM - Travel to the Hill Capital",
-      "10:30 AM - Visit the Temple of the Sacred Tooth Relic",
-      "12:30 PM - Lake-view lunch",
-      "02:00 PM - Peradeniya Botanical Gardens walk",
-      "05:00 PM - Cultural dance show"
+      "Travel to the Hill Capital",
+      "Visit the Temple of the Sacred Tooth Relic",
+      "Lake-view lunch",
+      "Peradeniya Botanical Gardens walk",
+      "Cultural dance show"
     ],
     inclusions: ["Guided City Tour", "Temple Entrance", "Botanical Garden Ticket", "Dance Show Ticket"],
     category: "Inbound"
@@ -87,38 +87,38 @@ const OUTBOUND_PACKAGES = [
       { 
         day: "Day 1", 
         activities: [
-          { time: "10:00 AM", text: "Arrival at Charles de Gaulle Airport and private transfer to your hotel." },
-          { time: "02:00 PM", text: "Check-in and refresh." },
-          { time: "05:00 PM", text: "Relaxed Seine River Cruise with welcome drinks." }
+          { text: "Arrival at Charles de Gaulle Airport and private transfer to your hotel." },
+          { text: "Check-in and refresh." },
+          { text: "Relaxed Seine River Cruise with welcome drinks." }
         ]
       },
       { 
         day: "Day 2", 
         activities: [
-          { time: "09:00 AM", text: "Guided tour of the Louvre Museum's highlights." },
-          { time: "01:00 PM", text: "Lunch at a traditional Parisian bistro." },
-          { time: "03:00 PM", text: "Montmartre walking tour and visit to Sacré-Cœur." }
+          { text: "Guided tour of the Louvre Museum's highlights." },
+          { text: "Lunch at a traditional Parisian bistro." },
+          { text: "Montmartre walking tour and visit to Sacré-Cœur." }
         ]
       },
       { 
         day: "Day 3", 
         activities: [
-          { time: "10:00 AM", text: "Eiffel Tower summit access for panoramic views." },
-          { time: "02:00 PM", text: "Shopping on Champs-Élysées and relaxation." }
+          { text: "Eiffel Tower summit access for panoramic views." },
+          { text: "Shopping on Champs-Élysées and relaxation." }
         ]
       },
       { 
         day: "Day 4", 
         activities: [
-          { time: "09:00 AM", text: "Full-day excursion to the Palace of Versailles." },
-          { time: "04:00 PM", text: "Return to Paris and free evening." }
+          { text: "Full-day excursion to the Palace of Versailles." },
+          { text: "Return to Paris and free evening." }
         ]
       },
       { 
         day: "Day 5", 
         activities: [
-          { time: "10:00 AM", text: "Gourmet pastry workshop with a local chef." },
-          { time: "02:00 PM", text: "Final souvenir shopping and departure transfer." }
+          { text: "Gourmet pastry workshop with a local chef." },
+          { text: "Final souvenir shopping and departure transfer." }
         ]
       }
     ],
@@ -136,43 +136,43 @@ const OUTBOUND_PACKAGES = [
       {
         day: "Day 1",
         activities: [
-          { time: "11:00 AM", text: "Arrival at Narita Airport and JR Pass activation." },
-          { time: "03:00 PM", text: "Check-in at Shinjuku hotel and explore the neon streets." }
+          { text: "Arrival at Narita Airport and JR Pass activation." },
+          { text: "Check-in at Shinjuku hotel and explore the neon streets." }
         ]
       },
       {
         day: "Day 2",
         activities: [
-          { time: "09:00 AM", text: "Visit the historic Senso-ji Temple in Asakusa." },
-          { time: "02:00 PM", text: "Tech and anime exploration in Akihabara." }
+          { text: "Visit the historic Senso-ji Temple in Asakusa." },
+          { text: "Tech and anime exploration in Akihabara." }
         ]
       },
       {
         day: "Day 3",
         activities: [
-          { time: "10:00 AM", text: "Experience the Shibuya Crossing and Meiji Shrine." },
-          { time: "03:00 PM", text: "Harajuku fashion district and Takeshita Street." }
+          { text: "Experience the Shibuya Crossing and Meiji Shrine." },
+          { text: "Harajuku fashion district and Takeshita Street." }
         ]
       },
       {
         day: "Day 4",
         activities: [
-          { time: "08:00 AM", text: "Day trip to Mount Fuji and cruise on Lake Ashi." },
-          { time: "05:00 PM", text: "Return to Tokyo." }
+          { text: "Day trip to Mount Fuji and cruise on Lake Ashi." },
+          { text: "Return to Tokyo." }
         ]
       },
       {
         day: "Day 5",
         activities: [
-          { time: "10:00 AM", text: "Visit the Ghibli Museum (Pre-booked)." },
-          { time: "07:00 PM", text: "Robot Cafe dinner experience." }
+          { text: "Visit the Ghibli Museum (Pre-booked)." },
+          { text: "Robot Cafe dinner experience." }
         ]
       },
       {
         day: "Day 6",
         activities: [
-          { time: "09:00 AM", text: "Last minute shopping in Ginza." },
-          { time: "01:00 PM", text: "Airport transfer for departure." }
+          { text: "Last minute shopping in Ginza." },
+          { text: "Airport transfer for departure." }
         ]
       }
     ],
@@ -190,29 +190,29 @@ const OUTBOUND_PACKAGES = [
       {
         day: "Day 1",
         activities: [
-          { time: "02:00 PM", text: "Arrival and check-in at your luxury hotel." },
-          { time: "06:00 PM", text: "Burj Khalifa At The Top visit and Fountain Show." }
+          { text: "Arrival and check-in at your luxury hotel." },
+          { text: "Burj Khalifa At The Top visit and Fountain Show." }
         ]
       },
       {
         day: "Day 2",
         activities: [
-          { time: "03:00 PM", text: "4x4 Desert Safari adventure." },
-          { time: "07:00 PM", text: "Traditional BBQ dinner under the stars." }
+          { text: "4x4 Desert Safari adventure." },
+          { text: "Traditional BBQ dinner under the stars." }
         ]
       },
       {
         day: "Day 3",
         activities: [
-          { time: "10:00 AM", text: "Monorail ride to Palm Jumeirah." },
-          { time: "01:00 PM", text: "Atlantis Aquaventure Waterpark fun." }
+          { text: "Monorail ride to Palm Jumeirah." },
+          { text: "Atlantis Aquaventure Waterpark fun." }
         ]
       },
       {
         day: "Day 4",
         activities: [
-          { time: "10:00 AM", text: "Souk Madinat Jumeirah shopping." },
-          { time: "02:00 PM", text: "Departure transfer to Dubai Airport." }
+          { text: "Souk Madinat Jumeirah shopping." },
+          { text: "Departure transfer to Dubai Airport." }
         ]
       }
     ],
@@ -230,36 +230,36 @@ const OUTBOUND_PACKAGES = [
       {
         day: "Day 1",
         activities: [
-          { time: "10:00 AM", text: "Arrival and Sydney Opera House guided tour." },
-          { time: "02:00 PM", text: "Walk around Circular Quay and The Rocks." }
+          { text: "Arrival and Sydney Opera House guided tour." },
+          { text: "Walk around Circular Quay and The Rocks." }
         ]
       },
       {
         day: "Day 2",
         activities: [
-          { time: "09:00 AM", text: "Bondi to Coogee Coastal Walk." },
-          { time: "01:00 PM", text: "Lunch with ocean views at Bondi." }
+          { text: "Bondi to Coogee Coastal Walk." },
+          { text: "Lunch with ocean views at Bondi." }
         ]
       },
       {
         day: "Day 3",
         activities: [
-          { time: "08:30 AM", text: "Blue Mountains wilderness day trip." },
-          { time: "04:30 PM", text: "Return to Sydney." }
+          { text: "Blue Mountains wilderness day trip." },
+          { text: "Return to Sydney." }
         ]
       },
       {
         day: "Day 4",
         activities: [
-          { time: "10:00 AM", text: "Harbor Bridge Climb adventure." },
-          { time: "03:00 PM", text: "Explore Darling Harbor and Sea Life Aquarium." }
+          { text: "Harbor Bridge Climb adventure." },
+          { text: "Explore Darling Harbor and Sea Life Aquarium." }
         ]
       },
       {
         day: "Day 5",
         activities: [
-          { time: "09:00 AM", text: "Visit Wildlife Sydney Zoo." },
-          { time: "01:00 PM", text: "Departure transfer." }
+          { text: "Visit Wildlife Sydney Zoo." },
+          { text: "Departure transfer." }
         ]
       }
     ],
