@@ -1,5 +1,5 @@
 import React, { Suspense, lazy } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 import "./index.css";
 
 // Components
@@ -30,6 +30,31 @@ const PageLoader = () => (
   </div>
 );
 
+const Layout = ({ currentLanguage, onLanguageChange, children }) => {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith("/admin");
+
+  return (
+    <div style={{
+      minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      position: 'relative'
+    }}>
+      {!isAdmin && <FloatingObjects />}
+      {!isAdmin && <Navbar currentLanguage={currentLanguage} onLanguageChange={onLanguageChange} />}
+      
+      <div style={{ flex: 1 }}>
+        <Suspense fallback={<PageLoader />}>
+          {children}
+        </Suspense>
+      </div>
+
+      {!isAdmin && <Footer />}
+    </div>
+  );
+};
+
 export default function App() {
   const [currentLanguage, setCurrentLanguage] = React.useState(() => {
     return localStorage.getItem('app_language') || 'en';
@@ -41,31 +66,17 @@ export default function App() {
 
   return (
     <Router>
-      <div style={{
-        minHeight: '100vh',
-        display: 'flex',
-        flexDirection: 'column',
-        position: 'relative'
-      }}>
-        <FloatingObjects />
-        <Navbar currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage} />
-        
-        <div style={{ flex: 1 }}>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              <Route path="/" element={<Home currentLanguage={currentLanguage} />} />
-              <Route path="/inbound" element={<Inbound selectedLanguage={currentLanguage} setSelectedLanguage={setCurrentLanguage} />} />
-              <Route path="/outbound" element={<Outbound selectedLanguage={currentLanguage} setSelectedLanguage={setCurrentLanguage} />} />
-              <Route path="/booking" element={<BookingPage currentLanguage={currentLanguage} />} />
-              <Route path="/admin" element={<AdminDashboard />} />
-              <Route path="/terms" element={<TermsConditions currentLanguage={currentLanguage} />} />
-              <Route path="/privacy" element={<PrivacyPolicy />} />
-            </Routes>
-          </Suspense>
-        </div>
-
-        <Footer />
-      </div>
+      <Layout currentLanguage={currentLanguage} onLanguageChange={setCurrentLanguage}>
+        <Routes>
+          <Route path="/" element={<Home currentLanguage={currentLanguage} />} />
+          <Route path="/inbound" element={<Inbound selectedLanguage={currentLanguage} setSelectedLanguage={setCurrentLanguage} />} />
+          <Route path="/outbound" element={<Outbound selectedLanguage={currentLanguage} setSelectedLanguage={setCurrentLanguage} />} />
+          <Route path="/booking" element={<BookingPage currentLanguage={currentLanguage} />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/terms" element={<TermsConditions currentLanguage={currentLanguage} />} />
+          <Route path="/privacy" element={<PrivacyPolicy />} />
+        </Routes>
+      </Layout>
     </Router>
   );
 }
