@@ -92,7 +92,7 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
     }
   };
 
-  const allPackages = [...INBOUND_PACKAGES, ...dynamicPackages];
+  const allPackages = dynamicPackages.length > 0 ? dynamicPackages : INBOUND_PACKAGES;
   const roundTours = allPackages.filter(p => p.type === 'Round');
   const dayTours = allPackages.filter(p => !p.type || p.type === 'Day');
 

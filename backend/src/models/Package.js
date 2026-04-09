@@ -13,7 +13,23 @@ const packageSchema = new mongoose.Schema({
     type: String, 
     enum: ['Inbound', 'Outbound'], 
     required: true 
-  }
+  },
+  type: {
+    type: String,
+    enum: ['Day', 'Round'],
+    default: 'Day'
+  },
+  localizations: {
+    type: mongoose.Schema.Types.Mixed,
+    default: {}
+  },
+  route: {
+    stops: [{ label: String, lat: Number, lng: Number }],
+    path: [{ lat: Number, lng: Number }]
+  },
+  isLimitedTime: { type: Boolean, default: false },
+  discountPercentage: { type: Number, default: 0 },
+  expiryDate: { type: Date }
 }, { timestamps: true });
 
 module.exports = mongoose.model('Package', packageSchema);

@@ -438,10 +438,16 @@ export default function TourModal({ isOpen, onClose, tour, lang = 'en' }) {
                                 {idx + 1}
                               </div>
                               <div>
-                                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
-                                  <span style={{ fontWeight: '700', color: 'hsl(var(--primary))', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.location}</span>
-                                </div>
-                                <p style={{ color: 'hsl(var(--foreground) / 0.8)', lineHeight: 1.5, fontWeight: '450', fontSize: '1rem' }}>{item.text}</p>
+                                {typeof item === 'object' ? (
+                                  <>
+                                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.25rem' }}>
+                                      <span style={{ fontWeight: '700', color: 'hsl(var(--primary))', fontSize: '0.75rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>{item.location}</span>
+                                    </div>
+                                    <p style={{ color: 'hsl(var(--foreground) / 0.8)', lineHeight: 1.5, fontWeight: '450', fontSize: '1rem' }}>{item.text}</p>
+                                  </>
+                                ) : (
+                                  <p style={{ color: 'hsl(var(--foreground) / 0.8)', lineHeight: 1.5, fontWeight: '450', fontSize: '1rem' }}>{item}</p>
+                                )}
                               </div>
                             </div>
                           ))}
