@@ -138,7 +138,7 @@ export default function Footer() {
         opacity: 0.4,
         fontSize: '0.95rem'
       }}>
-        <p>© 2026 Serendib Travel & Tours. Elevating every journey.</p>
+        <p><Link to="/admin" style={{ color: 'inherit', textDecoration: 'none', cursor: 'default' }}>©</Link> 2026 Serendib Travel & Tours. Elevating every journey.</p>
         <div style={{ display: 'flex', gap: '3rem' }}>
           <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'none' }}><span>Privacy Policy</span></Link>
           <Link to="/terms" style={{ color: 'inherit', textDecoration: 'none' }}><span>Terms</span></Link>
