@@ -1,4 +1,6 @@
-const API_URL = import.meta.env.VITE_API_URL || 
-  (typeof window !== 'undefined' && window.location.hostname === 'localhost' ? 'http://localhost:5001/api' : '/api');
+// On Vercel (production), VITE_API_URL must be set to your Render backend URL.
+// Example: https://travel-system-backend-xxxx.onrender.com/api
+// On localhost (development), falls back to the local backend.
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
 
 export default API_URL;

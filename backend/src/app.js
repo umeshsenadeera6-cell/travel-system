@@ -11,7 +11,14 @@ const app = express();
 app.use(helmet({
   contentSecurityPolicy: false, // Disable for development to allow React/Vite connections if serving as static
 }));
-app.use(cors());
+app.use(cors({
+  origin: [
+    /\.vercel\.app$/,          // Allow all Vercel preview/production URLs
+    'http://localhost:5173',    // Vite dev server
+    'http://localhost:3000',
+  ],
+  credentials: true,
+}));
 
 // Logging Middleware
 if (process.env.NODE_ENV === 'development') {
