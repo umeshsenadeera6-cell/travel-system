@@ -2,9 +2,13 @@
   "name": "travel-business-system",
   "version": "1.0.0",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
     "install:all": "npm install --prefix frontend && npm install --prefix backend",
-    "build": "node scripts/build.js && echo 'Build complete'",
+    "build": "node scripts/build.js",
     "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
     "start": "npm start --prefix backend",
     "frontend": "npm run dev --prefix frontend",
@@ -14,9 +18,6 @@
     "concurrently": "^8.2.2"
   },
   "dependencies": {
-    "cors": "^2.8.6",
-    "dotenv": "^17.3.1",
-    "express": "^5.2.1",
-    "mongoose": "^9.3.3"
+    "rimraf": "^5.0.0"
   }
 }

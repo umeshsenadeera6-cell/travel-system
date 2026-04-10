@@ -38,13 +38,11 @@ function copyRecursiveSync(src, dest) {
   }
 }
 
-// 1. Install dependencies
-runCommand('npm install', path.join(process.cwd(), 'frontend'));
-
-// 2. Build Frontend
+// 1. Build Frontend
+console.log('\n🏗️  Building frontend...');
 runCommand('npm run build', path.join(process.cwd(), 'frontend'));
 
-// 3. Staging build artifacts
+// 2. Staging build artifacts
 console.log('\n📂 Staging build artifacts...');
 const rootPublic = path.join(process.cwd(), 'public');
 const frontendDist = path.join(process.cwd(), 'frontend', 'dist');
@@ -55,7 +53,12 @@ if (fs.existsSync(rootPublic)) {
 }
 
 console.log(`📁 Copying from ${frontendDist} to ${rootPublic}...`);
-copyRecursiveSync(frontendDist, rootPublic);
+if (!fs.existsSync(frontendDist)) {
+  console.error(`❌ Source directory ${frontendDist} does not exist! Build failed.`);
+  process.exit(1);
+}
+
+fs.cpSync(frontendDist, rootPublic, { recursive: true });
 
 console.log('\n✅ Build complete! Artifacts are staged in the root /public directory.');
-console.log('🔗 You can now push your changes to trigger a Vercel deployment.');
+console.log('🔗 Vercel will serve these files from the root.');
