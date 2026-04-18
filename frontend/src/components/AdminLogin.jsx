@@ -1,42 +1,57 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Lock, User, ArrowRight, ShieldCheck } from 'lucide-react';
+import { Lock, ArrowRight, ShieldCheck, AlertTriangle } from 'lucide-react';
+import API_URL from '../config';
 
 export default function AdminLogin({ onLogin }) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    
-    // Mock authentication logic
-    setTimeout(() => {
-      if (password === 'admin123') {
-        onLogin();
-      } else {
-        setError('Invalid administrator credentials');
-        setIsLoading(false);
+    setError('');
+
+    try {
+      const res = await fetch(`${API_URL}/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        throw new Error(data.message || 'Invalid credentials');
       }
-    }, 1000);
+
+      // Store the JWT token
+      localStorage.setItem('admin_token', data.token);
+      localStorage.setItem('admin_session', 'active');
+      onLogin(data.token);
+    } catch (err) {
+      setError(err.message || 'Authentication failed. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
     <div className="login-bg">
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="glass-login"
       >
         <div style={{ textAlign: 'center', marginBottom: '2.5rem' }}>
-          <div style={{ 
-            width: '64px', 
-            height: '64px', 
-            background: 'hsl(var(--primary))', 
-            borderRadius: '1.25rem', 
-            display: 'flex', 
-            alignItems: 'center', 
+          <div style={{
+            width: '64px',
+            height: '64px',
+            background: 'hsl(var(--primary))',
+            borderRadius: '1.25rem',
+            display: 'flex',
+            alignItems: 'center',
             justifyContent: 'center',
             margin: '0 auto 1.5rem',
             color: 'white',
@@ -55,14 +70,14 @@ export default function AdminLogin({ onLogin }) {
         <form onSubmit={handleSubmit}>
           <div style={{ marginBottom: '1.5rem' }}>
             <label style={{ display: 'block', fontSize: '0.85rem', fontWeight: '700', color: '#475569', marginBottom: '0.5rem', marginLeft: '0.5rem' }}>
-              Admin Key
+              Admin Password
             </label>
             <div style={{ position: 'relative' }}>
-              <Lock 
-                size={18} 
-                style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }} 
+              <Lock
+                size={18}
+                style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: '#94a3b8' }}
               />
-              <input 
+              <input
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
@@ -70,24 +85,30 @@ export default function AdminLogin({ onLogin }) {
                 placeholder="••••••••"
                 style={{ paddingLeft: '3rem', background: 'white' }}
                 required
+                autoFocus
               />
             </div>
           </div>
 
           {error && (
-            <motion.p 
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              style={{ color: '#ef4444', fontSize: '0.85rem', marginBottom: '1.5rem', textAlign: 'center', fontWeight: '600' }}
+            <motion.div
+              initial={{ opacity: 0, y: -4 }}
+              animate={{ opacity: 1, y: 0 }}
+              style={{
+                display: 'flex', alignItems: 'center', gap: '0.5rem',
+                color: '#ef4444', fontSize: '0.85rem', marginBottom: '1.5rem',
+                background: '#fef2f2', padding: '0.75rem 1rem', borderRadius: '0.75rem',
+                fontWeight: '600'
+              }}
             >
-              {error}
-            </motion.p>
+              <AlertTriangle size={16} /> {error}
+            </motion.div>
           )}
 
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isLoading}
-            className="btn btn-primary" 
+            className="btn btn-primary"
             style={{ width: '100%', padding: '1rem', fontSize: '1rem', gap: '0.75rem' }}
           >
             {isLoading ? 'Authenticating...' : (
@@ -100,7 +121,7 @@ export default function AdminLogin({ onLogin }) {
 
         <div style={{ marginTop: '2rem', textAlign: 'center' }}>
           <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
-            Demo Access Key: <code style={{ background: '#f1f5f9', padding: '0.2rem 0.4rem', borderRadius: '0.25rem', color: '#475569' }}>admin123</code>
+            Default password set in backend <code style={{ background: '#f1f5f9', padding: '0.2rem 0.4rem', borderRadius: '0.25rem', color: '#475569' }}>.env</code>
           </p>
         </div>
       </motion.div>

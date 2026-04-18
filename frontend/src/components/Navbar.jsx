@@ -22,7 +22,9 @@ export default function Navbar({ currentLanguage = 'en', onLanguageChange }) {
     { name: "Home", path: "/" },
     { name: "Inbound", path: "/inbound" },
     { name: "Outbound", path: "/outbound" },
+    { name: "Blog", path: "/blog" },
   ];
+
 
   const isActive = (path) => location.pathname === path;
 

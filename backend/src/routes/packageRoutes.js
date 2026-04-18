@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const adminAuth = require('../middleware/adminAuth');
 const {
   getPackages,
   getPackageById,
@@ -8,13 +9,13 @@ const {
   deletePackage
 } = require('../controllers/packageController');
 
-router.route('/')
-  .get(getPackages)
-  .post(createPackage);
+// Public
+router.get('/', getPackages);
+router.get('/:id', getPackageById);
 
-router.route('/:id')
-  .get(getPackageById)
-  .put(updatePackage)
-  .delete(deletePackage);
+// Admin only
+router.post('/', adminAuth, createPackage);
+router.put('/:id', adminAuth, updatePackage);
+router.delete('/:id', adminAuth, deletePackage);
 
 module.exports = router;
