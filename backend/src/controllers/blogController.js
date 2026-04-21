@@ -1,12 +1,12 @@
 const asyncHandler = require('express-async-handler');
-const Blog = require('../models/Blog');
+const Blog = require('../models/blogModel');
 
 // @desc    Get all published blogs (public) or all blogs (admin with ?all=true)
 // @route   GET /api/blogs
 // @access  Public
 const getBlogs = asyncHandler(async (req, res) => {
   const filter = req.query.all === 'true' ? {} : { status: 'published' };
-  const blogs = await Blog.find(filter).sort({ publishedAt: -1, createdAt: -1 });
+  const blogs = await Blog.find(filter);
   res.json(blogs);
 });
 
@@ -14,7 +14,7 @@ const getBlogs = asyncHandler(async (req, res) => {
 // @route   GET /api/blogs/:slug
 // @access  Public
 const getBlogBySlug = asyncHandler(async (req, res) => {
-  const blog = await Blog.findOne({ slug: req.params.slug });
+  const blog = await Blog.findBySlug(req.params.slug);
   if (blog) {
     res.json(blog);
   } else {
@@ -40,8 +40,7 @@ const getBlogById = asyncHandler(async (req, res) => {
 // @route   POST /api/blogs
 // @access  Admin
 const createBlog = asyncHandler(async (req, res) => {
-  const blog = new Blog(req.body);
-  const saved = await blog.save();
+  const saved = await Blog.create(req.body);
   res.status(201).json(saved);
 });
 
@@ -55,12 +54,12 @@ const updateBlog = asyncHandler(async (req, res) => {
     throw new Error('Blog post not found');
   }
 
-  // If status is changing to published and no publishedAt, set it now
-  if (req.body.status === 'published' && !blog.publishedAt) {
-    req.body.publishedAt = new Date();
+  const body = { ...req.body };
+  if (body.status === 'published' && !blog.publishedAt && !body.publishedAt) {
+    body.publishedAt = new Date().toISOString();
   }
 
-  const updated = await Blog.findByIdAndUpdate(req.params.id, req.body, { new: true, runValidators: true });
+  const updated = await Blog.updateById(req.params.id, body);
   res.json(updated);
 });
 
@@ -68,8 +67,8 @@ const updateBlog = asyncHandler(async (req, res) => {
 // @route   DELETE /api/blogs/:id
 // @access  Admin
 const deleteBlog = asyncHandler(async (req, res) => {
-  const blog = await Blog.findByIdAndDelete(req.params.id);
-  if (blog) {
+  const ok = await Blog.deleteById(req.params.id);
+  if (ok) {
     res.json({ message: 'Blog post removed' });
   } else {
     res.status(404);

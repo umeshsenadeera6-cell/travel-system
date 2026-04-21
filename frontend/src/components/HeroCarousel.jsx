@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useSite } from '../context/SiteContext';
 
 import beachImg from '../assets/carousel-beach.png';
 import mountainImg from '../assets/carousel-mountain.png';
@@ -10,7 +11,7 @@ import safariImg from '../assets/carousel-safari.png';
 import wildlifeLankaImg from '../assets/carousel-wildlife-lanka.png';
 import lagoonImg from '../assets/carousel-lagoon.png';
 
-const slides = [
+const DEFAULT_SLIDES = [
   {
     id: 1,
     image: beachImg,
@@ -62,25 +63,50 @@ const slides = [
 ];
 
 export default function HeroCarousel() {
+  const { settings } = useSite();
+  const activeSlides = useMemo(() => {
+    const imgs = Array.isArray(settings?.heroImages)
+      ? settings.heroImages.filter((u) => typeof u === 'string' && u.trim())
+      : [];
+    if (imgs.length === 0) return DEFAULT_SLIDES;
+    const title = settings.heroTitle || DEFAULT_SLIDES[0].title;
+    const subtitle = settings.heroSubtitle || DEFAULT_SLIDES[0].subtitle;
+    return imgs.map((url, i) => ({
+      id: `hero-${i}`,
+      image: url,
+      title,
+      subtitle,
+      cta: i % 2 === 0 ? 'Explore Inbound Tours' : 'See Global Escapes',
+      link: i % 2 === 0 ? '/inbound' : '/outbound',
+    }));
+  }, [settings]);
+
   const [current, setCurrent] = useState(0);
   const [direction, setDirection] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
+    setCurrent((c) => (activeSlides.length ? Math.min(c, activeSlides.length - 1) : 0));
+  }, [activeSlides.length]);
+
+  useEffect(() => {
+    const n = activeSlides.length;
+    if (!n) return undefined;
     const timer = setInterval(() => {
-      nextSlide();
+      setDirection(1);
+      setCurrent((prev) => (prev + 1) % n);
     }, 6000);
     return () => clearInterval(timer);
-  }, [current]);
+  }, [current, activeSlides.length]);
 
   const nextSlide = () => {
     setDirection(1);
-    setCurrent((prev) => (prev + 1) % slides.length);
+    setCurrent((prev) => (prev + 1) % activeSlides.length);
   };
 
   const prevSlide = () => {
     setDirection(-1);
-    setCurrent((prev) => (prev - 1 + slides.length) % slides.length);
+    setCurrent((prev) => (prev - 1 + activeSlides.length) % activeSlides.length);
   };
 
   const variants = {
@@ -138,8 +164,8 @@ export default function HeroCarousel() {
           }} />
           
           <img
-            src={slides[current].image}
-            alt={slides[current].title}
+            src={activeSlides[current].image}
+            alt={activeSlides[current].title}
             style={{
               width: '100%',
               height: '100%',
@@ -185,7 +211,7 @@ export default function HeroCarousel() {
                 color: 'white',
                 textShadow: '0 10px 40px rgba(0,0,0,0.9), 0 4px 15px rgba(0,0,0,0.7)',
               }}>
-                {slides[current].title}
+                {activeSlides[current].title}
               </h1>
 
               
@@ -198,14 +224,14 @@ export default function HeroCarousel() {
                 fontWeight: 500,
                 textShadow: '0 2px 15px rgba(0,0,0,0.8)',
               }}>
-                {slides[current].subtitle}
+                {activeSlides[current].subtitle}
               </p>
 
               
               <motion.button
                 whileHover={{ scale: 1.05, backgroundColor: 'white', color: 'black' }}
                 whileTap={{ scale: 0.95 }}
-                onClick={() => navigate(slides[current].link)}
+                onClick={() => navigate(activeSlides[current].link)}
                 style={{
                   background: 'transparent',
                   backdropFilter: 'blur(12px)',
@@ -222,7 +248,7 @@ export default function HeroCarousel() {
                   transition: 'all 0.4s cubic-bezier(0.16, 1, 0.3, 1)'
                 }}
               >
-                {slides[current].cta} <ArrowRight size={22} />
+                {activeSlides[current].cta} <ArrowRight size={22} />
               </motion.button>
             </motion.div>
           </div>
@@ -244,7 +270,7 @@ export default function HeroCarousel() {
           display: 'flex',
           gap: '1rem'
         }}>
-          {slides.map((_, idx) => (
+          {activeSlides.map((_, idx) => (
             <motion.div
               key={idx}
               initial={false}

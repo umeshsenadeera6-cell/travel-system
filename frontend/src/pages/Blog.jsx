@@ -13,8 +13,14 @@ export default function Blog() {
 
   useEffect(() => {
     fetch(`${API_URL}/blogs`)
-      .then(r => r.json())
-      .then(data => setBlogs(Array.isArray(data) ? data : []))
+      .then(async (r) => {
+        if (!r.ok) return [];
+        const ct = r.headers.get('content-type') || '';
+        if (!ct.includes('application/json')) return [];
+        const data = await r.json();
+        return Array.isArray(data) ? data : [];
+      })
+      .then(setBlogs)
       .catch(() => setBlogs([]))
       .finally(() => setLoading(false));
   }, []);

@@ -15,25 +15,38 @@ export default function BlogPost() {
   useEffect(() => {
     setLoading(true);
     setNotFound(false);
-    fetch(`${API_URL}/blogs/${slug}`)
-      .then(r => {
-        if (r.status === 404) { setNotFound(true); return null; }
-        return r.json();
-      })
-      .then(data => {
-        if (data) {
-          setBlog(data);
-          // Fetch related by category
-          return fetch(`${API_URL}/blogs`).then(r => r.json());
+    let cancelled = false;
+    (async () => {
+      try {
+        const r = await fetch(`${API_URL}/blogs/${slug}`);
+        if (r.status === 404) {
+          if (!cancelled) setNotFound(true);
+          return;
         }
-      })
-      .then(all => {
-        if (all && blog) {
-          setRelated(all.filter(b => b._id !== blog._id && b.category === blog.category).slice(0, 3));
+        if (!r.ok) throw new Error(String(r.status));
+        const ct = r.headers.get('content-type') || '';
+        if (!ct.includes('application/json')) throw new Error('not json');
+        const post = await r.json();
+        if (cancelled || !post) return;
+        setBlog(post);
+        const r2 = await fetch(`${API_URL}/blogs`);
+        const list =
+          r2.ok && (r2.headers.get('content-type') || '').includes('application/json')
+            ? await r2.json()
+            : [];
+        const arr = Array.isArray(list) ? list : [];
+        if (!cancelled) {
+          setRelated(arr.filter((b) => b._id !== post._id && b.category === post.category).slice(0, 3));
         }
-      })
-      .catch(() => setNotFound(true))
-      .finally(() => setLoading(false));
+      } catch {
+        if (!cancelled) setNotFound(true);
+      } finally {
+        if (!cancelled) setLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [slug]);
 
   const handleShare = () => {

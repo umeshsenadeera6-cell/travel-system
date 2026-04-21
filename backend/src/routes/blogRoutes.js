@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const { requireDb } = require('../middleware/requireDb');
 const adminAuth = require('../middleware/adminAuth');
+
+router.use(requireDb);
 const {
   getBlogs,
   getBlogBySlug,

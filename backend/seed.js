@@ -1,6 +1,48 @@
-require('dotenv').config();
-const mongoose = require('mongoose');
-const Package = require('./src/models/Package');
+const path = require('path');
+require('dotenv').config({ path: path.join(__dirname, '.env') });
+const mysql = require('mysql2/promise');
+
+function mysqlConnectionOptions() {
+  const uri = process.env.MYSQL_URI || process.env.DATABASE_URL;
+  if (uri && (uri.startsWith('mysql://') || uri.startsWith('mysql2://'))) {
+    return uri;
+  }
+  if (!process.env.MYSQL_HOST || !process.env.MYSQL_DATABASE) {
+    return null;
+  }
+  return {
+    host: process.env.MYSQL_HOST,
+    port: Number(process.env.MYSQL_PORT || 3306),
+    user: process.env.MYSQL_USER || 'root',
+    password: process.env.MYSQL_PASSWORD ?? '',
+    database: process.env.MYSQL_DATABASE,
+  };
+}
+
+function packageInsertValues(p) {
+  return [
+    p.title,
+    p.price,
+    p.image,
+    JSON.stringify(p.gallery || p.images || []),
+    p.duration,
+    p.description,
+    JSON.stringify(p.highlights || []),
+    JSON.stringify(p.itinerary || []),
+    JSON.stringify(p.inclusions || []),
+    JSON.stringify(p.exclusions || []),
+    p.category,
+    p.type || 'Day',
+    p.featured ? 1 : 0,
+    JSON.stringify(p.localizations || {}),
+    p.route == null ? null : JSON.stringify(p.route),
+    p.isLimitedTime ? 1 : 0,
+    p.discountPercentage ?? 0,
+    p.expiryDate ? new Date(p.expiryDate) : null,
+    p.seoTitle || '',
+    p.seoDescription || '',
+  ];
+}
 // const dns = require('dns');
 // dns.setServers(['8.8.8.8', '1.1.1.1']);
 
@@ -705,22 +747,38 @@ const OUTBOUND_PACKAGES = [
 ];
 
 async function seedDatabase() {
+  const opts = mysqlConnectionOptions();
+  if (!opts) {
+    console.error('Set MYSQL_URI (or DATABASE_URL), or MYSQL_HOST + MYSQL_DATABASE in backend/.env');
+    process.exit(1);
+  }
+  let conn;
   try {
-    await mongoose.connect(process.env.MONGODB_URI);
-    console.log('Connected to MongoDB for seeding');
+    conn = await mysql.createConnection(opts);
+    console.log('Connected to MySQL for seeding');
 
-    // Clear existing data
-    await Package.deleteMany({});
-    console.log('Cleared existing packages');
+    await conn.query('SET FOREIGN_KEY_CHECKS = 0');
+    await conn.execute('DELETE FROM bookings');
+    await conn.execute('DELETE FROM packages');
+    await conn.query('SET FOREIGN_KEY_CHECKS = 1');
+    console.log('Cleared existing packages (and bookings)');
 
-    // Insert new data
     const allPackages = [...INBOUND_PACKAGES, ...OUTBOUND_PACKAGES];
-    await Package.insertMany(allPackages);
+    const insertSql = `INSERT INTO packages (
+      title, price, image, gallery, duration, description, highlights, itinerary,
+      inclusions, exclusions, category, type, featured, localizations, route,
+      is_limited_time, discount_percentage, expiry_date, seo_title, seo_description
+    ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)`;
+    for (const p of allPackages) {
+      await conn.execute(insertSql, packageInsertValues(p));
+    }
     console.log(`Successfully seeded ${allPackages.length} packages`);
 
+    await conn.end();
     process.exit(0);
   } catch (err) {
     console.error('Error seeding database:', err);
+    if (conn) await conn.end().catch(() => {});
     process.exit(1);
   }
 }

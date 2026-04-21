@@ -3,6 +3,8 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronLeft, Send, Calendar, Users, Phone, Mail, User, Info, CheckCircle2 } from 'lucide-react';
 import SEO from '../components/SEO';
+import API_URL from '../config';
+import { resolvePublicUrl } from '../utils/resolvePublicUrl';
 
 export default function BookingPage() {
   const location = useLocation();
@@ -171,7 +173,7 @@ export default function BookingPage() {
             
             <div style={{ position: 'relative', marginBottom: '1.5rem', overflow: 'hidden', borderRadius: '1.5rem' }}>
               <img
-                src={tour.image}
+                src={resolvePublicUrl(tour.image)}
                 alt={tour.title}
                 style={{ width: '100%', height: '180px', objectFit: 'cover' }}
               />

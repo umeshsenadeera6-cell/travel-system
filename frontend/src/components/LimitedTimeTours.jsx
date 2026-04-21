@@ -1,8 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { Timer, Zap, ArrowRight, ExternalLink } from 'lucide-react';
+import { motion } from 'framer-motion';
+import { Zap, ArrowRight } from 'lucide-react';
 import { INBOUND_PACKAGES, OUTBOUND_PACKAGES } from '../data/tours';
 import { TRANSLATIONS } from '../data/translations';
+import API_URL from '../config';
+import { resolvePublicUrl } from '../utils/resolvePublicUrl';
+
+function mergePackagesFromApi(apiList, staticInbound, staticOutbound) {
+  const api = Array.isArray(apiList) ? apiList : [];
+  const staticAll = [...staticInbound, ...staticOutbound];
+  const seen = new Set(api.map((p) => (p.title || '').trim().toLowerCase()));
+  const merged = [...api];
+  for (const s of staticAll) {
+    const t = (s.title || '').trim().toLowerCase();
+    if (t && !seen.has(t)) {
+      seen.add(t);
+      merged.push(s);
+    }
+  }
+  return merged;
+}
 
 const CountdownTimer = ({ expiryDate, labels }) => {
   const calculateTimeLeft = () => {
@@ -66,7 +83,24 @@ const CountdownTimer = ({ expiryDate, labels }) => {
 
 export default function LimitedTimeTours({ onOpenTour, currentLanguage = 'en' }) {
   const t = TRANSLATIONS[currentLanguage] || TRANSLATIONS.en;
-  const allPackages = [...INBOUND_PACKAGES, ...OUTBOUND_PACKAGES];
+  const [apiPackages, setApiPackages] = useState([]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(`${API_URL}/packages`);
+        if (!res.ok) throw new Error('fetch failed');
+        const data = await res.json();
+        if (!cancelled && Array.isArray(data)) setApiPackages(data);
+      } catch {
+        if (!cancelled) setApiPackages([]);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, []);
+
+  const allPackages = mergePackagesFromApi(apiPackages, INBOUND_PACKAGES, OUTBOUND_PACKAGES);
   const flashSales = allPackages.filter(p => p.isLimitedTime);
 
   const timerLabels = {
@@ -135,7 +169,7 @@ export default function LimitedTimeTours({ onOpenTour, currentLanguage = 'en' })
           
           return (
             <motion.div
-              key={pkg.id}
+              key={pkg._id || pkg.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -154,7 +188,7 @@ export default function LimitedTimeTours({ onOpenTour, currentLanguage = 'en' })
                 <motion.img 
                   whileHover={{ scale: 1.1 }}
                   transition={{ duration: 0.8 }}
-                  src={pkg.image} 
+                  src={resolvePublicUrl(pkg.image)} 
                   style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                 />
                 

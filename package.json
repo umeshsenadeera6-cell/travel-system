@@ -9,7 +9,7 @@
   "scripts": {
     "install:all": "npm install --prefix frontend && npm install --prefix backend",
     "build": "node scripts/build.js",
-    "dev": "concurrently \"npm run dev --prefix frontend\" \"npm run dev --prefix backend\"",
+    "dev": "concurrently -n web,api -c cyan,magenta \"npm run dev -w frontend\" \"npm run dev -w backend\"",
     "start": "npm start --prefix backend",
     "frontend": "npm run dev --prefix frontend",
     "backend": "npm run dev --prefix backend"

@@ -1,0 +1,1 @@
+function e(e){let t=(e||``).trim();if(!t)return`/api`;let n=t.replace(/\/+$/,``);return/\/api$/i.test(n)?n:`${n}/api`}var t=e(void 0);export{t};

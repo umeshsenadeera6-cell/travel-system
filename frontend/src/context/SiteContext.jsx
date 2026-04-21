@@ -36,11 +36,16 @@ export function SiteProvider({ children }) {
 
   useEffect(() => {
     fetch(`${API_URL}/settings`)
-      .then(r => r.ok ? r.json() : null)
-      .then(data => {
-        if (data) setSettings({ ...defaultSettings, ...data });
+      .then(async (r) => {
+        if (!r.ok) return null;
+        const ct = r.headers.get('content-type') || '';
+        if (!ct.includes('application/json')) return null;
+        return r.json();
       })
-      .catch(() => {}) // silently fall back to defaults
+      .then((data) => {
+        if (data && typeof data === 'object') setSettings({ ...defaultSettings, ...data });
+      })
+      .catch(() => {})
       .finally(() => setLoading(false));
   }, []);
 

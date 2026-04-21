@@ -3,8 +3,25 @@ import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Camera, MessageCircle, Users, Heart } from 'lucide-react';
 import logoImg from '../assets/logo.png';
+import { useSite } from '../context/SiteContext';
 
 export default function Footer() {
+  const { settings } = useSite();
+  const logoSrc = settings?.companyLogo?.trim() || logoImg;
+  const companyName = settings?.companyName?.trim() || 'Serendib';
+  const companyTag = (settings?.companyTagline?.trim() || 'Travel & Tours').toUpperCase();
+  const blurb =
+    (settings?.seoDescription && settings.seoDescription.trim()) ||
+    'Crafting unforgettable journeys across Sri Lanka and beyond. We provide luxury adventures that resonate with the soul and create lasting memories.';
+  const footerLine =
+    (settings?.footerText && settings.footerText.trim()) ||
+    '© 2026 Serendib Travel & Tours. Elevating every journey.';
+  const socials = [
+    { Icon: Camera, label: 'Instagram', href: settings?.socialInstagram },
+    { Icon: MessageCircle, label: 'WhatsApp', href: settings?.contactWhatsApp ? `https://wa.me/${String(settings.contactWhatsApp).replace(/\D/g, '')}` : '' },
+    { Icon: Users, label: 'Facebook', href: settings?.socialFacebook },
+  ].filter((s) => s.href && String(s.href).trim());
+
   return (
     <footer style={{
       padding: '100px 5% 50px',
@@ -33,34 +50,33 @@ export default function Footer() {
         <div style={{ gridColumn: 'span 2' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2.5rem' }}>
             <img 
-              src={logoImg} 
+              src={logoSrc} 
               alt="Serendib Logo" 
-              style={{ height: '60px', width: 'auto', filter: 'brightness(0) invert(1)' }} 
+              style={{ height: '60px', width: 'auto', filter: settings?.companyLogo?.trim() ? 'none' : 'brightness(0) invert(1)' }} 
             />
             <div style={{ width: '1px', height: '40px', backgroundColor: 'rgba(255,255,255,0.15)' }} />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '1.8rem', fontWeight: '900', letterSpacing: '2px', lineHeight: 1 }}>
-                SERENDIB
+              <span style={{ fontSize: '1.8rem', fontWeight: '900', letterSpacing: '2px', lineHeight: 1, textTransform: 'uppercase' }}>
+                {companyName}
               </span>
               <span style={{ fontSize: '0.8rem', fontWeight: '700', letterSpacing: '4px', color: 'hsl(var(--primary))', marginTop: '4px' }}>
-                TRAVEL & TOURS
+                {companyTag}
               </span>
             </div>
           </div>
           <p style={{ opacity: 0.6, lineHeight: 1.8, marginBottom: '3rem', maxWidth: '500px', fontSize: '1.1rem' }}>
-            Crafting unforgettable journeys across Sri Lanka and beyond. 
-            We provide luxury adventures that resonate with the soul and create lasting memories.
+            {blurb}
           </p>
           <div style={{ display: 'flex', gap: '1.5rem' }}>
-            {[
-              { Icon: Camera, label: "Instagram" },
-              { Icon: MessageCircle, label: "WhatsApp" },
-              { Icon: Users, label: "Facebook" }
-            ].map(({ Icon, label }, idx) => (
+            {(socials.length ? socials : [
+              { Icon: Camera, label: 'Instagram', href: '#' },
+              { Icon: MessageCircle, label: 'WhatsApp', href: '#' },
+              { Icon: Users, label: 'Facebook', href: '#' },
+            ]).map(({ Icon, label, href }, idx) => (
               <motion.a 
-                key={idx}
+                key={label + idx}
                 whileHover={{ y: -5, color: 'hsl(var(--primary))', backgroundColor: 'white' }}
-                href="#" 
+                href={href || '#'}
                 aria-label={label}
                 rel="noopener noreferrer"
                 style={{ 
@@ -87,7 +103,7 @@ export default function Footer() {
             <li><Link to="/inbound" style={{ color: 'inherit', textDecoration: 'none' }}>Inbound Tours</Link></li>
             <li><Link to="/outbound" style={{ color: 'inherit', textDecoration: 'none' }}>Global Wonders</Link></li>
             <li style={{ cursor: 'pointer' }}>Luxury Stays</li>
-            <li style={{ cursor: 'pointer' }}>Curated Blogs</li>
+            <li><Link to="/blog" style={{ color: 'inherit', textDecoration: 'none' }}>Travel Blog</Link></li>
           </ul>
         </div>
 
@@ -138,7 +154,7 @@ export default function Footer() {
         opacity: 0.4,
         fontSize: '0.95rem'
       }}>
-        <p>
+        <p style={{ maxWidth: '720px' }}>
           <Link 
             to="/admin" 
             style={{ 
@@ -153,8 +169,8 @@ export default function Footer() {
             title="Admin Access"
           >
             ©
-          </Link> 
-          2026 Serendib Travel & Tours. Elevating every journey.
+          </Link>{' '}
+          {footerLine}
         </p>
         <div style={{ display: 'flex', gap: '3rem' }}>
           <Link to="/privacy" style={{ color: 'inherit', textDecoration: 'none' }}><span>Privacy Policy</span></Link>

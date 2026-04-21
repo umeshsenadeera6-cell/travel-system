@@ -1,11 +1,16 @@
 const asyncHandler = require('express-async-handler');
-const Package = require('../models/Package');
+const Package = require('../models/packageModel');
 
 // @desc    Fetch all packages
 // @route   GET /api/packages
 // @access  Public
 const getPackages = asyncHandler(async (req, res) => {
-  const packages = await Package.find();
+  const { category } = req.query;
+  const filter = {};
+  if (category === 'Inbound' || category === 'Outbound') {
+    filter.category = category;
+  }
+  const packages = await Package.find(filter);
   res.json(packages);
 });
 
@@ -26,8 +31,7 @@ const getPackageById = asyncHandler(async (req, res) => {
 // @route   POST /api/packages
 // @access  Private/Admin
 const createPackage = asyncHandler(async (req, res) => {
-  const pkg = new Package(req.body);
-  const savedPkg = await pkg.save();
+  const savedPkg = await Package.create(req.body);
   res.status(201).json(savedPkg);
 });
 
@@ -35,7 +39,7 @@ const createPackage = asyncHandler(async (req, res) => {
 // @route   PUT /api/packages/:id
 // @access  Private/Admin
 const updatePackage = asyncHandler(async (req, res) => {
-  const updatedPkg = await Package.findByIdAndUpdate(req.params.id, req.body, { new: true });
+  const updatedPkg = await Package.updateById(req.params.id, req.body);
   if (updatedPkg) {
     res.json(updatedPkg);
   } else {
@@ -48,8 +52,8 @@ const updatePackage = asyncHandler(async (req, res) => {
 // @route   DELETE /api/packages/:id
 // @access  Private/Admin
 const deletePackage = asyncHandler(async (req, res) => {
-  const pkg = await Package.findByIdAndDelete(req.params.id);
-  if (pkg) {
+  const ok = await Package.deleteById(req.params.id);
+  if (ok) {
     res.json({ message: 'Package removed' });
   } else {
     res.status(404);

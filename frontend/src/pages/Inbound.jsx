@@ -81,10 +81,10 @@ export default function Inbound({ selectedLanguage = 'en', setSelectedLanguage }
 
   const fetchPackages = async () => {
     try {
-      const res = await fetch(`${API_URL}/packages`);
+      const res = await fetch(`${API_URL}/packages?category=Inbound`);
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      setDynamicPackages(data.filter(p => p.category === 'Inbound'));
+      setDynamicPackages(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching packages:", err);
     } finally {

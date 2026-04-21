@@ -2,8 +2,15 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, ShieldCheck, Star, Users } from 'lucide-react';
 import ellaImg from '../assets/ella.png';
+import { useSite } from '../context/SiteContext';
 
 export default function AboutUs() {
+  const { settings } = useSite();
+  const aboutTitle =
+    settings?.aboutTitle?.trim() || 'Crafting Memories Beyond Borders';
+  const aboutLead =
+    settings?.aboutText?.trim() ||
+    "At Serendib Travel & Tours, we believe travel is more than just visiting a destination; it's about the stories you bring home. We specialize in creating bespoke travel experiences that blend luxury, adventure, and cultural immersion.";
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -62,7 +69,7 @@ export default function AboutUs() {
             Our Story
           </motion.span>
           <motion.h2 className="serif" variants={itemVariants} style={{ fontSize: 'clamp(2.5rem, 5vw, 3.5rem)', color: 'hsl(var(--secondary))', fontWeight: 800, marginBottom: '2rem', lineHeight: 1.1 }}>
-            Crafting Memories <br/> Beyond Borders
+            {aboutTitle}
           </motion.h2>
           <motion.p variants={itemVariants} style={{ 
             fontSize: '1.15rem', 
@@ -72,7 +79,7 @@ export default function AboutUs() {
             lineHeight: 1.7,
             maxWidth: '550px'
           }}>
-            At Serendib Travel & Tours, we believe travel is more than just visiting a destination; it's about the stories you bring home. We specialize in creating bespoke travel experiences that blend luxury, adventure, and cultural immersion.
+            {aboutLead}
           </motion.p>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>

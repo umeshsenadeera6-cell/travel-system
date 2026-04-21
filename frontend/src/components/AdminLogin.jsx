@@ -20,10 +20,26 @@ export default function AdminLogin({ onLogin }) {
         body: JSON.stringify({ password })
       });
 
-      const data = await res.json();
+      const text = await res.text();
+      let data = null;
+      try {
+        data = text ? JSON.parse(text) : null;
+      } catch {
+        // Keep data as null; we'll surface a helpful error below.
+      }
 
       if (!res.ok) {
-        throw new Error(data.message || 'Invalid credentials');
+        const trimmed = (text || '').trim();
+        if (trimmed.startsWith('<')) {
+          throw new Error(
+            'The server returned a web page instead of JSON. Your API base is wrong. Use /api (same origin) or set VITE_API_URL to something ending in /api (e.g. http://127.0.0.1:5001/api).'
+          );
+        }
+        throw new Error((data && data.message) || 'Invalid credentials');
+      }
+
+      if (!data || !data.token) {
+        throw new Error('Login response missing token. Confirm the API is running and reachable.');
       }
 
       // Store the JWT token
@@ -63,7 +79,7 @@ export default function AdminLogin({ onLogin }) {
             Portal Access
           </h1>
           <p style={{ color: '#64748b', fontSize: '0.95rem' }}>
-            Serendib Travel Business Management
+            MySQL-backed admin — tours, bookings, blogs &amp; site settings
           </p>
         </div>
 
@@ -121,7 +137,7 @@ export default function AdminLogin({ onLogin }) {
 
         <div style={{ marginTop: '2rem', textAlign: 'center' }}>
           <p style={{ fontSize: '0.8rem', color: '#94a3b8' }}>
-            Default password set in backend <code style={{ background: '#f1f5f9', padding: '0.2rem 0.4rem', borderRadius: '0.25rem', color: '#475569' }}>.env</code>
+            Admin password is configured on the MySQL API server in <code style={{ background: '#f1f5f9', padding: '0.2rem 0.4rem', borderRadius: '0.25rem', color: '#475569' }}>backend/.env</code> (<code style={{ background: '#f1f5f9', padding: '0.2rem 0.4rem', borderRadius: '0.25rem', color: '#475569' }}>ADMIN_SECRET</code>)
           </p>
         </div>
       </motion.div>

@@ -66,10 +66,10 @@ export default function Outbound({ selectedLanguage = 'en', setSelectedLanguage 
 
   const fetchPackages = async () => {
     try {
-      const res = await fetch(`${API_URL}/packages`);
+      const res = await fetch(`${API_URL}/packages?category=Outbound`);
       if (!res.ok) throw new Error('Failed to fetch');
       const data = await res.json();
-      setDynamicPackages(data.filter(p => p.category === 'Outbound'));
+      setDynamicPackages(Array.isArray(data) ? data : []);
     } catch (err) {
       console.error("Error fetching packages:", err);
     } finally {

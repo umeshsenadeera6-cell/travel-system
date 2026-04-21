@@ -1,11 +1,11 @@
 const asyncHandler = require('express-async-handler');
-const Booking = require('../models/Booking');
+const Booking = require('../models/bookingModel');
 
 // @desc    Get all bookings
 // @route   GET /api/bookings
 // @access  Private/Admin
 const getBookings = asyncHandler(async (req, res) => {
-  const bookings = await Booking.find().sort({ submittedAt: -1 });
+  const bookings = await Booking.findAll();
   res.json(bookings);
 });
 
@@ -13,8 +13,7 @@ const getBookings = asyncHandler(async (req, res) => {
 // @route   POST /api/bookings
 // @access  Public
 const createBooking = asyncHandler(async (req, res) => {
-  const booking = new Booking(req.body);
-  const savedBooking = await booking.save();
+  const savedBooking = await Booking.create(req.body);
   res.status(201).json(savedBooking);
 });
 
@@ -22,11 +21,7 @@ const createBooking = asyncHandler(async (req, res) => {
 // @route   PATCH /api/bookings/:id
 // @access  Private/Admin
 const updateBookingStatus = asyncHandler(async (req, res) => {
-  const updatedBooking = await Booking.findByIdAndUpdate(
-    req.params.id,
-    { status: req.body.status },
-    { new: true }
-  );
+  const updatedBooking = await Booking.updateStatus(req.params.id, req.body.status);
   if (updatedBooking) {
     res.json(updatedBooking);
   } else {
@@ -39,8 +34,8 @@ const updateBookingStatus = asyncHandler(async (req, res) => {
 // @route   DELETE /api/bookings/:id
 // @access  Private/Admin
 const deleteBooking = asyncHandler(async (req, res) => {
-  const booking = await Booking.findByIdAndDelete(req.params.id);
-  if (booking) {
+  const ok = await Booking.deleteById(req.params.id);
+  if (ok) {
     res.json({ message: 'Booking removed' });
   } else {
     res.status(404);

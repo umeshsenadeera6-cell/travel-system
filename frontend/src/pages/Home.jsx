@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import SEO from '../components/SEO';
+import { useSite } from '../context/SiteContext';
 import HeroCarousel from '../components/HeroCarousel';
 import Hero from '../components/Hero';
 import AboutUs from '../components/AboutUs';
@@ -9,6 +10,7 @@ import LimitedTimeTours from '../components/LimitedTimeTours';
 import TourModal from '../components/TourModal';
 
 export default function Home({ currentLanguage = 'en' }) {
+  const { settings } = useSite();
   const [selectedTour, setSelectedTour] = useState(null);
   const [tourOpen, setTourOpen] = useState(false);
 
@@ -25,8 +27,8 @@ export default function Home({ currentLanguage = 'en' }) {
   return (
     <main style={{ width: '100%', overflowX: 'hidden' }}>
       <SEO 
-        title="Home | Serendib Travel & Tours"
-        description="Experience the magic of Sri Lanka with Serendib Travel & Tours. Curated luxury adventures and cultural journeys."
+        title={settings?.seoTitle ? `${settings.seoTitle} | Home` : 'Home | Serendib Travel & Tours'}
+        description={settings?.seoDescription || 'Experience the magic of Sri Lanka with Serendib Travel & Tours. Curated luxury adventures and cultural journeys.'}
       />
 
       <section>
