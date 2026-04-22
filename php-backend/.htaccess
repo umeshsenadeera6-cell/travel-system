@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Redirect /api/auth/login to api/auth.php
+RewriteRule ^api/auth/login$ api/auth.php [L,QSA]
+
+# Redirect /api/packages to api/packages.php
+RewriteRule ^api/packages$ api/packages.php [L,QSA]
+RewriteRule ^api/packages/([0-9]+)$ api/packages.php?id=$1 [L,QSA]
+
+# Redirect /api/bookings to api/bookings.php
+RewriteRule ^api/bookings$ api/bookings.php [L,QSA]
+RewriteRule ^api/bookings/([0-9]+)$ api/bookings.php?id=$1 [L,QSA]
+
+# Redirect /api/blogs to api/blogs.php
+RewriteRule ^api/blogs$ api/blogs.php [L,QSA]
+RewriteRule ^api/blogs/([0-9]+)$ api/blogs.php?id=$1 [L,QSA]
+RewriteRule ^api/blogs/slug/([^/]+)$ api/blogs.php?slug=$1 [L,QSA]
+
+# Redirect /api/settings to api/settings.php
+RewriteRule ^api/settings$ api/settings.php [L,QSA]
